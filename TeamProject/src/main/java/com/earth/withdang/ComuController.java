@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.earth.domain.ComuDTO;
+import com.earth.domain.MemberDto;
 import com.earth.domain.PageResolver;
 import com.earth.domain.SearchItem;
 import com.earth.service.ComuService;
@@ -26,11 +28,16 @@ public class ComuController {
 	ComuService comuService;
 	
 	@GetMapping("/list")
-	public String list(SearchItem sc, Model m, HttpServletRequest request) {
+	public String list(Integer post_ctgr_id, SearchItem sc, Model m, HttpServletRequest request) {
 		
 		try {
-			int totalCnt = comuService.getSearchResultCnt(sc);
-			m.addAttribute("totalCnt", totalCnt);
+			if (post_ctgr_id == 1) {
+				int totalCnt = comuService.getSearchResultCnt(sc);
+				m.addAttribute("totalCnt", totalCnt);
+			} else {
+				int totalCnt = comuService.getCategoryResultCnt(sc);
+				m.addAttribute("totalCnt", totalCnt);
+			}
 			
 			PageResolver pageResolver = new PageResolver(totalCnt, sc);
 			
@@ -42,7 +49,6 @@ public class ComuController {
 		
 		return "dangcomu";			// 로그인 한 상태, 게시물 화면 목록으로 이동
 	}
-	
 	
 	@GetMapping("/read")
 	public String read(Integer post_id, SearchItem sc, Model m) {
@@ -59,16 +65,22 @@ public class ComuController {
 	}
 	
 	@GetMapping("/post")
-	public String post(Model m) {
-		m.addAttribute("mode", "new");
+	public String post(Model m, HttpServletRequest request) {
+		
+		if (!loginCheck(request)) {
+			return "redirect:/login";
+		}
+		
 		return "write";
+		
 	}
 	
 	@PostMapping("/post")
 	public String post(ComuDTO comuDTO, RedirectAttributes ra, Model m, HttpSession session) {
 		
-//		String user_id = (String) session.getAttribute("user");
-//		comuDTO.setUser_id(user_id);
+		MemberDto memberDto = (MemberDto) session.getAttribute("member");
+		String user_email = memberDto.getUser_email();
+		comuDTO.setUser_email(user_email);
 		
 		try {
 			if (comuService.post(comuDTO) != 1)
@@ -109,7 +121,7 @@ public class ComuController {
 	}
 	
 	@GetMapping("/update")
-	public String update(Integer post_id, Model m, HttpSession session) {
+	public String update(Integer post_id, Model m, HttpSession session, HttpServletRequest request) {
 		
 		ComuDTO comuDTO;
 		
@@ -148,5 +160,11 @@ public class ComuController {
 			return "edit"; 
 		}
 		
+	}
+	
+	// 로그인 체크
+	public boolean loginCheck(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		return session.getAttribute("member") != null;
 	}
 }

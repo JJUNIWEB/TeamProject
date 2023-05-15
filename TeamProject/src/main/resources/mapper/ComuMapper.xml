@@ -5,7 +5,7 @@
   <mapper namespace="com.earth.mapper.ComuMapper">
   
   		<sql id="selectFromPost">
-  			SELECT post_id, post_title, post_content, post_ctgr_id, post_update_time, post_created_time, user_email, post_view_count
+  			SELECT post_id, post_title, post_content, post_ctgr_id, post_created_time, user_email, post_view_count
 			FROM tb_post
   		</sql>
   		
@@ -39,6 +39,14 @@
 	  		order by post_created_time desc,  post_id desc
 	  		limit #{pageSize} offset #{offset}
   		</select>
+  		
+  		<!-- <select id="searchCategoryPage" parameterType="map" resultType="ComuDTO">
+  			<include refid="selectFromPost"/>
+  			where post_ctgr_id = #{post_ctgr_id}
+  			<include refid="searchCondition"></include>
+	  		order by post_created_time desc, post_id desc
+	  		limit #{pageSize} offset #{offset}
+  		</select> --> <!-- searchResultCnt랑 같은 형식으로 -->
 
   		<select id="selectUserName" parameterType="String" resultType="String">
   			select user_name
@@ -68,8 +76,8 @@
   		
   		<insert id="insert" parameterType="ComuDTO">
   			INSERT INTO tb_post
-			(post_title, post_content, post_update_time)
-			VALUES(#{post_title}, #{post_content}, #{post_update_time});
+			(post_title, post_content, post_ctgr_id, user_email)
+			VALUES(#{post_title}, #{post_content}, #{post_ctgr_id}, #{user_email});
   		</insert>
   		
   		<delete id="delete" parameterType="map">
@@ -87,7 +95,7 @@
   		
   		<update id="update" parameterType="ComuDTO">
   			UPDATE public.tb_post
-			SET post_title = #{post_title}, post_content = #{post_content}, post_ctgr_id = #{post_ctgr_id}, post_update_time = now()
+			SET post_title = #{post_title}, post_content = #{post_content}, post_ctgr_id = #{post_ctgr_id}
 			WHERE post_id = #{post_id} and user_email = #{user_email}
   		</update>
   		

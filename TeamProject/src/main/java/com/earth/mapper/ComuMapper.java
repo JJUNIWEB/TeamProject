@@ -22,6 +22,8 @@ public interface ComuMapper {
 	
 	List<ComuDTO> searchSelectPage(SearchItem sc) throws Exception;
 	
+	List<ComuDTO> searchCategoryPage(Map map) throws Exception;
+	
 	String selectUserName(String user_email) throws Exception;
 	
 	int insert(ComuDTO comuDTO) throws Exception;

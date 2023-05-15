@@ -20,7 +20,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
         integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
         crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <style>
+    .board_write_wrap {
+        width: 100%;
+       	display: flex;
+        flex-direction: column;
+    }
+    	
+    </style>
     <title>댕댕커뮤</title>
 </head>
 
@@ -51,8 +59,20 @@
     </nav>
 </header>
 
-
-<div class="board_wrap">
+<script type="text/javascript">
+        	$(document).on("click", function () {
+				$("#postButton").on("click", function() {
+					let form = $("#form")
+					
+					form.attr("action", "<c:url value='/dangcomu/post${searchItem.queryString}'/>")
+					form.attr("method", "post")
+					form.submit()
+				})
+			})
+</script>
+        
+<form action="" id="form" class="board_write_wrap" method="post">
+	<div class="board_wrap">
         <div class="board_title">
             <strong>댕댕커뮤</strong>
             <p>우리 댕댕이 자랑부터 동네 소식까지!</p>
@@ -61,7 +81,7 @@
             <div class="board_write">
                 <div class="title">
                     <dl>
-                        <dd><input type="text" placeholder="제목 입력"></dd>
+                        <dd><input name="post_title" type="text" placeholder="제목 입력"></dd>
                     </dl>
                 </div>
                 <section class="dangguen-sec">
@@ -69,36 +89,34 @@
                         <dl>
                         </dl>
                         <div id="dangguen-img">
-                            <select class="form-select" aria-label="category">
+                            <select name="post_ctgr_id" class="form-select" aria-label="category">
                                 <optgroup label="카테고리">
                                     <option selected>카테고리</option>
-                                    <option value="1">반려소식</option>
-                                    <option value="2">반려일상</option>
-                                    <option value="3">반려질문</option>
-                                    <option value="4">펫과사전</option>
-                                    <option value="5">육아꿀팁</option>
-                                    <option value="6">기타</option>
+                                    <option value="2">반려소식</option>
+                                    <option value="3">반려일상</option>
+                                    <option value="4">반려질문</option>
+                                    <option value="5">펫과사전</option>
+                                    <option value="6">육아꿀팁</option>
+                                    <option value="7">기타</option>
                                 </optgroup>
                             </select>
-                            <span>닉네임</span>
-                        <div class="img-sec">
-                            <input id="imageinput" type="file" multiple="multiple" accept=".jpg, .jpeg, .png" onchange="previewImage(this)" required>
-                            <img id="preview" />
+	                        <div class="img-sec">
+	                            <input id="imageinput" type="file" multiple="multiple" accept=".jpg, .jpeg, .png" onchange="previewImage(this)" required>
+	                            <img id="preview" />
+	                        </div>
                         </div>
-                        </div>
-
                     </div>
                     <div class="cont">
-                       
-                        <textarea placeholder="내용 입력"></textarea>
+                        <textarea name="post_content" placeholder="내용 입력"></textarea>
                     </div>
             </div>
             <div class="bt_wrap">
-                <a href="view.html" class="on">등록</a>
-                <a href="dangcomu.html">취소</a>
+                <button id="postButton" class="on">등록</button>
+                <a href="${pageContext.request.contextPath}/dangcomu/list">취소</a>
             </div>
         </div>
     </div>
+</form>
 </body>
 
 </html>

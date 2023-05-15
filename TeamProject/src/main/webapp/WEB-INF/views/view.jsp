@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:set var="loginout" value="${sessionScope.member==null ? 'Login' : 'Logout' }" />
 <c:set var="loginoutlink" value="${sessionScope.member==null ? '/login' : '/logout' }" />
 
@@ -75,7 +77,7 @@
                     </dl>
                     <dl>
                         <dt>작성일</dt>
-                        <dd>${comuDTO.post_created_time}</dd>
+                        <dd><fmt:formatDate value="${comuDTO.post_created_time}" pattern="yyyy-MM-dd" type="date"/></dd>
                     </dl>
                     <dl>
                         <dt>조회</dt>

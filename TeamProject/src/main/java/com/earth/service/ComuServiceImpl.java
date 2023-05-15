@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.earth.mapper.ComuMapper;
+import com.earth.mapper.MemberMapper;
 import com.earth.domain.CommentDTO;
 import com.earth.domain.ComuDTO;
 import com.earth.domain.SearchItem;
@@ -18,6 +19,9 @@ public class ComuServiceImpl implements ComuService{
 	
 	@Autowired
 	ComuMapper comuMapper;
+	
+	@Autowired
+	MemberMapper memberMapper;
 
 	@Override
 	public int post(ComuDTO comuDTO) throws Exception {
@@ -55,6 +59,22 @@ public class ComuServiceImpl implements ComuService{
 	@Override
 	public List<ComuDTO> getSearchSelectPage(SearchItem sc) throws Exception {
 		List<ComuDTO> comuDTOs = comuMapper.searchSelectPage(sc);
+		
+		for (ComuDTO c : comuDTOs) {
+			String user_name = comuMapper.selectUserName(c.getUser_email());
+			c.setUser_name(user_name);
+		}
+		
+		return comuDTOs;
+	}
+	
+	@Override
+	public List<ComuDTO> getSearchCategoryPage(Integer post_ctgr_id, SearchItem sc) throws Exception {
+		Map map = new HashMap();
+		map.put("post_ctgr_id", post_ctgr_id);
+		map.put("sc", sc);
+		
+		List<ComuDTO> comuDTOs = comuMapper.searchCategoryPage(map);
 		
 		for (ComuDTO c : comuDTOs) {
 			String user_name = comuMapper.selectUserName(c.getUser_email());
