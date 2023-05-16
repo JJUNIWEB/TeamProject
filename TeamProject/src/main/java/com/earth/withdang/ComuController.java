@@ -29,27 +29,35 @@ public class ComuController {
 	
 	@GetMapping("/list")
 	public String list(Integer post_ctgr_id, SearchItem sc, Model m, HttpServletRequest request) {
-		
-		try {
-			if (post_ctgr_id == 1) {
-				int totalCnt = comuService.getSearchResultCnt(sc);
-				m.addAttribute("totalCnt", totalCnt);
-			} else {
-				int totalCnt = comuService.getCategoryResultCnt(sc);
-				m.addAttribute("totalCnt", totalCnt);
-			}
-			
-			PageResolver pageResolver = new PageResolver(totalCnt, sc);
-			
-			List<ComuDTO> list = comuService.getSearchSelectPage(sc);
-			m.addAttribute("list", list);
-			m.addAttribute("pr", pageResolver);
-			
-		} catch (Exception e) { e.printStackTrace(); }
-		
-		return "dangcomu";			// 로그인 한 상태, 게시물 화면 목록으로 이동
+	    try {
+	        List<ComuDTO> list;
+	        int totalCnt;
+	        
+	        if (post_ctgr_id == null) {
+	            totalCnt = comuService.getSearchResultCnt(sc);
+	            m.addAttribute("totalCnt", totalCnt);
+	            list = comuService.getSearchSelectPage(sc);
+	        } else {
+	            totalCnt = comuService.getCategoryResultCnt(post_ctgr_id, sc);
+	            m.addAttribute("totalCnt", totalCnt);
+	            list = comuService.getSearchCategoryPage(post_ctgr_id, sc);
+	        }
+	        
+	        PageResolver pageResolver = new PageResolver(totalCnt, sc);
+	        
+	        m.addAttribute("list", list);
+	        m.addAttribute("pr", pageResolver);
+	        
+	        // 추가적인 모델 속성 및 처리
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // 예외 처리
+	    }
+	    
+	    return "dangcomu";
 	}
-	
+
 	@GetMapping("/read")
 	public String read(Integer post_id, SearchItem sc, Model m) {
 		

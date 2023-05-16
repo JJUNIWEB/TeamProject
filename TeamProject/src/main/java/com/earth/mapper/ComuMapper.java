@@ -20,6 +20,8 @@ public interface ComuMapper {
    
 	int searchResultCnt(SearchItem sc) throws Exception;
 	
+	int categoryResultCnt(Map map) throws Exception;
+	
 	List<ComuDTO> searchSelectPage(SearchItem sc) throws Exception;
 	
 	List<ComuDTO> searchCategoryPage(Map map) throws Exception;

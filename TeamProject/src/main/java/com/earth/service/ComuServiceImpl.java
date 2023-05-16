@@ -55,6 +55,15 @@ public class ComuServiceImpl implements ComuService{
 	public int getSearchResultCnt(SearchItem sc) throws Exception {
 		return comuMapper.searchResultCnt(sc);
 	}
+	
+	public int getCategoryResultCnt(Integer post_ctgr_id, SearchItem sc) throws Exception {
+		Map map = new HashMap();
+		map.put("post_ctgr_id", post_ctgr_id);
+		//map.put("sc", sc);
+		map.put("keyword", sc.getKeyword());
+		
+		return comuMapper.categoryResultCnt(map);
+	}
 
 	@Override
 	public List<ComuDTO> getSearchSelectPage(SearchItem sc) throws Exception {

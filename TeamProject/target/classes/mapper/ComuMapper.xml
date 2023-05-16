@@ -32,6 +32,13 @@
   			<include refid="searchCondition"/>
   		</select>
   		
+  		<select id="categoryResultCnt" parameterType="map" resultType="int">
+  			select count(*)
+  			from tb_post
+  			where post_ctgr_id = #{post_ctgr_id}
+  			<include refid="searchCondition"/>
+  		</select>
+  		
   		<select id="searchSelectPage" parameterType="SearchItem" resultType="ComuDTO">
   			<include refid="selectFromPost"/>
   			where true
@@ -40,13 +47,25 @@
 	  		limit #{pageSize} offset #{offset}
   		</select>
   		
-  		<!-- <select id="searchCategoryPage" parameterType="map" resultType="ComuDTO">
-  			<include refid="selectFromPost"/>
-  			where post_ctgr_id = #{post_ctgr_id}
-  			<include refid="searchCondition"></include>
+  		<select id="searchCategoryPage" parameterType="map" resultType="ComuDTO">
+  			<choose>
+	        	<when test='option=="1"'>
+	        		<include refid="selectFromPost"/>
+  					where post_ctgr_id = #{post_ctgr_id}
+		            AND post_title LIKE concat('%', #{keyword}, '%')
+		        </when>
+		        <when test='option=="2"'>
+		        	<include refid="selectFromPost"/>
+  					where post_ctgr_id = #{post_ctgr_id}
+		            AND post_content LIKE concat('%', #{keyword}, '%')
+		        </when>
+		        <otherwise>
+		        
+		        </otherwise>
+		  	</choose>
 	  		order by post_created_time desc, post_id desc
 	  		limit #{pageSize} offset #{offset}
-  		</select> --> <!-- searchResultCnt랑 같은 형식으로 -->
+  		</select>
 
   		<select id="selectUserName" parameterType="String" resultType="String">
   			select user_name
@@ -56,15 +75,14 @@
   		
   		<sql id="searchCondition">
       		<choose>
-	        	<when test='option=="T"'>
-		            AND post_title LIKE concat('%',#{keyword}, '%')
+	        	<when test='option=="1"'>
+		            AND post_title LIKE concat('%', #{keyword}, '%')
 		        </when>
-		        <when test='option=="W"'>
-		            AND user_id LIKE concat('%',#{keyword}, '%')
+		        <when test='option=="2"'>
+		            AND post_content LIKE concat('%', #{keyword}, '%')
 		        </when>
 		        <otherwise>
-		            AND (post_title LIKE concat('%',#{keyword}, '%')
-		            OR post_content LIKE concat('%',#{keyword}, '%'))  
+		            AND user_email LIKE concat('%', #{keyword}, '%')
 		        </otherwise>
 		  	</choose>
   		</sql>

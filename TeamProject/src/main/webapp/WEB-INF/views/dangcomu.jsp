@@ -52,21 +52,26 @@
 </header>
 
 
-
 <div class="board_wrap">
     <div class="board_title">
         <strong>댕댕커뮤</strong>
         <p>우리 댕댕이 자랑부터 동네 소식까지!</p>
     </div>
-    
+  
     <script type="text/javascript">
-    	for (let i = 1 ; i <= 7 ; i++) {
-    		$(".category" + i).on("click", function() {
-    			location.href = "<c:url value='/dangcomu/list?post_ctgr_id=' + i"/>"
-    		})
-    	}
-    	
-    </script>
+	    $(document).ready(function() {
+	        for (let i = 2; i <= 7; i++) {
+	            $(".category" + i).on("click", function() {
+	                location.href = "<c:url value='/dangcomu/list?post_ctgr_id=" + i + "'/>";
+	                
+	            })
+	        }
+	        
+	        $(".category1".on("click", function() {
+	    		 location.href = "<c:url value='/dangcomu/list'/>";
+			}))
+	    });
+	</script>
     
     <div class="category-group">
         <button class="category1">전체</button>
@@ -129,14 +134,16 @@
 
 
         <div class="search-item">
-            <select class="search-select" aria-label="category">
-                <optgroup label="제목">
-                    <option selected>제목</option>
-                    <option value="1">내용</option>
-                    <option value="2">닉네임</option>
-            </select>
-            <input type="text" class="search-board" />
-            <button id="btn-search">검색</button>
+        	<form action='<c:url value="/dangcomu/list"/>'>
+	            <select class="search-select" aria-label="category">
+	                <optgroup label="제목">
+	                    <option value="1" ${pr.sc.option == '1' || pr.sc.option=='' ? "selected" : ""}>제목</option>
+	                    <option value="2" ${pr.sc.option == '2' ? "selected" : ""}>내용</option>
+	                    <option value="3" ${pr.sc.option == '3' ? "selected" : ""}>닉네임</option>
+	            </select>
+	            <input type="text" class="search-board" />
+	            <button id="btn-search">검색</button>
+            </form>
         </div>
 
         <div class="bt_wrap">
