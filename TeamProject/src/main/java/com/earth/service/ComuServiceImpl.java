@@ -59,8 +59,8 @@ public class ComuServiceImpl implements ComuService{
 	public int getCategoryResultCnt(Integer post_ctgr_id, SearchItem sc) throws Exception {
 		Map map = new HashMap();
 		map.put("post_ctgr_id", post_ctgr_id);
-		//map.put("sc", sc);
 		map.put("keyword", sc.getKeyword());
+		map.put("option", sc.getOption());
 		
 		return comuMapper.categoryResultCnt(map);
 	}
@@ -81,7 +81,10 @@ public class ComuServiceImpl implements ComuService{
 	public List<ComuDTO> getSearchCategoryPage(Integer post_ctgr_id, SearchItem sc) throws Exception {
 		Map map = new HashMap();
 		map.put("post_ctgr_id", post_ctgr_id);
-		map.put("sc", sc);
+		map.put("keyword", sc.getKeyword());
+		map.put("pageSize", sc.getPageSize());
+		map.put("offset", sc.getOffset());
+		map.put("option", sc.getOption());
 		
 		List<ComuDTO> comuDTOs = comuMapper.searchCategoryPage(map);
 		

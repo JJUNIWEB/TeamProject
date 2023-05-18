@@ -63,13 +63,13 @@
 	        for (let i = 2; i <= 7; i++) {
 	            $(".category" + i).on("click", function() {
 	                location.href = "<c:url value='/dangcomu/list?post_ctgr_id=" + i + "'/>";
-	                
 	            })
 	        }
 	        
-	        $(".category1".on("click", function() {
-	    		 location.href = "<c:url value='/dangcomu/list'/>";
-			}))
+	        $(".category1").on("click", function() {
+	            location.href = "<c:url value='/dangcomu/list'/>";
+	        });
+	        
 	    });
 	</script>
     
@@ -134,15 +134,15 @@
 
 
         <div class="search-item">
-        	<form action='<c:url value="/dangcomu/list"/>'>
-	            <select class="search-select" aria-label="category">
-	                <optgroup label="제목">
-	                    <option value="1" ${pr.sc.option == '1' || pr.sc.option=='' ? "selected" : ""}>제목</option>
-	                    <option value="2" ${pr.sc.option == '2' ? "selected" : ""}>내용</option>
-	                    <option value="3" ${pr.sc.option == '3' ? "selected" : ""}>닉네임</option>
+        	<form action='<c:url value="/dangcomu/list"/>' method="get">
+	            <select class="search-select" aria-label="category" name="option">
+                    <option value="T" ${pr.sc.option == 'T' || pr.sc.option=='' ? "selected" : ""}>제목</option>
+                    <option value="C" ${pr.sc.option == 'C' ? "selected" : ""}>내용</option>
+                    <option value="W" ${pr.sc.option == 'W' ? "selected" : ""}>닉네임</option>
 	            </select>
-	            <input type="text" class="search-board" />
-	            <button id="btn-search">검색</button>
+	            <input type="text" name="keyword" class="search-board" value="${param.keyword}"/>
+	            <input type="hidden" name="post_ctgr_id" value="${param.post_ctgr_id}"/>
+	            <button type="submit" id="btn-search">검색</button>
             </form>
         </div>
 

@@ -41,6 +41,7 @@ public class ComuController {
 	            totalCnt = comuService.getCategoryResultCnt(post_ctgr_id, sc);
 	            m.addAttribute("totalCnt", totalCnt);
 	            list = comuService.getSearchCategoryPage(post_ctgr_id, sc);
+	            System.out.println("option = " + sc.getOption());
 	        }
 	        
 	        PageResolver pageResolver = new PageResolver(totalCnt, sc);
@@ -57,7 +58,7 @@ public class ComuController {
 	    
 	    return "dangcomu";
 	}
-
+	
 	@GetMapping("/read")
 	public String read(Integer post_id, SearchItem sc, Model m) {
 		
@@ -109,7 +110,7 @@ public class ComuController {
 	public String delete(Integer post_id, Integer page, Integer pageSize, 
 			RedirectAttributes ra, HttpSession session) {
 		
-		String user_email = (String) session.getAttribute("user");
+		String user_email = (String) session.getAttribute("member");
 		ra.addFlashAttribute("msg", "DEL_OK");
 		
 		try {
@@ -149,12 +150,14 @@ public class ComuController {
 	public String update(ComuDTO comuDTO, Integer page, Integer pageSize, 
 			RedirectAttributes ra, Model m, HttpSession session) {
 		
-//		String user_id = (String) session.getAttribute("user");
-//		comuDTO.setUser_id(user_id); 
+		System.out.println("post_id = " + comuDTO.getPost_id());
+		MemberDto member = (MemberDto) session.getAttribute("member");
+		String user_email = member.getUser_email();
+		comuDTO.setUser_email(user_email);
 		
 		try {
 			if(comuService.updatePost(comuDTO) != 1) 
-				throw new Exception("Delete Fail");
+				throw new Exception("Update Fail");
 			ra.addAttribute("page", page); 
 			ra.addAttribute("pageSize", pageSize);
 			ra.addFlashAttribute("msg", "UPDATE_OK");

@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href='${pageContext.request.contextPath}/resources/css/comu.css'>
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
-    <script src='${pageContext.request.contextPath}/resources/script/dangguenwrite.jsp' defer></script>
+    <script src='${pageContext.request.contextPath}/resources/script/dangguenwrite.js' defer></script>
     <script src='${pageContext.request.contextPath}/resources/script/toggle.js' defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
@@ -58,65 +58,51 @@
         </a>
     </nav>
 </header>
-
-<script type="text/javascript">
-        	$(document).on("click", function () {
-				$("#postButton").on("click", function() {
-					let form = $("#form")
-					
-					form.attr("action", "<c:url value='/dangcomu/post${searchItem.queryString}'/>")
-					form.attr("method", "post")
-					form.submit()
-				})
-			})
-</script>
         
-<form action="" id="form" class="board_write_wrap" method="post">
-	<div class="board_wrap">
-        <div class="board_title">
-            <strong>댕댕커뮤</strong>
-            <p>우리 댕댕이 자랑부터 동네 소식까지!</p>
-        </div>
-        <div class="board_write_wrap">
-            <div class="board_write">
-                <div class="title">
-                    <dl>
-                        <dd><input name="post_title" type="text" placeholder="제목 입력"></dd>
-                    </dl>
-                </div>
-                <section class="dangguen-sec">
-                    <div class="info">
-                        <dl>
-                        </dl>
-                        <div id="dangguen-img">
-                            <select name="post_ctgr_id" class="form-select" aria-label="category">
-                                <optgroup label="카테고리">
-                                    <option selected>카테고리</option>
+	<form action="<c:url value='/dangcomu/post${searchItem.queryString}'/>" id="form" class="board_write_wrap" method="post">
+		<div class="board_wrap">
+	        <div class="board_title">
+	            <strong>댕댕커뮤</strong>
+	            <p>우리 댕댕이 자랑부터 동네 소식까지!</p>
+	        </div>
+	        <div class="board_write_wrap">
+	            <div class="board_write">
+	                <div class="title">
+	                    <dl>
+	                        <dd><input id="post_title" name="post_title" type="text" placeholder="제목 입력" required></dd>
+	                    </dl>
+	                </div>
+	                <section class="dangguen-sec">
+	                    <div class="info">
+	                        <dl>
+	                        </dl>
+	                        <div id="dangguen-img">
+	                            <select id="post_ctgr" name="post_ctgr_id" class="form-select" aria-label="category" required>
+                                    <option value="">카테고리</option>
                                     <option value="2">반려소식</option>
                                     <option value="3">반려일상</option>
                                     <option value="4">반려질문</option>
                                     <option value="5">펫과사전</option>
                                     <option value="6">육아꿀팁</option>
                                     <option value="7">기타</option>
-                                </optgroup>
-                            </select>
-	                        <div class="img-sec">
-	                            <input id="imageinput" type="file" multiple="multiple" accept=".jpg, .jpeg, .png" onchange="previewImage(this)" required>
-	                            <img id="preview" />
+	                            </select>
+		                        <div class="img-sec">
+		                            <input id="imageinput" type="file" multiple="multiple" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
+		                            <img id="preview" />
+		                        </div>
 	                        </div>
-                        </div>
-                    </div>
-                    <div class="cont">
-                        <textarea name="post_content" placeholder="내용 입력"></textarea>
-                    </div>
-            </div>
-            <div class="bt_wrap">
-                <button id="postButton" class="on">등록</button>
-                <a href="${pageContext.request.contextPath}/dangcomu/list">취소</a>
-            </div>
-        </div>
-    </div>
-</form>
+	                    </div>
+	                    <div class="cont">
+	                        <textarea id="post_content" name="post_content" placeholder="내용 입력" required></textarea>
+	                    </div>
+	            </div>
+	            <div class="bt_wrap">
+	                <button type="submit" id="postButton" class="on">등록</button>
+	                <a href="${pageContext.request.contextPath}/dangcomu/list">취소</a>
+	            </div>
+	        </div>
+	    </div>
+	</form>
 </body>
 
 </html>
