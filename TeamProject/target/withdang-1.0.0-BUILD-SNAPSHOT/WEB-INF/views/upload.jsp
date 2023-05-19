@@ -26,6 +26,19 @@
 <%--    <button type="button" id="addExcelImportBtn" class="btn" onclick="check()">업로드</button>--%>
     <input type="submit" value="send">
 </form>
+<%--<form id="imageUploadForm" name="imageUploadForm" enctype="multipart/form-data">--%>
+<div class="form-group" id="image-form">
+    <input id="image" type="file" name="image" multiple="multiple" class="form-control" id="image"/>
+    <label for="image" style="color: blue;cursor: pointer">upload</label>
+    <input type="button" id="remove"/>
+    <label for="remove" style="color: blue;cursor: pointer">remove</label>
+</div>
+<%--</form>--%>
+<div id="image-list">
+<%--    <img id="img"/>--%>
+</div>
+
+
 <script>
     function checkFileType(filePath) {
         var fileFormat = filePath.split(".");

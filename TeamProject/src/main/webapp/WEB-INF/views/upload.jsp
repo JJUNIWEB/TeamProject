@@ -23,7 +23,7 @@
 <body>
 .<form id="excelUploadForm" name="excelUploadForm" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/excel/excelUploadAjax.do">
     <input id="excelFile" type="file" name="excelFile"/>
-<%--    <button type="button" id="addExcelImportBtn" class="btn" onclick="check()">업로드</button>--%>
+    <%--    <button type="button" id="addExcelImportBtn" class="btn" onclick="check()">업로드</button>--%>
     <input type="submit" value="send">
 </form>
 <script>
