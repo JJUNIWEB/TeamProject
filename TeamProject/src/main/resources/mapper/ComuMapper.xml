@@ -110,7 +110,6 @@
 		  	</choose>
   		</sql>
   		
-  		
   		<select id="count" resultType="int">
   			select count(*) from tb_post
   		</select>
@@ -146,11 +145,17 @@
   			where post_id = #{post_id}
   		</update>
   		
-  		<!-- 댓글 등록/삭제 -->
+  		<!-- 댓글 조회/등록/삭제 -->
+  		<select id="selectComments" parameterType="int" resultType="CommentDTO">
+  			SELECT cmt_id, post_id, cmt_content, cmt_created_time, user_email
+			FROM tb_comment
+			where post_id = #{post_id}
+  		</select>
+  		
   		<insert id="comment" parameterType="CommentDTO">
   			INSERT INTO tb_comment
-			(cmt_content)
-			VALUES(#{cmt_content})
+			(post_id, cmt_content, cmt_created_time, user_email)
+			VALUES(#{post_id}, #{cmt_content}, CURRENT_TIMESTAMP, #{user_email});
   		</insert>
   		
   		<delete id="deleteComment" parameterType="map">

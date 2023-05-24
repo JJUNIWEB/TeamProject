@@ -43,6 +43,8 @@ public interface ComuMapper {
     int increaseViewCnt(Integer post_id) throws Exception;
     
     /* 댕댕커뮤 댓글 기능 */
+    List<CommentDTO> selectComments(Integer post_id) throws Exception;
+    
     int comment(CommentDTO commentDTO) throws Exception;
     
     int deleteComment(Map map) throws Exception;

@@ -16,5 +16,5 @@ public class ComuDTO {
 	private String post_status;
 	private String user_email;
 	private String user_name;
-	
 }
+	

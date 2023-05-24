@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href='${pageContext.request.contextPath}/resources/css/comu.css'>
+    <link rel="stylesheet" href='${pageContext.request.contextPath}/resources/css/comu2.css'>
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
     <script src='${pageContext.request.contextPath}/resources/script/toggle.js' defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap"
@@ -23,6 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
         integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 
     <title>댕댕커뮤</title>
 </head>
@@ -54,7 +55,80 @@
     </nav>
 </header>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		let post_id = $("input[name=post_id]").val()
+		
+		$("#commentButton").click(function() {
+			let cmt_content = $("textarea[name=comment]").val()
+			
+			$.ajax({
+				type: 'post',
+				url: '/withdang/dangcomu/comments/' + post_id,
+				headers: { "content-type" : "application/json" }, 
+				data : JSON.stringify({post_id: post_id, cmt_content: cmt_content}),  
+				success : function(result) {	
+					alert("success")
+					showList(post_id)
+				},
+				error : function(jqXHR, textStauts, errorThrown) {
+					alert("error")
+					if (jqXHR.status == 403) {
+						alert("로그인이 필요합니다.")
+						window.location.href = "http://localhost:8080/withdang/login"
+					}
+				}  
+			})
+			
+		})	
+		
+		$(".deleteButton").click(function() {
+			let cmt_id = $(this).parent().attr("cmt_id")	
+			let post_id = $(this).parent().attr("post_id")	
+			
+			$.ajax({
+				type: 'DELETE',					
+				url: '/withdang/dangcomu/comments/' + post_id + "/" + cmt_id,
+				success: function(result) {		
+					alert(result),				
+					showList(post_id)
+				},
+				error: function() { alert("error") } 		
+			})
+		})	
+		
+    	let showList = function(post_id) {
+    		$.ajax({
+    			type: 'GET',					
+    			url: '/withdang/dangcomu/comments/' + post_id,	
+				success: function(result) {
+					alert("showList success")
+					$("#commentList").html(toHtml(result))	
+				},
+				error: function() { alert("error") }		 
+    		})
+		}
+		
+		
+		let toHtml = function(comments) {
+		    let tmp = '<ul style="display: block;">';
+		    
+		    comments.forEach(function(comment) {
+		        tmp += '<li style="">';
+		        tmp += ' cmt_id=' + comment.cmt_id;
+		        tmp += ' post_id=' + comment.post_id + '>';
+		        tmp += ' cmt_content=<span class="cmt_content">' + comment.cmt_content + '</span>';
+		        tmp += ' user_email=<span class="user_email">' + comment.user_email + '</span>';
+		        tmp += ' <button class="deleteButton">삭제</button>';
+		        tmp += '</li>';
+		    })
 
+		    return tmp + "</ul>";
+		}
+
+		showList(post_id);
+	})
+</script>
 
 <div class="board_wrap">
         <div class="board_title">
@@ -63,6 +137,7 @@
         </div>
         <div class="board_view_wrap">
             <div class="board_view">
+            	<input type="hidden" name="post_id" value="${comuDTO.post_id}"/>
                 <div class="title">
                     ${comuDTO.post_title}  
                 </div>  
@@ -92,15 +167,13 @@
             <!-- 댓글 기능 -->
             <br>
             <div class="comment-form">
-                <input type="text" id="nameInput" placeholder="닉네임" >
-                <textarea id="commentInput" placeholder="댓글 내용"></textarea>
-                <button onclick="submitComment()">댓글 달기</button>
+                <textarea id="commentInput" placeholder="댓글 내용" name="comment" required></textarea>
+                <button type="button" id="commentButton">댓글 달기</button>
             </div>
             <ul class="comment-list" id="commentList">
-                <!-- 여기에 댓글 리스트를 동적으로 추가하거나, 서버에서 댓글 데이터를 받아와서 출력하는 로직을 추가합니다. -->
+                <!-- 댓글 리스트 -->
             </ul>
 
-            </form> 
             <div class="bt_wrap">  
                 <a href="${pageContext.request.contextPath}/dangcomu/update?post_id=${comuDTO.post_id}" class="on">수정</a>  
                 <a href="${pageContext.request.contextPath}/dangcomu/list">목록</a>  
@@ -108,33 +181,6 @@
             <br>
         </div>
     </div>
-    
-    <script>
-        // 댓글 입력 폼 제출 스크립트, 하지만 DB 연동 위해서 JSP로 다시 수정해야할 거 같아서
-        // 입력 후 css는 만지지 않음
-        function submitComment() {
-            var name = document.getElementById('nameInput').value;
-            var comment = document.getElementById('commentInput').value;
-
-            // 댓글 데이터를 가지고 처리하는 로직
-            // 예를 들어, 댓글 데이터를 서버로 전송하거나, 로컬 스토리지에 저장하는 등의 작업을 수행할 수 있습니다.
-
-            // 댓글 리스트에 댓글을 동적으로 추가합니다.
-            var commentList = document.getElementById('commentList');
-            var li = document.createElement('li');
-            li.innerHTML = '<strong>' + name + '</strong><em>' + comment + '</em>';
-            commentList.appendChild(li);
-
-            // 댓글 입력 폼 초기화
-            document.getElementById('nameInput').value = '';
-            document.getElementById('commentInput').value = '';
-        }
-    </script>
-
-
-
-
-
 
 </body>
 

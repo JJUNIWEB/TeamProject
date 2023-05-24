@@ -13,7 +13,6 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://malsup.github.io/jquery.form.js"></script>
 
-
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">

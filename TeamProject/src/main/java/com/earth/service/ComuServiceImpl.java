@@ -109,5 +109,10 @@ public class ComuServiceImpl implements ComuService{
 		
 		return comuMapper.deleteComment(map);
 	}
+
+	@Override
+	public List<CommentDTO> getCommentsByPostId(Integer post_id) throws Exception {
+		return comuMapper.selectComments(post_id);
+	}
 }
 
