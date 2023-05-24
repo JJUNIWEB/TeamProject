@@ -22,10 +22,13 @@ public class FileUploadController {
     public String uploadGet() {
         return "uploadImage";
     }
+    //다중업로드 기준임
     @ResponseBody
     @PostMapping("/upload")
     public ResponseEntity<List<String>> uploadFile(@RequestParam("images") List<MultipartFile> multipartFile, @RequestParam(name = "category") String category) throws IOException {
         System.out.println("category:"+category);
+        System.out.println(multipartFile.size());
+        System.out.println(multipartFile.get(0).getOriginalFilename());
         List<String> upload = s3UploadService.upload(category, multipartFile);
         for (int i = 0; i < upload.size(); i++) {
             System.out.println(upload.get(i));

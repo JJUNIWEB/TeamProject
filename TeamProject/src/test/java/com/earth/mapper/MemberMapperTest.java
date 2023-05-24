@@ -16,7 +16,8 @@ public class MemberMapperTest {
 
 	@Autowired
 	private MemberMapper membermapper;
-	
+
+
 	/*
 	 * @Test public void memberJoin() throws Exception { MemberVo member = new
 	 * MemberVo();
@@ -28,7 +29,7 @@ public class MemberMapperTest {
 	 * 
 	 * membermapper.memberJoin(member); }
 	 */
-	
+
 	// 아이디 중복검사
 //		@Test
 //		public void emailCheck() throws Exception{
@@ -37,13 +38,13 @@ public class MemberMapperTest {
 //			membermapper.emailCheck(email);
 //			membermapper.emailCheck(email2);
 //		}
-	
+
 	/* 로그인 쿼리 mapper 메서드 테스트 */
     @Test
     public void memberLogin() throws Exception{
-        
+
         MemberInfoDto member = new MemberInfoDto();    // MemberVO 변수 선언 및 초기화
-        
+
         /* 올바른 아이디 비번 입력경우 */
        member.setUser_email("s@s");
        member.setUser_pw("shdldpfm12!");
@@ -56,5 +57,5 @@ public class MemberMapperTest {
         //System.out.println("결과 값 : " + membermapper.memberLogin(member));
         
     }
-	
+
 }

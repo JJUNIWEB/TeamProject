@@ -11,12 +11,18 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
- 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:postgresql://withdang.ddns.net:5432/test1"></property>
-         <!-- Oracle 11g 경우 value="jdbc:oracle:thin:@URL주소:1521:XE" -->
-         <!-- Oracle 19  경우 value="jdbc:oracle:thin:@URL주소:1521:orcl" -->
-		<property name="username" value="user1"></property>
-		<property name="password" value="0629"></property>
+ 		<property name="driverClassName">
+			<value>${db.driverClassName}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${db.url}</value>
+		</property>
+		<property name="username">
+			<value>${db.username}</value>
+		</property>
+		<property name="password">
+			<value>${db.password}</value>
+		</property>
 	</bean>	
 	
 	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
@@ -36,12 +42,8 @@
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 	
-<!--	<mybatis-spring:scan base-package="com.earth.mapper"/>-->
 	<context:component-scan base-package="com.earth.**"></context:component-scan>
-	<context:component-scan base-package="com.earth.chat"></context:component-scan>
 
-	<!--	<context:component-scan base-package="com.earth.service"></context:component-scan>-->
-	<!--	</bean>-->
  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 			<property name="locations">
 				<list>
@@ -51,6 +53,4 @@
 			</property>
 	</bean>
 
-	<!-- <context:component-scan base-package="com.earth.sample"></context:component-scan>  -->
-	 
 </beans>

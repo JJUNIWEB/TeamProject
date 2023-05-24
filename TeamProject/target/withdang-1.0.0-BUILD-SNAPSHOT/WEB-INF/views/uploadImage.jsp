@@ -9,7 +9,7 @@
 <body>
 <script>
     const contextPath = "/" + window.location.pathname.split("/")[1] ;
-    //최대 업로드 가능 수
+    //최대 업로드 가능 수s
     const MAX_UPLOAD_IMG = 5;
     //이미지 담을 배열
     var imgArr = new Array();

@@ -11,5 +11,7 @@
     	<typeAlias type="com.earth.domain.ComuDTO" alias="ComuDTO"/>
     	<typeAlias type="com.earth.domain.CommentDTO" alias="CommentDTO"/>
     	<typeAlias type="com.earth.domain.SearchItem" alias="SearchItem"/>
+    	<typeAlias type="com.earth.domain.SearchItem" alias="SearchItem"/>
+    	<typeAlias type="com.earth.domain.ImageDto" alias="img"/>
 	</typeAliases>
 </configuration>  
