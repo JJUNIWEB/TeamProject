@@ -142,20 +142,20 @@
   		<update id="increaseViewCnt" parameterType="int">
   			update tb_post
   			set post_view_count = post_view_count + 1
-  			where post_id = #{post_id}
+  			where post_id = #{post_id}	
   		</update>
   		
-  		<!-- 댓글 조회/등록/삭제 -->
+  		<!-- 댓글 조회/등록/삭제 변수a, b 추가-->
   		<select id="selectComments" parameterType="int" resultType="CommentDTO">
-  			SELECT cmt_id, post_id, cmt_content, cmt_created_time, user_email
-			FROM tb_comment
-			where post_id = #{post_id}
+  			SELECT a.cmt_id, a.post_id, a.cmt_content, a.cmt_created_time, b.user_email, b.user_nickname
+			FROM tb_comment a, tb_user b
+			where post_id = #{post_id} and a.user_email = b.user_email	
   		</select>
   		
   		<insert id="comment" parameterType="CommentDTO">
   			INSERT INTO tb_comment
-			(post_id, cmt_content, cmt_created_time, user_email)
-			VALUES(#{post_id}, #{cmt_content}, CURRENT_TIMESTAMP, #{user_email});
+			(post_id, cmt_content, user_email)
+			VALUES(#{post_id}, #{cmt_content}, #{user_email});
   		</insert>
   		
   		<delete id="deleteComment" parameterType="map">

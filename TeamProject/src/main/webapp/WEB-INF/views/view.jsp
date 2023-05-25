@@ -24,8 +24,25 @@
         integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-
+	
     <title>댕댕커뮤</title>
+    
+    <style type="text/css">
+    .comment-list li {
+		  padding: 10px;
+		  margin-bottom: 10px;
+		  background-color: #f1f1f1;
+		  border-radius: 5px;
+		}
+		
+		.comment-list li strong {
+		  font-weight: bold;
+		}
+		
+		.comment-list li em {
+		  font-style: italic;
+		}
+    </style>
 </head>
 
 <body>
@@ -109,25 +126,25 @@
     		})
 		}
 		
-		
 		let toHtml = function(comments) {
 		    let tmp = '<ul style="display: block;">';
-		    
+
 		    comments.forEach(function(comment) {
+		        let date = new Date(comment.cmt_created_time)
 		        tmp += '<li style="">';
-		        tmp += ' cmt_id=' + comment.cmt_id;
-		        tmp += ' post_id=' + comment.post_id + '>';
-		        tmp += ' cmt_content=<span class="cmt_content">' + comment.cmt_content + '</span>';
-		        tmp += ' user_email=<span class="user_email">' + comment.user_email + '</span>';
+		        tmp += ' 닉네임 : ' + comment.user_nickname + '<br>';  // 닉네임 줄바꿈 추가
+		        tmp += ' 댓글내용 : <span class="cmt_content">' + comment.cmt_content + '</span><br>';  // 댓글 내용 줄바꿈 추가
+		        tmp += ' 작성날짜 : <span class="user_email">' + date + '</span><br>';  // 작성 날짜 줄바꿈 추가
 		        tmp += ' <button class="deleteButton">삭제</button>';
 		        tmp += '</li>';
-		    })
+		    });
 
 		    return tmp + "</ul>";
 		}
 
 		showList(post_id);
 	})
+	
 </script>
 
 <div class="board_wrap">
