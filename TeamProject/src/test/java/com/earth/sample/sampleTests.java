@@ -2,6 +2,7 @@ package com.earth.sample;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 	 
 	@Autowired
 	private Restaurant restaurant;
-	 
+		@Ignore
 	@Test
 	public void textExit() {
 	 

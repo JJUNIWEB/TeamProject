@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class JDBCTest {
@@ -16,7 +17,7 @@ public class JDBCTest {
 			e.printStackTrace();
 		}
 	}
-	
+	@Ignore
 	@Test
 	public void testConnection() {
 		

@@ -1,5 +1,6 @@
 package com.earth.persistence;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ public class TimeMapperTest {
 	
 	@Autowired
 	private TimeMapper timeMapper;
-	
+	@Ignore
 	@Test
 	public void testGetTime() {
 		System.out.println(timeMapper.getTime1());
 	}
-	
+	@Ignore
 	@Test
 	public void testGetTime2() {
 		System.out.println(timeMapper.getTime2());

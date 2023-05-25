@@ -31,7 +31,6 @@
             crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap"
           rel="stylesheet">
-
     <title>위드댕</title>
 </head>
 

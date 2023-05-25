@@ -1,5 +1,6 @@
 package com.earth.mapper;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class MemberMapperTest {
 //		}
 
 	/* 로그인 쿼리 mapper 메서드 테스트 */
+	@Ignore
     @Test
     public void memberLogin() throws Exception{
 

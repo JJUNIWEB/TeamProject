@@ -21,6 +21,7 @@ $(function () {
         var image = document.getElementById('preview')
         //input의 파일. 지금은 파일 하나라 files[0] 다수 업로드일땐 array만들어서 넣어야함. uploadImage.jsp 참조
         file = e.target.files[0];
+        //사이즈 체크 용량은 js 최상단에서 설정
         if (!checkFileSize(file, MaxSize)) {
             document.getElementById("imageinput").value = null;
             return;
@@ -33,7 +34,7 @@ $(function () {
         reader.readAsDataURL(file);
         image.style.width = '220px';
         image.style.height = 'auto';
-        //유효성 체크?
+
         //확장자 검사도?
         //-------------------------------------------
         //업로드
@@ -41,7 +42,7 @@ $(function () {
         //업로드용 폼 객체
         let formData = new FormData();
         //폼에 담기
-
+        //controller에서 지정해둔 이름대로
         formData.append("images", file);
         formData.append("category", "dogPhoto");
         $.ajax({
@@ -52,6 +53,7 @@ $(function () {
             processData: false,
             contentType: false,
             success: function (data) {
+                //이미지 주소 출력됨
                 alert(data)
             },
             error: function (e) {

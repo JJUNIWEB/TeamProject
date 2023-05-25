@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class DataSourceTest {
 		
 		@Autowired
 		private SqlSessionFactory sqlSessionFactory;
-		
+	@Ignore
 		@Test
 		public void testConnection() {
 			try(

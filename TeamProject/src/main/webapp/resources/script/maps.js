@@ -17,14 +17,16 @@ var imageSrc = null;
 
 
 
-
-const contextPath = "/" + window.location.pathname.split("/")[1] ;
+const contextPath = (window.location.pathname.split("/")[1].trim()=="")?   "":"/" + window.location.pathname.split("/")[1];
 
 //지도 생성
 var map = new kakao.maps.Map(container, options);
 
 //현재위치 불러오기
-navigator.geolocation.getCurrentPosition(locationLoadSuccess,locationLoadError);
+
+window.onload = function () {
+    navigator.geolocation.getCurrentPosition(locationLoadSuccess, locationLoadError);
+};
 
 var mapTypeControl = new kakao.maps.MapTypeControl(); //컨트롤러 생성
 map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
@@ -112,7 +114,7 @@ function callPin() {
             for (var i = 0; i < positions.length; i++) {
                 var iwContent = '<div class="info-title">' + positions[i].title
                     + '<br><a href="https://map.kakao.com/link/roadview/'
-                    + coor[i] + 'class="info-title-view" target="_blank"\n>로드뷰</a> <a href="https://map.kakao.com/link/to/' + positions[i].title + ',' + coor[i] +  '" class="info-title-info" target="_blank">길찾기</a></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                    + coor[i] +'"'+ 'class="info-title-view" target="_blank"\n>로드뷰</a> <a href="https://map.kakao.com/link/to/' + positions[i].title + ',' + coor[i] +  '" class="info-title-info" target="_blank">길찾기</a></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                 //마커 생성
                 var marker = new kakao.maps.Marker({
                     map: map,
@@ -143,10 +145,6 @@ function callPin() {
                 });
 
             }
-
-
-
-
 
             setBound();
 

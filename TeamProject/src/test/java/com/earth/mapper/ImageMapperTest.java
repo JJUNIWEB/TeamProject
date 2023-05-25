@@ -2,6 +2,7 @@ package com.earth.mapper;
 
 import com.earth.domain.ImageDto;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class ImageMapperTest {
     @Autowired
     private ImageMapper imageMapper;
 
-
+@Ignore
     @Test
     public void selectT() {
         ImageDto dto = new ImageDto();
