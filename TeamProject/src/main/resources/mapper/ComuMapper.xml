@@ -5,8 +5,8 @@
   <mapper namespace="com.earth.mapper.ComuMapper">
   
   		<sql id="selectFromPost">
-  			SELECT post_id, post_title, post_content, post_ctgr_id, post_update_time, post_created_time, user_email, post_view_count
-			FROM tb_post
+  			SELECT post_id, post_title, post_content, post_ctgr_id, post_created_time, tp.user_email, post_view_count
+			FROM tb_post tp
   		</sql>
   		
   		<select id="select" parameterType="int" resultType="ComuDTO">
@@ -27,16 +27,44 @@
   		
   		<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
   			select count(*)
-  			from tb_post
-  			where true
+  			from tb_post tp
   			<include refid="searchCondition"/>
+  		</select>
+  		
+  		<select id="categoryResultCnt" parameterType="map" resultType="int">
+  			select count(*)
+  			from tb_post tp
+  			<include refid="searchCategoryCondition"/>
   		</select>
   		
   		<select id="searchSelectPage" parameterType="SearchItem" resultType="ComuDTO">
   			<include refid="selectFromPost"/>
-  			where true
   			<include refid="searchCondition"></include>
 	  		order by post_created_time desc,  post_id desc
+	  		limit #{pageSize} offset #{offset}
+  		</select>
+  		
+  		<select id="searchCategoryPage" parameterType="map" resultType="ComuDTO">
+  			<choose>
+		        <when test='option=="C"'>
+		        	<include refid="selectFromPost"/>
+  					where post_ctgr_id = #{post_ctgr_id}
+		            AND post_content LIKE concat('%', #{keyword}, '%')
+		        </when>
+		        <when test='option=="W"'>
+		        	SELECT tp.post_id, tp.post_title, tp.post_content, tp.post_ctgr_id, tp.post_created_time, tp.post_view_count, tp.user_email
+					FROM tb_post tp
+					INNER JOIN tb_user tu ON tp.user_email = tu.user_email
+					where post_ctgr_id = #{post_ctgr_id}
+					AND tu.user_name LIKE concat('%', #{keyword}, '%')
+		        </when>
+	        	<otherwise>
+	        		<include refid="selectFromPost"/>
+  					where post_ctgr_id = #{post_ctgr_id}
+		            AND post_title LIKE concat('%', #{keyword}, '%')
+		        </otherwise>
+		  	</choose>
+	  		order by post_created_time desc, post_id desc
 	  		limit #{pageSize} offset #{offset}
   		</select>
 
@@ -48,19 +76,39 @@
   		
   		<sql id="searchCondition">
       		<choose>
-	        	<when test='option=="T"'>
-		            AND post_title LIKE concat('%',#{keyword}, '%')
+		        <when test='option=="C"'>
+  					where true
+		            AND post_content LIKE concat('%', #{keyword}, '%')
 		        </when>
 		        <when test='option=="W"'>
-		            AND user_id LIKE concat('%',#{keyword}, '%')
+					INNER JOIN tb_user tu ON tp.user_email = tu.user_email
+					where true
+					AND tu.user_name LIKE concat('%', #{keyword}, '%')
 		        </when>
-		        <otherwise>
-		            AND (post_title LIKE concat('%',#{keyword}, '%')
-		            OR post_content LIKE concat('%',#{keyword}, '%'))  
+	        	<otherwise>
+  					where true
+		            AND post_title LIKE concat('%', #{keyword}, '%')
 		        </otherwise>
 		  	</choose>
   		</sql>
   		
+  		<sql id="searchCategoryCondition">
+      		<choose>
+		        <when test='option=="C"'>
+  					where post_ctgr_id = #{post_ctgr_id}
+		            AND post_content LIKE concat('%', #{keyword}, '%')
+		        </when>
+		        <when test='option=="W"'>
+					INNER JOIN tb_user tu ON tp.user_email = tu.user_email
+					where post_ctgr_id = #{post_ctgr_id}
+					AND tu.user_name LIKE concat('%', #{keyword}, '%')
+		        </when>
+	        	<otherwise>
+  					where post_ctgr_id = #{post_ctgr_id}
+		            AND post_title LIKE concat('%', #{keyword}, '%')
+		        </otherwise>
+		  	</choose>
+  		</sql>
   		
   		<select id="count" resultType="int">
   			select count(*) from tb_post
@@ -68,8 +116,8 @@
   		
   		<insert id="insert" parameterType="ComuDTO">
   			INSERT INTO tb_post
-			(post_title, post_content, post_update_time)
-			VALUES(#{post_title}, #{post_content}, #{post_update_time});
+			(post_title, post_content, post_ctgr_id, user_email)
+			VALUES(#{post_title}, #{post_content}, #{post_ctgr_id}, #{user_email});
   		</insert>
   		
   		<delete id="delete" parameterType="map">
@@ -87,7 +135,7 @@
   		
   		<update id="update" parameterType="ComuDTO">
   			UPDATE public.tb_post
-			SET post_title = #{post_title}, post_content = #{post_content}, post_ctgr_id = #{post_ctgr_id}, post_update_time = now()
+			SET post_title = #{post_title}, post_content = #{post_content}, post_ctgr_id = #{post_ctgr_id}
 			WHERE post_id = #{post_id} and user_email = #{user_email}
   		</update>
   		
@@ -97,11 +145,17 @@
   			where post_id = #{post_id}
   		</update>
   		
-  		<!-- 댓글 등록/삭제 -->
+  		<!-- 댓글 조회/등록/삭제 -->
+  		<select id="selectComments" parameterType="int" resultType="CommentDTO">
+  			SELECT cmt_id, post_id, cmt_content, cmt_created_time, user_email
+			FROM tb_comment
+			where post_id = #{post_id}
+  		</select>
+  		
   		<insert id="comment" parameterType="CommentDTO">
   			INSERT INTO tb_comment
-			(cmt_content)
-			VALUES(#{cmt_content})
+			(post_id, cmt_content, cmt_created_time, user_email)
+			VALUES(#{post_id}, #{cmt_content}, CURRENT_TIMESTAMP, #{user_email});
   		</insert>
   		
   		<delete id="deleteComment" parameterType="map">

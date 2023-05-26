@@ -20,7 +20,11 @@ public interface ComuMapper {
    
 	int searchResultCnt(SearchItem sc) throws Exception;
 	
+	int categoryResultCnt(Map map) throws Exception;
+	
 	List<ComuDTO> searchSelectPage(SearchItem sc) throws Exception;
+	
+	List<ComuDTO> searchCategoryPage(Map map) throws Exception;
 	
 	String selectUserName(String user_email) throws Exception;
 	
@@ -39,6 +43,8 @@ public interface ComuMapper {
     int increaseViewCnt(Integer post_id) throws Exception;
     
     /* 댕댕커뮤 댓글 기능 */
+    List<CommentDTO> selectComments(Integer post_id) throws Exception;
+    
     int comment(CommentDTO commentDTO) throws Exception;
     
     int deleteComment(Map map) throws Exception;
