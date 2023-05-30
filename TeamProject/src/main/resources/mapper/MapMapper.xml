@@ -65,9 +65,27 @@
 
 		</insert>
 <!--	a1 불러오기-->
-	<select id="selectPin" parameterType="String" resultType="MapVo">
-			select name,latitude,longitude,pintype
-			from map_${value}
+	<select id="selectPinNear" parameterType="MapVo" resultType="MapVo">
+		select name,latitude,longitude,pintype
+		from map_${type}
+		<choose>
+			<when test='type=="ground"'>
+where latitude between #{latitude}-0.1005000 and #{latitude}+0.10305000 and longitude between #{longitude}-0.10305000 and #{longitude}+0.10305000
+			</when>
+			<when test='type=="hospital"'>
+				where latitude between #{latitude}-0.012000 and #{latitude}+0.012000 and longitude between #{longitude}-0.017000 and #{longitude}+0.017000
+			</when>
+			<when test='type=="training"'>
+				where latitude between #{latitude}-0.0205000 and #{latitude}+0.0205000 and longitude between #{longitude}-0.0205000 and #{longitude}+0.0205000
+			</when>
+			<when test='type=="beauty"'>
+				where latitude between #{latitude}-0.012000 and #{latitude}+0.012000 and longitude between #{longitude}-0.017000 and #{longitude}+0.017000
+			</when>
+			<when test='type=="kinder"'>
+				where latitude between #{latitude}-0.032000 and #{latitude}+0.032000 and longitude between #{longitude}-0.036500 and #{longitude}+0.036500
+			</when>
+		</choose>
+
 	</select>
 
 </mapper>

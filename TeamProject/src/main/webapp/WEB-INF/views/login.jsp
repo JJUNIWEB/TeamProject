@@ -135,7 +135,8 @@
           }else{
               $('.final_pw_ck').css('display', 'none');
               pwCheck = true;
-          
+
+
               if (!pwdCheck.test(pw)) {
           	    alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
           	    pw.focus

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MapController {
@@ -21,7 +23,9 @@ public class MapController {
     @RequestMapping(value = "/getMapPin" ,method = RequestMethod.POST,consumes = "application/json")
     public List<MapVo> mappinMapping(@RequestBody MapVo mapVo) {
 //근처만 불러오기위한 하버사인 공식
-        List<MapVo> list = mapper.selectPin(mapVo.getType());
+//        List<MapVo> list = mapper.selectPin(mapVo.getType());
+        List<MapVo> list = mapper.selectPinNear(mapVo);
+
 
         double distance;
         double radius=6371; //지구 반지름

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="loginout" value="${sessionScope.member==null ? 'Login' : 'Logout' }" />
 <c:set var="loginoutlink" value="${sessionScope.member==null ? '/login' : '/logout' }" />
 
@@ -9,8 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href='${pageContext.request.contextPath}/resources/css/comu.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link rel="stylesheet" href='${pageContext.request.contextPath}/resources/css/comu2.css'>
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,11 +20,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <script src='${pageContext.request.contextPath}/resources/script/toggle.js' defer></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 
     <title>댕댕커뮤</title>
 </head>
 
 <body>
+
 <header>
     <nav class="navbar">
 
@@ -50,13 +53,27 @@
     </nav>
 </header>
 
-
-
 <div class="board_wrap">
     <div class="board_title">
         <strong>댕댕커뮤</strong>
         <p>우리 댕댕이 자랑부터 동네 소식까지!</p>
     </div>
+  
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	        for (let i = 2; i <= 7; i++) {
+	            $(".category" + i).on("click", function() {
+	                location.href = "<c:url value='/dangcomu/list?post_ctgr_id=" + i + "'/>";
+	            })
+	        }
+	        
+	        $(".category1").on("click", function() {
+	            location.href = "<c:url value='/dangcomu/list'/>";
+	        });
+	        
+	    });
+	</script>
+    
     <div class="category-group">
         <button class="category1">전체</button>
         <button class="category2">반려소식</button>
@@ -80,7 +97,7 @@
                     <div class="num">${comuDTO.post_id}</div>
                     <div class="title"><a href="${pageContext.request.contextPath}/dangcomu/read${pr.sc.queryString}&post_id=${comuDTO.post_id}">${comuDTO.post_title}</a></div>
                     <div class="writer">${comuDTO.user_name}</div>
-                    <div class="date">${comuDTO.post_created_time}</div>
+                    <div class="date"><fmt:formatDate value="${comuDTO.post_created_time}" pattern="yyyy-MM-dd" type="date"/></div>
                     <div class="count">${comuDTO.post_view_count}</div>
                 </div>
             </c:forEach>
@@ -118,18 +135,20 @@
 
 
         <div class="search-item">
-            <select class="search-select" aria-label="category">
-                <optgroup label="제목">
-                    <option selected>제목</option>
-                    <option value="1">내용</option>
-                    <option value="2">닉네임</option>
-            </select>
-            <input type="text" class="search-board" />
-            <button id="btn-search">검색</button>
+        	<form action='<c:url value="/dangcomu/list"/>' method="get">
+	            <select class="search-select" aria-label="category" name="option">
+                    <option value="T" ${pr.sc.option == 'T' || pr.sc.option=='' ? "selected" : ""}>제목</option>
+                    <option value="C" ${pr.sc.option == 'C' ? "selected" : ""}>내용</option>
+                    <option value="W" ${pr.sc.option == 'W' ? "selected" : ""}>닉네임</option>
+	            </select>
+	            <input type="text" name="keyword" class="search-board" value="${param.keyword}"/>
+	            <input type="hidden" name="post_ctgr_id" value="${param.post_ctgr_id}"/>
+	            <button type="submit" id="btn-search">검색</button>
+            </form>
         </div>
 
         <div class="bt_wrap">
-            <a href="write.html" class="on">등록</a>
+            <a href="${pageContext.request.contextPath}/dangcomu/post" class="on">등록</a>
         </div>
     </div>
 </div>
