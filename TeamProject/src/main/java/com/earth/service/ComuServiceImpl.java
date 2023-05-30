@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.earth.mapper.ComuMapper;
+import com.earth.mapper.MemberMapper;
 import com.earth.domain.CommentDTO;
 import com.earth.domain.ComuDTO;
 import com.earth.domain.SearchItem;
@@ -18,6 +19,9 @@ public class ComuServiceImpl implements ComuService{
 	
 	@Autowired
 	ComuMapper comuMapper;
+	
+	@Autowired
+	MemberMapper memberMapper;
 
 	@Override
 	public int post(ComuDTO comuDTO) throws Exception {
@@ -51,10 +55,38 @@ public class ComuServiceImpl implements ComuService{
 	public int getSearchResultCnt(SearchItem sc) throws Exception {
 		return comuMapper.searchResultCnt(sc);
 	}
+	
+	public int getCategoryResultCnt(Integer post_ctgr_id, SearchItem sc) throws Exception {
+		Map map = new HashMap();
+		map.put("post_ctgr_id", post_ctgr_id);
+		map.put("keyword", sc.getKeyword());
+		map.put("option", sc.getOption());
+		
+		return comuMapper.categoryResultCnt(map);
+	}
 
 	@Override
 	public List<ComuDTO> getSearchSelectPage(SearchItem sc) throws Exception {
 		List<ComuDTO> comuDTOs = comuMapper.searchSelectPage(sc);
+		
+		for (ComuDTO c : comuDTOs) {
+			String user_name = comuMapper.selectUserName(c.getUser_email());
+			c.setUser_name(user_name);
+		}
+		
+		return comuDTOs;
+	}
+	
+	@Override
+	public List<ComuDTO> getSearchCategoryPage(Integer post_ctgr_id, SearchItem sc) throws Exception {
+		Map map = new HashMap();
+		map.put("post_ctgr_id", post_ctgr_id);
+		map.put("keyword", sc.getKeyword());
+		map.put("pageSize", sc.getPageSize());
+		map.put("offset", sc.getOffset());
+		map.put("option", sc.getOption());
+		
+		List<ComuDTO> comuDTOs = comuMapper.searchCategoryPage(map);
 		
 		for (ComuDTO c : comuDTOs) {
 			String user_name = comuMapper.selectUserName(c.getUser_email());
@@ -76,6 +108,11 @@ public class ComuServiceImpl implements ComuService{
 		map.put("user_email", user_email);
 		
 		return comuMapper.deleteComment(map);
+	}
+
+	@Override
+	public List<CommentDTO> getCommentsByPostId(Integer post_id) throws Exception {
+		return comuMapper.selectComments(post_id);
 	}
 }
 

@@ -11,11 +11,10 @@ public class ComuDTO {
 	private String post_title;
 	private String post_content;
 	private int post_ctgr_id;
-	private Date post_update_time;
 	private Date post_created_time;
 	private int post_view_count;
 	private String post_status;
 	private String user_email;
 	private String user_name;
-	
 }
+	
