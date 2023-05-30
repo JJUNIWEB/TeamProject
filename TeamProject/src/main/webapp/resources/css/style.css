@@ -10,7 +10,7 @@ body {
     margin: 0;
     background-color: var(--bodybackground-color);
     font-family: 'STIX Two Math';
-    background-image: url(/image/back-deco.png);
+    background-image: resouces/image/back-deco.png;
 
 }
 
@@ -333,4 +333,53 @@ a {
 
 .map {
     width: 60% auto;
+}
+
+.info_ck {
+    display: none;
+}
+
+/* 비밀번호 확인 일치 유효성검사 */
+.pwck_input_re_1 {
+    color : green;
+    display : none;
+    position: absolute;
+    font-size: x-small;
+}
+.pwck_input_re_2 {
+    color : red;
+    display : none;
+    position: absolute;
+    font-size: x-small;
+}
+
+form {
+    		width: 300px;
+    		height: 150px;
+    		display: flex;
+    		flex-direction: column;
+    		align-items: center;
+    		position: absolute;
+    		top: 50%;
+    		left: 50%;
+    		border: 1px solid rgb(89,117,196);
+    		border-radius: 10px;
+    		transform: translate(-50%, -50%)
+    	}
+    	
+body h3 {
+	position: absolute;
+	display: flex;
+	top: 37%;
+	left: 42%;
+	transform: translate(-50%, -50%)
+}
+
+.input_name {
+	margin-top: 20px;
+	margin-bottom: 15px;
+}	
+
+.input_nickname {
+	margin-bottom: 30px;
 }
