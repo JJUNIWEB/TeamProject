@@ -12,7 +12,8 @@
 			user_pnum = #{user_pnum},
 			user_birth = to_date(#{user_birth}, 'YYYY-MM-DD HH24:MI:SS'),
 			user_gender = #{user_gender},
-			user_address = #{user_address}
+			user_address = #{user_address},
+			user_dtl_address = #{user_dtl_address}
 			WHERE user_email = #{user_email}
 		</update>
 		
@@ -25,21 +26,8 @@
 			dog_nutd = #{dog_nutd},
 			dog_breed = #{dog_breed},
 			dog_regnum = #{dog_regnum},
-			dog_address = #{dog_address},
 			dog_feature = #{dog_feature}
 			WHERE a.user_email = #{user_email}
 		</update>
-		
-		<select id="memberSelect" resultType="MemberDto">
-  			select *
-  			from tb_user
-  			where user_email = #{user_email}
-  		</select>
-		
-		<select id="dogSelect" resultType="DogDto">
-  			select *
-  			from tb_dogInfo
-  			where user_email = #{user_email}
-  		</select>
-		
+
   </mapper>

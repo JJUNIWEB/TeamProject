@@ -216,6 +216,16 @@ a {
     right: 50px;
 }
 
+/* 이메일 정규식 안맞는 경우 */
+.user_email_re_3{
+    color : red;
+    display : none;
+    font-size: x-small;
+    position: absolute;
+    top: 265px;
+    right: 50px;
+}
+
 /* 중복닉네임 존재하지 않는경우 */
 .user_nickname_re_1{
     color : green;
@@ -287,11 +297,12 @@ a {
     right: 50px;
 }
 
+
 /* 로그인 실패시 경고글 */
 .login_warn{
     font-size: x-small;
     text-align: center;
     color : red;
     position: absolute;
-    bottom: 150px;
+    bottom: 160px;
 }

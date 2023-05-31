@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.earth.domain.DogDto;
-import com.earth.domain.MemberInfoDto;
 import com.earth.mapper.MemberMapper;
 import com.earth.domain.MemberDto;
 
@@ -48,6 +47,12 @@ public class MemberServicelmpl implements MemberService {
 	}
 
 	@Override
+	public MemberDto memberSelect(MemberDto member) throws Exception {
+
+		return membermapper.memberSelect(member);
+	}
+
+	@Override
 	public DogDto dogSelect(DogDto dog) throws Exception {
 		return membermapper.dogSelect(dog);
 	}
@@ -56,6 +61,25 @@ public class MemberServicelmpl implements MemberService {
 	public MemberDto memberCheck(MemberDto member) throws Exception {
 		
 		return membermapper.memberCheck(member);
+	}
+
+	@Override
+	public MemberDto findEmail(MemberDto member) throws Exception {
+
+		return membermapper.findEmail(member);
+	}
+
+	@Override
+	public MemberDto findPwd(MemberDto member) throws Exception {
+
+		return membermapper.findPwd(member);
+	}
+
+	@Override
+	public void pwUpdate(MemberDto member) throws Exception {
+
+		membermapper.pwUpdate(member);
+
 	}
 
 
