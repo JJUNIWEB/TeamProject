@@ -85,10 +85,6 @@
                     <p class="user-info"> 내 정보</p>
                     <div>이름 : <input name="user_name" value="${member.user_name }" readonly="readonly"></div>
                     <div>이메일 : <input name="user_email" value="${member.user_email }" readonly="readonly"></div>
-                    <div><p>비밀번호 변경 : <input type="password" class="input_pw" name="user_pw" value="${member.user_pw }"></p></div>
-                    <div><p>비밀번호 확인 : <input type="password" class="input_pwck" name="user_pw2"></p></div>
-                    <!-- <span class="pwck_input_re_1">비밀번호가 일치합니다.</span> -->
-                	<!-- <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span> -->
                     <div><p>닉네임 : <input type="text" name="user_nickname" value="${member.user_nickname }"></p></div>
                     <div><p>연락처 : <input type="text" name="user_pnum" value="${member.user_pnum }"></p></div>
                     <div><p>생일 : <input type="date" name="user_birth" value="<fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd"/>" /></p></div> 
@@ -136,7 +132,7 @@
                     <select class="form-select" name="dog_nutd">
                     	<option value="" selected disabled hidden>중성화</option>
                     	<option value="했음" ${dvo.dog_nutd=='했음' ? "selected" : "" }>했음</option>
-                    	<option value="안했음" ${dvo.dog_nutd=='안함' ? "selected" : "" }>안함</option>
+                    	<option value="안함" ${dvo.dog_nutd=='안함' ? "selected" : "" }>안함</option>
                     </select>
                     </p>
                     <p>견종 : <input type="text" name="dog_breed" value="${dvo.dog_breed }"></p>

@@ -141,17 +141,19 @@
           }else{
               $('.final_pw_ck').css('display', 'none');
               pwCheck = true;
-
-              if (!pwdCheck.test(pw)) {
-          	    alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
-          	    pw.focus
-          	    pwdCheck = false;
-          	  } else {
-          		  pwdCheck = true;
-          	  }
-          
+			
+              
+  			/* 비밀번호 정규식 검사 */
+            if (!pwdCheck.test(pw)) {
+        	    alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
+        	    pw.focus
+        	    pwdCheck = false;
+        	  } else {
+        		  pwdCheck = true;
+        	  }
+                
           }
-        
+
           /* 약관 동의 체크 */
 	     	if(!checked) {
 	     		alert("회원가입 약관에 동의해주세요.")
@@ -291,6 +293,9 @@
         $("#login_form").submit(); 
         
     });
+    
+    let msg = "${msg}"
+	if(msg=="pwUdate") alert("비밀번호가 변경되었습니다.")
         
         </script>
         
