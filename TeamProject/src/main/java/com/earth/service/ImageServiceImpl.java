@@ -53,5 +53,7 @@ public class ImageServiceImpl implements ImageService{
         }
 
     }
+    
+    // dangcomu post 이미지 db에 업로드 하는 함수 구현 필요
 
 }

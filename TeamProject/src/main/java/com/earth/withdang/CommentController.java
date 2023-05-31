@@ -1,25 +1,20 @@
 package com.earth.withdang;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.earth.domain.CommentDTO;
 import com.earth.domain.MemberDto;
@@ -35,7 +30,6 @@ public class CommentController {
 	@GetMapping("/comments/{post_id}")
 	public ResponseEntity<List<CommentDTO>> getComments(@PathVariable("post_id") Integer post_id, HttpServletRequest request) {
 		try {
-			System.out.println("get comments!!!!!!!!!!!!!!!!!!!!!!1");
 			List<CommentDTO> comments = comuService.getCommentsByPostId(post_id);
 			return new ResponseEntity<>(comments, HttpStatus.OK);
 		} catch (Exception e) {
@@ -55,10 +49,6 @@ public class CommentController {
 		String user_email = memberDto.getUser_email();
 		commentDTO.setUser_email(user_email);
 		
-		System.out.println(commentDTO.getCmt_content());
-		System.out.println(commentDTO.getUser_email());
-		System.out.println(commentDTO.getPost_id());
-		
 		try {
 			if (comuService.comment(commentDTO) == 1) 
 				return new ResponseEntity<>("Comment created successfully", HttpStatus.OK);
@@ -70,21 +60,17 @@ public class CommentController {
 		}
 		
 	}
-		 	
-
 
 	@DeleteMapping("/comments/{post_id}/{cmt_id}")
 	public ResponseEntity<String> deleteComment(@PathVariable("post_id") Integer post_id, @PathVariable("cmt_id") Integer cmt_id, HttpSession session) {
-		String user_email = (String) session.getAttribute("member");
+		MemberDto memberDto = (MemberDto) session.getAttribute("member");
+		String user_email = memberDto.getUser_email();
 		
 		try {
-			int result = comuService.deleteComment(cmt_id, user_email);
-			
-			if (result == 1)
+			if (comuService.deleteComment(cmt_id, user_email) == 1)
 				return new ResponseEntity<>("Comment deleted successfully", HttpStatus.OK);
 			else 
 				return new ResponseEntity<>("Failed to delete comment", HttpStatus.BAD_REQUEST);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Failed to delete comment", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -95,5 +81,18 @@ public class CommentController {
 	public boolean loginCheck(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		return session.getAttribute("member") != null;
+	}
+	
+	// 유저 이메일을 가져오는 함수
+	@RequestMapping("/comments/getUserEmail")
+	public ResponseEntity<String> getUserEmail(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberDto memberDto = (MemberDto) session.getAttribute("member");
+		
+		if (memberDto == null)
+			return new ResponseEntity<String>("Not Login", HttpStatus.OK);
+		
+		String user_email = memberDto.getUser_email();
+		return new ResponseEntity<String>(user_email, HttpStatus.OK);
 	}
 }

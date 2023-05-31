@@ -155,12 +155,12 @@
   		<insert id="comment" parameterType="CommentDTO">
   			INSERT INTO tb_comment
 			(post_id, cmt_content, user_email)
-			VALUES(#{post_id}, #{cmt_content}, #{user_email});
+			VALUES(#{post_id}, #{cmt_content}, #{user_email})
   		</insert>
   		
   		<delete id="deleteComment" parameterType="map">
   			DELETE FROM tb_comment
-  			WHERE cmt_id = #{cmt_id} and user_email = #{user_email)
+  			WHERE cmt_id = #{cmt_id} and user_email = #{user_email}
   		</delete>
   		
   		<delete id="deleteCommentForAdmin" parameterType="int">

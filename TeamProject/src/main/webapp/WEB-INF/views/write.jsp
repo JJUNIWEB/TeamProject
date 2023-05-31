@@ -59,7 +59,7 @@
     </nav>
 </header>
         
-	<form action="<c:url value='/dangcomu/post${searchItem.queryString}'/>" id="form" class="board_write_wrap" method="post">
+	<form action="<c:url value='/dangcomu/post${searchItem.queryString}'/>" id="form" class="board_write_wrap" enctype="multipart/form-data" method="post">
 		<div class="board_wrap">
 	        <div class="board_title">
 	            <strong>댕댕커뮤</strong>
@@ -87,8 +87,8 @@
                                     <option value="7">기타</option>
 	                            </select>
 		                        <div class="img-sec">
-		                            <input id="imageinput" type="file" multiple="multiple" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
-		                            <img id="preview" />
+		                            <input id="imageinput" name="images" type="file" multiple="multiple" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
+		                            <div id="preview-list"></div>
 		                        </div>
 	                        </div>
 	                    </div>

@@ -7,11 +7,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.earth.domain.ComuDTO;
@@ -19,6 +22,8 @@ import com.earth.domain.MemberDto;
 import com.earth.domain.PageResolver;
 import com.earth.domain.SearchItem;
 import com.earth.service.ComuService;
+import com.earth.service.ImageServiceImpl;
+import com.earth.upload.S3UploadService;
 
 @Controller
 @RequestMapping("/dangcomu")
@@ -26,6 +31,10 @@ public class ComuController {
 	
 	@Autowired
 	ComuService comuService;
+    @Autowired
+    private S3UploadService s3UploadService;
+    @Autowired
+    ImageServiceImpl imageServiceImpl;
 	
 	@GetMapping("/list")
 	public String list(Integer post_ctgr_id, SearchItem sc, Model m, HttpServletRequest request) {
@@ -85,16 +94,23 @@ public class ComuController {
 	}
 	
 	@PostMapping("/post")
-	public String post(ComuDTO comuDTO, RedirectAttributes ra, Model m, HttpSession session) {
+	public String post(ComuDTO comuDTO, @RequestParam("images") List<MultipartFile> multipartFile, RedirectAttributes ra, Model m, HttpSession session) {
 		
 		MemberDto memberDto = (MemberDto) session.getAttribute("member");
 		String user_email = memberDto.getUser_email();
 		comuDTO.setUser_email(user_email);
+		String category = "dangcomuPost";
 		
 		try {
+	        List<String> upload = s3UploadService.upload(category, multipartFile);
+			imageServiceImpl.inputDogProf(user_email, /* upload.get(0), */ category);		// imageServiceImpl에 게시물 이미지 업로드 함수 만들 것
+	        																				// 다수 업로드하므로 get(0) 수정 필요
+	        
 			if (comuService.post(comuDTO) != 1)
 				throw new Exception("Post Fail");
+			
 			ra.addFlashAttribute("msg", "WRT_OK");
+			
 			return "redirect:/dangcomu/list";
 		} catch (Exception e) {
 			e.printStackTrace();
