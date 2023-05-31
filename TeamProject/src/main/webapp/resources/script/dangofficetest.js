@@ -4,7 +4,7 @@ const MAX_UPLOAD_IMG = 5;
 //이미지 파일
 var file;
 //최대용량 mb
-var MaxSize=0.001;
+var MaxSize=0.1;
 
 //사진div선택시 hidden해둔 input 클릭 이벤트
 window.onload=function (){

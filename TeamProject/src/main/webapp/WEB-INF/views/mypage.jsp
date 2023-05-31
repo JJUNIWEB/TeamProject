@@ -64,8 +64,8 @@
                 <ul>
                     <li><a href="#">내 정보</a></li>
                     <li><a href="/withdang/mypage_chat">채팅</a></li>
-                    <li><a href="">마이댕근</a></li>
-                    <li><a href="">마이케어</a></li>
+                    <li><a href="/withdang/myDangguen">마이댕근</a></li>
+                    <li><a href="/withdang/myCare">마이케어</a></li>
                 </ul>
             </div>
             </div>
@@ -82,7 +82,7 @@
 	                    <div><p>성별 ${member.user_gender }</p></div>
 	                    <div><p>주소 ${member.user_address }</p></div>
 	                
-                    <a class="reset-pwd" href="">비밀번호 재설정</a>
+                    <a class="reset-pwd" href="/withdang/find">비밀번호 재설정</a>
                    </form>
             
          </article>

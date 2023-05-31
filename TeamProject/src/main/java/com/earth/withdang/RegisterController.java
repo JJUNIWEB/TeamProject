@@ -1,6 +1,10 @@
 package com.earth.withdang;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +24,9 @@ public class RegisterController {
 	@Autowired
 	private MemberService memberservice;
 		
+		@Autowired
+		private BCryptPasswordEncoder pwEncoder;
+
 		@GetMapping("/agreement")
 		public String agreeMentGET() {
 			return "agreement";
@@ -28,6 +35,14 @@ public class RegisterController {
 		//회원가입 서비스 실행
 		@PostMapping("/join")
 		public String joinPOST(MemberDto member) throws Exception {
+
+			String rawPw = "";            // 인코딩 전 비밀번호
+	        String encodePw = "";        // 인코딩 후 비밀번호
+
+	        rawPw = member.getUser_pw();	// 비밀번호 데이터 얻음
+	        encodePw = pwEncoder.encode(rawPw);	// 비밀번호 인코딩
+	        member.setUser_pw(encodePw);		// 인코딩된 비밀번호 member객체에 다시 저장
+
 			memberservice.memberJoin(member);
 			memberservice.dogInsert(member);
 			
@@ -35,11 +50,15 @@ public class RegisterController {
 			
 		}
 		
-		// 아이디 중복 검사
+		// 이메일 중복 검사
 		@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String memberEmailCheckPOST(String user_email) throws Exception{
-			
+			boolean err = false;
+			  String regex = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$";
+			  Pattern p = Pattern.compile(regex);
+			  Matcher m = p.matcher(user_email);
+			  if(m.matches()) {
 			int result = memberservice.emailCheck(user_email);
 			
 			if(result != 0) {
@@ -51,9 +70,9 @@ public class RegisterController {
 				return "success";	// 중복 아이디 x
 				
 			}	
-			
-			
-		} // memberIdChkPOST() 종료	
+			  } return "fail1";		//이메일 형식 안맞음
+
+		} // memberEmailChkPOST() 종료
 		
 		// 닉네임 중복 검사
 					@RequestMapping(value = "/nickNameCheck", method = RequestMethod.POST)
@@ -73,5 +92,6 @@ public class RegisterController {
 						}	
 						
 						
-					} // memberIdChkPOST() 종료	
+		} // membernickNameChkPOST() 종료
+
 }

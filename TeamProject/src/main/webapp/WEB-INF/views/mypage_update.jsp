@@ -27,6 +27,8 @@
 		 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 		 crossorigin="anonymous"></script>
 	
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
     <title>마이페이지</title>
 </head>
 
@@ -70,9 +72,9 @@
             <div class="mypage__list">
                 <ul>
                     <li><a href="/withdang/mypage">내 정보</a></li>
-                    <li><a href="">강아지 정보</a></li>
                     <li><a href="/withdang/mypage_chat">채팅</a></li>
-                    <li><a href="">판매 목록</a></li>
+                    <li><a href="/withdang/myDangguen">마이댕근</a></li>
+                    <li><a href="/withdang/myCare">마이케어</a></li>
                 </ul>
                 </div>
             </div>
@@ -97,11 +99,27 @@
                     	<option value="여자" ${member.user_gender=='여자' ? "selected" : "" }>여자</option>
                     </select>
                    	</div>
-                    <div><p>주소 : <input type="text" name="user_address" value="${member.user_address }"></p></div>
+                    <div class="address_wrap">
+						<div class="address_name">주소</div>
+						<div class="address_input_1_wrap">
+							<span class="address_input_1_box">
+								<input class="address_input_1" name="user_address" value="${member.user_address }" readonly="readonly">
+							</span>
+							<span class="address_button" onclick="execution_daum_address()">
+								<span><button type="button" class="address_button">주소 찾기</button></span>
+							</span>
+							<!-- </div> -->
+							<div class="clearfix"></div>
+						</div>
+							<div class ="address_input_2_wrap">
+								<div class="address_input_2_box">
+									<input class="address_input_2" name="user_dtl_address" value="${member.user_dtl_address }" readonly="readonly">
+								</div>
+							</div>
+					</div>
                         
                 </ul>
             <hr />
-        	<!-- <form id="dogUpdate_form" method="post"> -->
             <div class="mypage-dog">
                 <ul>
                     <p class="dog-info">강아지 정보</p>
@@ -117,15 +135,13 @@
                     <p>중성화 : 
                     <select class="form-select" name="dog_nutd">
                     	<option value="" selected disabled hidden>중성화</option>
-                    	<option value="했음" ${dvo.dog_nutd=='했음' ? "selected" : "" }>완료</option>
-                    	<option value="안했음" ${dvo.dog_nutd=='안했음' ? "selected" : "" }>안함</option>
+                    	<option value="했음" ${dvo.dog_nutd=='했음' ? "selected" : "" }>했음</option>
+                    	<option value="안했음" ${dvo.dog_nutd=='안함' ? "selected" : "" }>안함</option>
                     </select>
                     </p>
                     <p>견종 : <input type="text" name="dog_breed" value="${dvo.dog_breed }"></p>
                     <p>동물등록번호 : <input type="text" name="dog_regnum" value="${dvo.dog_regnum }"></p>
-                    <p>주소 : <input type="text" name="dog_address" value="${dvo.dog_address }"></p>
-                    <p>특징 : </P><textarea name="dog_feature">${dvo.dog_feature }</textarea> <%-- <input type="text" name="dog_feature" value="${dvo.dog_feature }"></p>
-                     --%>
+                    <p>특징 : </p><textarea name="dog_feature">${dvo.dog_feature }</textarea>
                 </ul>
             </div>
         	</form>
@@ -146,6 +162,59 @@
 	        $("#update_form").attr("action", "/withdang/mypage_update").submit();
 	    });
     
+	    /* 다음 주소 연동 */
+	    function execution_daum_address(){
+
+	    	new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+
+	            	// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                 	// 주소변수 문자열과 참고항목 문자열 합치기
+	                    addr += extraAddr;
+
+	                } else {
+	                	addr += ' ';
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	               $(".address_input_1").val(addr);
+            		//$("[name=memberAddr1]").val(data.zonecode);    // 대체가능
+	            	// 상세주소 입력란 disabled 속성 변경 및 커서를 상세주소 필드로 이동한다.
+	               	$(".address_input_2").attr("readonly",false);
+	                $(".address_input_2").focus();
+
+	            }
+	        }).open();
+
+	    }
+
     </script>
 </body>
 

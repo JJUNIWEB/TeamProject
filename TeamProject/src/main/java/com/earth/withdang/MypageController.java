@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.earth.domain.DogDto;
-import com.earth.domain.MemberInfoDto;
 import com.earth.domain.MemberDto;
 import com.earth.service.MemberService;
 import com.earth.service.MypageService;
 
+import io.swagger.annotations.Authorization;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -25,6 +25,9 @@ public class MypageController {
 	@Autowired
 	private MypageService myService;
 	
+	@Autowired
+	private MemberService memberService;
+
 	@GetMapping("/mypage")
 	public void mypageGET () {
 //		HttpSession session = request.getSession();
@@ -37,6 +40,21 @@ public class MypageController {
 		
 	}
 	
+	@GetMapping("/mypage_chat")
+	public void myPage_chatGET() {
+
+	}
+
+	@GetMapping("/myDangguen")
+	public void myDangguenGET() {
+
+	}
+
+	@GetMapping("/myCare")
+	public void myCareGET() {
+
+	}
+
 	//회원정보수정
 	@RequestMapping(value = "/mypage_update", method = RequestMethod.POST)
 	public String memberUpdate(HttpServletRequest request, MemberDto member, DogDto dog) throws Exception {
@@ -46,8 +64,8 @@ public class MypageController {
        
         myService.memberUpdate(member);
         myService.dogUpdate(dog);
-        MemberDto mvo = myService.memberSelect(member);
-        DogDto dvo = myService.dogSelect(dog);
+        MemberDto mvo = memberService.memberSelect(member);
+        DogDto dvo = memberService.dogSelect(dog);
         
         HttpSession session = request.getSession();
 		session.setAttribute("member", mvo);
