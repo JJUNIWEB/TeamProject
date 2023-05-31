@@ -19,11 +19,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
-	<script
-		  src="https://code.jquery.com/jquery-3.4.1.js"
-		  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-		  crossorigin="anonymous">
-	</script>  
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous">
+    </script>
     <title>이메일 찾기</title>
 </head>
 
@@ -53,22 +53,22 @@
         </a>
     </nav>
 </header>
-		<span>
+<span>
 		<!-- 닉네임이 일치하지 않을 때-->
 		<c:if  test="${check == 1}">
-			<p>입력하신 정보가 없거나 일치하지 않습니다.</p>
-			<span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-			<span><a href="/withdang/emailFind">다시 찾기</a></span>
-		</c:if>
+            <p>입력하신 정보가 없거나 일치하지 않습니다.</p>
+            <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
+            <span><a href="/withdang/emailFind">다시 찾기</a></span>
+        </c:if>
 		</span>
-		
-		<span>
+
+<span>
 		<!-- 이름과 비밀번호가 일치 -->
 		<c:if test="${check == 0 }">
-		<p>찾으시는 이메일은' ${email}' 입니다.</p>
-		<span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-		<span><a href="/withdang/emailFind">다시 찾기</a></span>
-		</c:if>
+            <p>찾으시는 이메일은' ${email}' 입니다.</p>
+            <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
+            <span><a href="/withdang/emailFind">다시 찾기</a></span>
+        </c:if>
 		</span>
 
 </body>

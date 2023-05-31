@@ -19,11 +19,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
-	<script
-		  src="https://code.jquery.com/jquery-3.4.1.js"
-		  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-		  crossorigin="anonymous">
-	</script>  
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous">
+    </script>
     <title>이메일 찾기</title>
 </head>
 
@@ -56,46 +56,46 @@
 
 <h3 class="email-find">이메일 찾기</h3>
 <form method="post" class="form-signin" id="Chk-form" name="findform">
-		<div class="form-label-group">
-			<div><input type="text" id="name" name="user_name" class="input_name" placeholder="이름을 입력해주세요."/></div>
-			<div><input type="text" id="nickname" name="user_nickname" class="input_nickname" placeholder="닉네임을 입력해주세요."/></div>
-			<span class="info_ck">정보를 입력해 주세요</span>
-		</div>
-		<div class="form-label-group">
-			<input class="btn"
-				type="button" value="이메일 찾기">
-		</div>
-	</form>
-		
+    <div class="form-label-group">
+        <div><input type="text" id="name" name="user_name" class="input_name" placeholder="이름을 입력해주세요."/></div>
+        <div><input type="text" id="nickname" name="user_nickname" class="input_nickname" placeholder="닉네임을 입력해주세요."/></div>
+        <span class="info_ck">정보를 입력해 주세요</span>
+    </div>
+    <div class="form-label-group">
+        <input class="btn"
+               type="button" value="이메일 찾기">
+    </div>
+</form>
 
-	<script type="text/javascript">
-	
-		var infoCheck = false;
-	
-		$(document).ready(function() {
-			$(".btn").click(function(){
-			var nickname = $('.input_nickname').val();          // 닉네임 입력란
-			var name = $('.input_name').val();					// 이름 입력란
-			
-			if(nickname == "" || name == "") {
-				$('.info_ck').css('display','block');
-				infoCheck = false;
-			}  else {
-				$('.info_ck').css('display','none');
-				infoCheck = true;
-			}
-			
-			if(infoCheck) {
-				
-				$("#Chk-form").attr("action", "/withdang/emailFindRes");
-	      		$("#Chk-form").submit();
-			}
-			
-			return false;
-			
-			});	
-		});
-	</script>
+
+<script type="text/javascript">
+
+    var infoCheck = false;
+
+    $(document).ready(function() {
+        $(".btn").click(function(){
+            var nickname = $('.input_nickname').val();          // 닉네임 입력란
+            var name = $('.input_name').val();					// 이름 입력란
+
+            if(nickname == "" || name == "") {
+                $('.info_ck').css('display','block');
+                infoCheck = false;
+            }  else {
+                $('.info_ck').css('display','none');
+                infoCheck = true;
+            }
+
+            if(infoCheck) {
+
+                $("#Chk-form").attr("action", "/withdang/emailFindRes");
+                $("#Chk-form").submit();
+            }
+
+            return false;
+
+        });
+    });
+</script>
 
 
 
