@@ -7,7 +7,6 @@
   		<!-- 회원정보 수정 -->
 		<update id="memberUpdate">
 			UPDATE tb_user SET 
-			user_pw = #{user_pw},
 			user_nickname = #{user_nickname},
 			user_pnum = #{user_pnum},
 			user_birth = to_date(#{user_birth}, 'YYYY-MM-DD HH24:MI:SS'),

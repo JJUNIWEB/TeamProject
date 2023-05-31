@@ -7,30 +7,27 @@
 		<insert id="memberJoin" >
 			insert into tb_user values(#{user_email},#{user_name},#{user_nickname},#{user_pw})
 		</insert>
+		
 		<!-- 도그 테이블에 FK이메일 기입  -->
 		<insert id="dogInsert">
 			insert into tb_dogInfo (user_email)
-				select a.user_email
+			select a.user_email
 			from tb_user a
 			where a.user_email = #{user_email}
 		</insert>
 		
 		<!-- 아이디 중복검사 -->
   		<select id="emailCheck" resultType="int">
-  	
-  		select count(*) 
-  		from tb_user 
-  		where user_email = #{user_email}
-  	
+  			select count(*) 
+  			from tb_user 
+  			where user_email = #{user_email}
   		</select>
   		
   		<!-- 닉네임 중복검사 -->
   		<select id="nickNameCheck" resultType="int">
-  	
-  		select count(*) 
-  		from tb_user 
-  		where user_nickname = #{user_nickname}
-  	
+  			select count(*) 
+  			from tb_user 
+  			where user_nickname = #{user_nickname}
   		</select>
   		
   		<!-- 로그인  -->

@@ -24,7 +24,7 @@
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
             crossorigin="anonymous">
     </script>
-    <title>이메일 찾기</title>
+    <title>비밀번호 변경</title>
 </head>
 
 <body>
@@ -53,23 +53,85 @@
         </a>
     </nav>
 </header>
-<span>
-		<!-- 닉네임이 일치하지 않을 때-->
-		<c:if  test="${check == 1}">
-            <p>입력하신 정보가 없거나 일치하지 않습니다.</p>
-            <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-            <span><a href="/withdang/emailFind">다시 찾기</a></span>
-        </c:if>
-		</span>
 
-<span>
-		<!-- 이름과 비밀번호가 일치 -->
-		<c:if test="${check == 0 }">
-            <p>찾으시는 이메일은' ${email}' 입니다.</p>
-            <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-            <span><a href="/withdang/pwdFind">비밀번호 찾기</a></span>
-        </c:if>
-		</span>
+	<p>비밀번호 변경</p>
+    <form id="pwChange-Form" method="post">
+    <input type="hidden" name="user_email" value="${member.user_email }">
+    <input type="hidden" name="user_name" value="${member.user_name }">
+    <input type="hidden" name="user_nickname" value="${member.user_nickname }">
+    <input type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요">
+    <input type="password" class="input_pwck" placeholder="비밀번호 확인을 입력해주세요">
+    <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
+    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
+    <span><a href="/withdang">매인으로 돌아가기</a></span>
+	<button type="button" class="btn">비밀번호 변경</button>
+    </form>
+    
+    <script type="text/javascript">
+    var pwCheck = false;            // 비번
+	var pwckCheck = false;            // 비번 확인
+	var pwckcorCheck = false;        // 비번 확인 일치 확인
+	var pwdCheck = false;			// 비번 정규식 확인
+	
+	$(document).ready(function() {
+		
+		$(".btn").click(function() {
+			
+		var pw = $('.input_pw').val();		// 비밀번호 입력란
+		var pwck = $('.input_pwck').val();
+		var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+		
+		/*	비밀번호 유효성 검사 */
+        if(pw == "") {
+            pwCheck = false;
+        } else {
+            pwCheck = true;
+            
+            /* 비밀번호 정규식 검사 */
+	        if (!pwdCheck.test(pw)) {
+	    	    alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
+	    	    pw.focus
+	    	    pwdCheck = false;
+	    	  } else {
+	    		  pwdCheck = true;
+	    	  }      
+        }
+        	       
+        /* 비밀번호 확인 유효성 검사 */
+        if(pwck == "") {
+            pwckCheck = false;
+        } else {
+            pwckCheck = true;
+        }
 
+		if(pwckcorCheck&&pwdCheck&&pwCheck&&pwckCheck) {
+			$("#pwChange-Form").attr("action", "/withdang/pwUpdate");
+	      	$("#pwChange-Form").submit();
+		}
+			return false;		
+		});
+			
+	});
+	
+	/* 비밀번호 확인 일치 유효성 검사 */
+    
+   	$('.input_pwck').on("propertychange change keyup paste input", function(){
+   	        
+   		var pw = $('.input_pw').val();
+   	    var pwck = $('.input_pwck').val();
+   	    $('.final_pwck_ck').css('display', 'none');
+   	    
+   	 	if(pw == pwck){
+         	$('.pwck_input_re_1').css('display','block');
+         	$('.pwck_input_re_2').css('display','none');
+         	pwckcorCheck = true;
+     	}else{
+        	$('.pwck_input_re_1').css('display','none');
+         	$('.pwck_input_re_2').css('display','block');
+         	pwckcorCheck = false;    	    	
+     	}	        
+   	});
+    </script>
+    
 </body>
 </html>

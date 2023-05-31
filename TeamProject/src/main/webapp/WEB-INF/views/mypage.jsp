@@ -82,7 +82,7 @@
 	                    <div><p>성별 ${member.user_gender }</p></div>
 	                    <div><p>주소 ${member.user_address }</p></div>
 	                
-                    <a class="reset-pwd" href="/withdang/find">비밀번호 재설정</a>
+                    <a class="reset-pwd" href="/withdang/pwReset">비밀번호 재설정</a>
                    </form>
             
          </article>
@@ -98,6 +98,8 @@
     	<script type="text/javascript">
 		let msg = "${msg}"
 		if(msg=="memberCheck") alert("신규 회원님 환영 합니다. 마이페이지에서 필수 회원 정보를 입력해주세요")
+	
+		if(msg=="updateOK") alert("수정이 완료되었습니다.")
 	</script>
     	
 	</body>
