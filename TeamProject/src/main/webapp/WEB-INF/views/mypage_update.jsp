@@ -50,7 +50,6 @@
                 <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
             </c:if>
             <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
         </ul>
 
         <a href="#" class="navbar__toggleBtn">
@@ -89,11 +88,11 @@
                     <div><p>연락처 : <input type="text" name="user_pnum" value="${member.user_pnum }"></p></div>
                     <div><p>생일 : <input type="date" name="user_birth" value="<fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd"/>" /></p></div> 
                     <div>성별:
-                     <select class="form-select" name="user_gender">
-                    	<option value="" selected disabled hidden>성별</option>
-                    	<option value="남자" ${member.user_gender=='남자' ? "selected" : "" }>남자</option>
-                    	<option value="여자" ${member.user_gender=='여자' ? "selected" : "" }>여자</option>
-                    </select>
+                    	<select class="form-select" name="user_gender">
+	                    	<option value="" selected disabled hidden>성별</option>
+	                    	<option value="남자" ${member.user_gender=='남자' ? "selected" : "" }>남자</option>
+	                    	<option value="여자" ${member.user_gender=='여자' ? "selected" : "" }>여자</option>
+                    	</select>
                    	</div>
                     <div class="address_wrap">
 						<div class="address_name">주소</div>
@@ -112,8 +111,7 @@
 									<input class="address_input_2" name="user_dtl_address" value="${member.user_dtl_address }" readonly="readonly">
 								</div>
 							</div>
-					</div>
-                        
+					</div>      
                 </ul>
             <hr />
             <div class="mypage-dog">
@@ -200,7 +198,7 @@
 	                }
 
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	               $(".address_input_1").val(addr);
+	               	$(".address_input_1").val(addr);
             		//$("[name=memberAddr1]").val(data.zonecode);    // 대체가능
 	            	// 상세주소 입력란 disabled 속성 변경 및 커서를 상세주소 필드로 이동한다.
 	               	$(".address_input_2").attr("readonly",false);
