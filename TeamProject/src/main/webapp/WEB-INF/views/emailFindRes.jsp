@@ -67,7 +67,7 @@
 		<c:if test="${check == 0 }">
             <p>찾으시는 이메일은' ${email}' 입니다.</p>
             <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-            <span><a href="/withdang/emailFind">다시 찾기</a></span>
+            <span><a href="/withdang/pwdFind">비밀번호 찾기</a></span>
         </c:if>
 		</span>
 

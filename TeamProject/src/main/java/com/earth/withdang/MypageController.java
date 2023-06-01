@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.earth.domain.DogDto;
 import com.earth.domain.MemberDto;
@@ -30,9 +31,7 @@ public class MypageController {
 
 	@GetMapping("/mypage")
 	public void mypageGET () {
-//		HttpSession session = request.getSession();
-//		session.getAttribute("member");
-//		session.getAttribute("dvo");
+
 	}
 	
 	@GetMapping("/mypage_update")
@@ -54,10 +53,15 @@ public class MypageController {
 	public void myCareGET() {
 
 	}
+	
+	@GetMapping("/pwReset")
+	public void pwRestGET() {
+		
+	}
 
 	//회원정보수정
 	@RequestMapping(value = "/mypage_update", method = RequestMethod.POST)
-	public String memberUpdate(HttpServletRequest request, MemberDto member, DogDto dog) throws Exception {
+	public String memberUpdate(HttpServletRequest request, MemberDto member, DogDto dog, RedirectAttributes rttr) throws Exception {
 		
 		System.out.println("memberUpdate 메서드 진입");
         System.out.println("전달된 데이터 : " + member);
@@ -66,6 +70,8 @@ public class MypageController {
         myService.dogUpdate(dog);
         MemberDto mvo = memberService.memberSelect(member);
         DogDto dvo = memberService.dogSelect(dog);
+        
+        rttr.addFlashAttribute("msg", "updateOK");
         
         HttpSession session = request.getSession();
 		session.setAttribute("member", mvo);

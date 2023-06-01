@@ -83,7 +83,7 @@ public class LoginController {
 		if(pwd == null) {
 			m.addAttribute("check", 1);
 		} else {
-			session.setAttribute("member", pwd);
+			session.setAttribute("pwd", pwd);
 			m.addAttribute("check", 0);
 		}
 
@@ -92,7 +92,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/pwUpdate")
-	public String pwUpdate(MemberDto member) throws Exception {
+	public String pwUpdate(MemberDto member, RedirectAttributes rttr) throws Exception {
 		String rawPw = "";
 		String encodePw = "";
 
@@ -101,6 +101,8 @@ public class LoginController {
 		member.setUser_pw(encodePw);
 
 		memberservice.pwUpdate(member);
+		
+		rttr.addFlashAttribute("msg", "pwUdate");
 
 		return "redirect:/login";
 	}
