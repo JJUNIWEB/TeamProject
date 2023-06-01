@@ -20,7 +20,7 @@ public interface MemberMapper {
 	// 닉네임 중복 검사
 	public int nickNameCheck(String user_nickname);
 	
-	/* 로그인 */
+	//로그인
     public MemberDto memberLogin(MemberDto member);
     
     //회원정보가져오기
@@ -38,7 +38,7 @@ public interface MemberMapper {
     //비밀번호 찾기
     public MemberDto findPwd(MemberDto member);
 
-    //비밀번호 찾기
+    //비밀번호 변경
     public void pwUpdate(MemberDto member);
 
 }
