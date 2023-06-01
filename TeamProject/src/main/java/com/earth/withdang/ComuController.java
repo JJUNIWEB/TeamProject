@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.earth.domain.ComuDTO;
-import com.earth.domain.ImageDto;
 import com.earth.domain.MemberDto;
 import com.earth.domain.PageResolver;
 import com.earth.domain.SearchItem;
@@ -113,27 +110,26 @@ public class ComuController {
 		
 		try {
 	        
-			if (comuService.post(comuDTO) != 1)
-				throw new Exception("Post Fail");
+			int post_id = comuService.post(comuDTO);
 			
-			if (image1 != null) { 
+			if (image1.get(0).equals("")) { 
 				List<String> upload = s3UploadService.upload(category, image1); 
-				imageService.inputComuPost(user_email, comuDTO.getPost_id(), upload.get(0), category);
+				imageService.inputComuPost(user_email, post_id, upload.get(0), category);
 			}
 			
-			if (image2 != null) { 
+			if (image2.get(0).equals("")) { 
 				List<String> upload = s3UploadService.upload(category, image2); 
-				imageService.inputComuPost(user_email, comuDTO.getPost_id(), upload.get(0), category);
+				imageService.inputComuPost(user_email, post_id, upload.get(0), category);
 			}
 			
-			if (image3 != null) { 
+			if (image3.get(0).equals("")) { 
 				List<String> upload = s3UploadService.upload(category, image3); 
-				imageService.inputComuPost(user_email, comuDTO.getPost_id(), upload.get(0), category);
+				imageService.inputComuPost(user_email, post_id, upload.get(0), category);
 			}
 			
-			if (image4 != null) { 
+			if (image4.get(0).equals("")) { 
 				List<String> upload = s3UploadService.upload(category, image4); 
-				imageService.inputComuPost(user_email, comuDTO.getPost_id(), upload.get(0), category);
+				imageService.inputComuPost(user_email, post_id, upload.get(0), category);
 			}
 			
 			ra.addFlashAttribute("msg", "WRT_OK");

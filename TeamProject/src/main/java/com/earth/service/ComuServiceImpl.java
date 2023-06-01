@@ -25,7 +25,8 @@ public class ComuServiceImpl implements ComuService{
 
 	@Override
 	public int post(ComuDTO comuDTO) throws Exception {
-		return comuMapper.insert(comuDTO);
+		comuMapper.insert(comuDTO);
+		return comuDTO.getPost_id();
 	}
 
 	@Override

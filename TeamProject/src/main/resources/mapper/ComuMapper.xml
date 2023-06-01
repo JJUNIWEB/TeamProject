@@ -114,7 +114,7 @@
   			select count(*) from tb_post
   		</select>
   		
-  		<insert id="insert" parameterType="ComuDTO">
+  		<insert id="insert" parameterType="ComuDTO" useGeneratedKeys="true" keyProperty="post_id" keyColumn="post_id"> <!-- insert한 후 serial 타입인 post_id 반환 -->
   			INSERT INTO tb_post
 			(post_title, post_content, post_ctgr_id, user_email)
 			VALUES(#{post_title}, #{post_content}, #{post_ctgr_id}, #{user_email});
