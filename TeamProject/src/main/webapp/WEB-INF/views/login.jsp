@@ -50,8 +50,8 @@
                     	<!-- <button type="button" class="login_button" value="로그인">로그인</button> -->
                     </div>
                     <div>
-                    <span><a href="/withdang/emailFind" >이메일 찾기</a></span> |
-                    <span><a href="/withdang/pwdFind" >비밀번호 찾기</a></span>
+                    	<span><a href="/withdang/emailFind" >이메일 찾기</a></span> |
+                    	<span><a href="/withdang/pwdFind" >비밀번호 찾기</a></span>
                     </div>
                 </form>
             </div>
@@ -64,7 +64,6 @@
                     <span class="user_nickname_re_1">사용 가능한 닉네임입니다</span>
                     <span class="user_nickname_re_2">닉네임이 이미 존재합니다</span>
                     <span class="final_nickname_ck">닉네임을 입력해 주세요</span>
-                    <!-- <input type="text"  class="input_dogname" name="dog_name" placeholder="강아지이름"> -->
                     <input type="email" class="input_email" name="user_email" placeholder="Email">
                     <span class="user_email_re_1">사용 가능한 이메일입니다</span>
 					<span class="user_email_re_2">이메일이 이미 존재합니다</span>
@@ -77,7 +76,9 @@
                     <span class="final_pwck_ck">비밀번호 확인을 입력해 주세요</span>
                     <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
                 	<span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
-                	<div id="register-policy"><input type="checkbox" id="register-check" name="register-check" value="T" onchange="if (this.checked) {showPopup();}" />회원가입 약관에 동의합니다.</div>
+                	<div id="register-policy">
+                		<input type="checkbox" id="register-check" name="register-check" value="T" onchange="if (this.checked) {showPopup();}" />회원가입 약관에 동의합니다.
+                	</div>
                 	<input type="button" class="btn" value="가입하기">
                     </form>
                     <div id="return" class="return-main"><a href="/withdang">메인화면으로 돌아가기</a></div>
@@ -85,7 +86,7 @@
         </div>
     </div>
     
-    <script>
+   <script>
     	const signin = document.querySelector(".signinbtn");
         const signup = document.querySelector(".signupbtn");
         const formbox = document.querySelector(".form-box");
@@ -267,7 +268,6 @@
 	});// function 종료
    	
    	/* 비밀번호 확인 일치 유효성 검사 */
-    
    	$('.input_pwck').on("propertychange change keyup paste input", function(){
    	        
    		var pw = $('.input_pw').val();
@@ -295,9 +295,8 @@
     });
     
     let msg = "${msg}"
-	if(msg=="pwUdate") alert("비밀번호가 변경되었습니다.")
-        
-        </script>
+	if(msg=="pwUdate") alert("비밀번호가 변경되었습니다.")       
+  </script>
         
 </body>
 

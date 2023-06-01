@@ -45,9 +45,7 @@
                 <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
             </c:if>
             <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
         </ul>
-
         <a href="#" class="navbar__toggleBtn">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </a>
@@ -64,17 +62,17 @@
 <c:if test="${check == 0 }">
     <p>비밀번호 변경</p>
     <form id="pwChange-Form" method="post">
-    <input type="hidden" name="user_email" value="${pwd.user_email }">
-    <input type="hidden" name="user_name" value="${pwd.user_name }">
-    <input type="hidden" name="user_nickname" value="${pwd.user_nickname }">
-    <input type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요">
-    <input type="password" class="input_pwck" placeholder="비밀번호 확인을 입력해주세요">
-    <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
-    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
-    <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-    <span><a href="/withdang/pwdFind">다시 찾기</a></span>
-	<button type="button" class="btn">비밀번호 찾기</button>
-    </form>
+	    <input type="hidden" name="user_email" value="${pwd.user_email }">
+	    <input type="hidden" name="user_name" value="${pwd.user_name }">
+	    <input type="hidden" name="user_nickname" value="${pwd.user_nickname }">
+	    <input type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요">
+	    <input type="password" class="input_pwck" placeholder="비밀번호 확인을 입력해주세요">
+	    <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
+	    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
+	    <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
+	    <span><a href="/withdang/pwdFind">다시 찾기</a></span>
+		<button type="button" class="btn">비밀번호 변경</button>
+	</form>
 </c:if>
 
 <script type="text/javascript">
@@ -86,27 +84,29 @@
 	
 	$(document).ready(function() {
 		
+		//비밀번호 변경 버튼(비밀번호 변경 기능 작동)
 		$(".btn").click(function() {
-			
-		var pw = $('.input_pw').val();	// 비밀번호 입력란
-		var pwck = $('.input_pwck').val();
-		var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+		
+		/* 입력값 변수 */
+		var pw = $('.input_pw').val();			// 비밀번호 입력란
+		var pwck = $('.input_pwck').val();		// 비밀번호 확인 입력란
+		var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식 변수
 		
 		/*	비밀번호 유효성 검사 */
         if(pw == "") {
             pwCheck = false;
-        } else {
+      	} else {
             pwCheck = true;
             
-            /* 비밀번호 정규식 검사 */
-	        if (!pwdCheck.test(pw)) {
-	    	    alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
-	    	    pw.focus
-	    	    pwdCheck = false;
-	    	  } else {
-	    		  pwdCheck = true;
-	    	  }      
-        }
+        /* 비밀번호 정규식 검사 */
+        if(!pwdCheck.test(pw)) {
+    	    alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
+    	    pw.focus
+    	    pwdCheck = false;
+    	} else {
+    		pwdCheck = true;
+    	 	}      
+       	}
         	       
         /* 비밀번호 확인 유효성 검사 */
         if(pwck == "") {
@@ -136,7 +136,7 @@
          	$('.pwck_input_re_1').css('display','block');
          	$('.pwck_input_re_2').css('display','none');
          	pwckcorCheck = true;
-     	}else{
+     	} else {
         	$('.pwck_input_re_1').css('display','none');
          	$('.pwck_input_re_2').css('display','block');
          	pwckcorCheck = false;   	    	

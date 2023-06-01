@@ -45,7 +45,6 @@
                 <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
             </c:if>
             <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
         </ul>
 
         <a href="#" class="navbar__toggleBtn">
@@ -63,8 +62,7 @@
     </div>
 
     <div class="form-label-group">
-        <input class="btn"
-               type="button" value="비밀번호 찾기">
+        <input class="btn" type="button" value="비밀번호 찾기">
     </div>
 </form>
 

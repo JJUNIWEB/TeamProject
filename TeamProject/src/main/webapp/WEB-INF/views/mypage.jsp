@@ -41,7 +41,6 @@
                 <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
             </c:if>
             <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
         </ul>
 
         <a href="#" class="navbar__toggleBtn">
@@ -72,22 +71,19 @@
         </aside>
         <form class="mypage-user">
             <h1 id="mypage-title">마이페이지</h1>
-               
-                   		<p class="user-info"> 내 정보</p>
-	                    <div><span>이름</span> ${member.user_name}</div>
-	                    <div><p>이메일 ${member.user_email }</p></div>
-	                    <div><p>닉네임 ${member.user_nickname }</p></div>
-	                    <div><p>연락처 ${member.user_pnum }</p></div>
-	                    <div><p>생일 <fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd" type="date"/></p></div>
-	                    <div><p>성별 ${member.user_gender }</p></div>
-	                    <div><p>주소 ${member.user_address }</p></div>
-	                
-                    <a class="reset-pwd" href="/withdang/pwReset">비밀번호 재설정</a>
-                   </form>
-            
-         </article>
+           	 <div class="user-info"> 내 정보</div>
+             <div><span>이름</span> ${member.user_name}</div>
+             <div><p>이메일 ${member.user_email }</p></div>
+             <div><p>닉네임 ${member.user_nickname }</p></div>
+             <div><p>연락처 ${member.user_pnum }</p></div>
+             <div><p>생일 <fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd" type="date"/></p></div>
+             <div><p>성별 ${member.user_gender }</p></div>
+             <div><p>주소 ${member.user_address }</p></div>
+	         <a class="reset-pwd" href="/withdang/pwReset">비밀번호 재설정</a>
+        </form>        
+      </article>
          
-         <footer>
+        <footer>
         <div class="mypage__update">
             <br>
             <a class="update_btn" href="/withdang/mypage_update">수정하기</a>
@@ -95,7 +91,7 @@
     	</footer>
     	<br><br><br><br>
     	
-    	<script type="text/javascript">
+    <script type="text/javascript">
 		let msg = "${msg}"
 		if(msg=="memberCheck") alert("신규 회원님 환영 합니다. 마이페이지에서 필수 회원 정보를 입력해주세요")
 	
