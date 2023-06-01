@@ -24,9 +24,11 @@ public class RegisterController {
 	@Autowired
 	private MemberService memberservice;
 		
+		//비밀번호 인코딩
 		@Autowired
 		private BCryptPasswordEncoder pwEncoder;
-
+		
+		//약관 동의 페이지
 		@GetMapping("/agreement")
 		public String agreeMentGET() {
 			return "agreement";
