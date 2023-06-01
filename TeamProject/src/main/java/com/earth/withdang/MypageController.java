@@ -28,38 +28,44 @@ public class MypageController {
 	
 	@Autowired
 	private MemberService memberService;
-
+	
+	//마이페이지
 	@GetMapping("/mypage")
 	public void mypageGET () {
 
 	}
 	
+	//마이페이지 수정하기 페이지
 	@GetMapping("/mypage_update")
 	public void myPage_UpdateGET() {
 		
 	}
 	
+	//마이페이지 채팅 페이지
 	@GetMapping("/mypage_chat")
 	public void myPage_chatGET() {
 
 	}
-
+	
+	//마이페이지 마이댕근 페이지
 	@GetMapping("/myDangguen")
 	public void myDangguenGET() {
 
 	}
-
+	
+	//마이페이지 마이케어 페이지
 	@GetMapping("/myCare")
 	public void myCareGET() {
 
 	}
 	
+	//마이페이지 비밀번호 재설정 페이지
 	@GetMapping("/pwReset")
 	public void pwRestGET() {
 		
 	}
 
-	//회원정보수정
+	//회원정보수정 실행
 	@RequestMapping(value = "/mypage_update", method = RequestMethod.POST)
 	public String memberUpdate(HttpServletRequest request, MemberDto member, DogDto dog, RedirectAttributes rttr) throws Exception {
 		

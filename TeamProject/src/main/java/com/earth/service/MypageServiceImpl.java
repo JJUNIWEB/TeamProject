@@ -13,12 +13,14 @@ public class MypageServiceImpl implements MypageService {
 	@Autowired
 	MypageMapper myMapper;
 	
+	/* 회원정보수정 */
 	@Override
 	public void memberUpdate(MemberDto member) throws Exception {
 		myMapper.memberUpdate(member);
 		
 	}
-
+	
+	//강아지 정보 수정
 	@Override
 	public void dogUpdate(DogDto dog) throws Exception {
 		myMapper.dogUpdate(dog);

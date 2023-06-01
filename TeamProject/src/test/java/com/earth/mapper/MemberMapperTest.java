@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.earth.domain.MemberInfoDto;
 import com.earth.mapper.MemberMapper;
 import com.earth.domain.MemberDto;
 
@@ -41,15 +40,13 @@ public class MemberMapperTest {
 //		}
 
 	/* 로그인 쿼리 mapper 메서드 테스트 */
-	@Ignore
-    @Test
-    public void memberLogin() throws Exception{
-
-        MemberInfoDto member = new MemberInfoDto();    // MemberVO 변수 선언 및 초기화
-
-        /* 올바른 아이디 비번 입력경우 */
-       member.setUser_email("s@s");
-       member.setUser_pw("shdldpfm12!");
+//    public void memberLogin() throws Exception{
+//
+//        MemberInfoDto member = new MemberInfoDto();    // MemberVO 변수 선언 및 초기화
+//
+//        /* 올바른 아이디 비번 입력경우 */
+//       member.setUser_email("s@s");
+//       member.setUser_pw("shdldpfm12!");
         
          //올바른 않은 아이디 비번 입력경우
         //member.setUser_email("test1123");
@@ -60,4 +57,4 @@ public class MemberMapperTest {
         
     }
 
-}
+

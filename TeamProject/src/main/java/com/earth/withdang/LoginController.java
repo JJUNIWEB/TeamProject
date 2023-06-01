@@ -40,24 +40,26 @@ public class LoginController {
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
 
-
+	//로그인 페이지
 	@GetMapping(value="/login")
 	public String loginGET() {
 		
 		return "login";
 	}
 	
+	//이메일 찾기 페이지
 	@GetMapping(value="/emailFind")
 	public String emailFindGET() {
 		return "emailFind";
 	}
-
+	
+	//비밀번호 찾기 페이지
 	@GetMapping(value="/pwdFind")
 	public String pwdFindGET() {
 		return "pwdFind";
 	}
 
-	//이메일 찾기
+	//이메일 찾기 실행
 	@PostMapping("/emailFindRes")
 	public String findEmail(MemberDto member, Model m) throws Exception {
 		MemberDto email = memberservice.findEmail(member);
@@ -72,7 +74,7 @@ public class LoginController {
 		return "/emailFindRes";
 	}
 
-	//비밀번호 찾기
+	//비밀번호 찾기 실행
 	@PostMapping("/pwdFindRes")
 	public String findPwd(MemberDto member, Model m, HttpServletRequest request) throws Exception {
 		MemberDto pwd = memberservice.findPwd(member);
@@ -90,7 +92,8 @@ public class LoginController {
 		return "/pwdFindRes";
 
 	}
-
+	
+	//비밀번호 변경 실행
 	@PostMapping("/pwUpdate")
 	public String pwUpdate(MemberDto member, RedirectAttributes rttr) throws Exception {
 		String rawPw = "";
@@ -107,7 +110,7 @@ public class LoginController {
 		return "redirect:/login";
 	}
 
-	/* 로그인 */
+	/* 로그인 실행 */
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String loginPOST(String user_email,HttpServletRequest request, 
     		HttpServletResponse response, boolean rememberEmail ,MemberDto member, 
@@ -122,7 +125,6 @@ public class LoginController {
 
 	MemberDto lvo = memberservice.memberLogin(member);
 	DogDto dvo = memberservice.dogSelect(dog);
-	//DogDto dog = new DogDto();
 	
 		if (rememberEmail) {
 			//2-2-1. 쿠키를 생성
@@ -144,7 +146,6 @@ public class LoginController {
             encodePw = lvo.getUser_pw();        // 데이터베이스에 저장한 인코딩된 비밀번호
         
             if(true == pwEncoder.matches(rawPw, encodePw)) {        // 비밀번호 일치여부 판단
-            	//lvo.setUser_pw("");                    // 인코딩된 비밀번호 정보 지움
                 session.setAttribute("member", lvo);     // session에 사용자의 정보 저장
                 session.setAttribute("dvo", dvo);
 	
@@ -172,12 +173,14 @@ public class LoginController {
 		
     }
     
+    //로그아웃 실행
     @GetMapping("/logout")
     public String logout(HttpSession session) {
     	session.invalidate();
     	return "redirect:/";
     }
     
+    //신규 회원 확인 실행
     private boolean memberCheck(MemberDto member) throws Exception {
     	MemberDto pnum = memberservice.memberCheck(member);
     	System.out.println("member ="+pnum);
