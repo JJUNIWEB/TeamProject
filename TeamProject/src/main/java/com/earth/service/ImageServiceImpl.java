@@ -53,7 +53,28 @@ public class ImageServiceImpl implements ImageService{
         }
 
     }
-    
-    // dangcomu post 이미지 db에 업로드 하는 함수 구현 필요
 
+    // dangcomu post 이미지
+	@Override
+	public ImageDto inputComuPost(String user_id, int post_id, String address, String category) {
+		ImageDto imageDto = new ImageDto(address, category, user_id, post_id);
+        // 새로 업로드 한 이미지를 db에 넣기
+        mapper.insert(imageDto);
+        return imageDto;
+	}
+
+	// dangcomu post 수정 이미지
+	@Override
+	public ImageDto callComuPost(String user_id, int post_id, String address, String category) {
+		ImageDto dto = new ImageDto(address, category, user_id, post_id);
+		 
+	    try {
+		    List<ImageDto> select = mapper.select(dto);
+		    return select.get(0);
+		} catch (IndexOutOfBoundsException e){
+		    e.getMessage();
+		    return null;
+		}
+	}
+	
 }

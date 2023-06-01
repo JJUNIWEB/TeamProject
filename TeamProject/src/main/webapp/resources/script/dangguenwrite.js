@@ -47,10 +47,10 @@ $(function () {
 
 */
 
+var list = document.getElementById('preview-list')
+list.innerHTML = "";
+
 function previewImage(input) {
-    var list = document.getElementById('preview-list')
-    list.innerHTML = "";
-    
     for (var i = 0 ; i < input.files.length ; i++) {
         var reader = new FileReader();
         var image = document.createElement('img');

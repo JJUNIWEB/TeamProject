@@ -18,11 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.earth.domain.ComuDTO;
+import com.earth.domain.ImageDto;
 import com.earth.domain.MemberDto;
 import com.earth.domain.PageResolver;
 import com.earth.domain.SearchItem;
 import com.earth.service.ComuService;
-import com.earth.service.ImageServiceImpl;
+import com.earth.service.ImageService;
 import com.earth.upload.S3UploadService;
 
 @Controller
@@ -31,10 +32,12 @@ public class ComuController {
 	
 	@Autowired
 	ComuService comuService;
+	
     @Autowired
     private S3UploadService s3UploadService;
+    
     @Autowired
-    ImageServiceImpl imageServiceImpl;
+    ImageService imageService;
 	
 	@GetMapping("/list")
 	public String list(Integer post_ctgr_id, SearchItem sc, Model m, HttpServletRequest request) {
@@ -73,7 +76,9 @@ public class ComuController {
 		
 		try {
 			ComuDTO comuDTO = comuService.readPost(post_id);
+//			ImageDto imageDTO = imageService.callComuPost(user_id, post_id, address, category);	// tb_post, tb_post_photo inner join 필요
 			m.addAttribute("comuDTO", comuDTO);
+//			m.addAttribute("imageDTO", imageDTO);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/dangcomu/list";
@@ -94,32 +99,52 @@ public class ComuController {
 	}
 	
 	@PostMapping("/post")
-	public String post(ComuDTO comuDTO, @RequestParam("images") List<MultipartFile> multipartFile, RedirectAttributes ra, Model m, HttpSession session) {
+	public String post(ComuDTO comuDTO,
+						@RequestParam(value="image1", required=false) List<MultipartFile> image1, 
+						@RequestParam(value="image2", required=false) List<MultipartFile> image2, 
+						@RequestParam(value="image3", required=false) List<MultipartFile> image3, 
+						@RequestParam(value="image4", required=false) List<MultipartFile> image4, 
+						RedirectAttributes ra, Model m, HttpSession session) {
 		
 		MemberDto memberDto = (MemberDto) session.getAttribute("member");
 		String user_email = memberDto.getUser_email();
 		comuDTO.setUser_email(user_email);
-		String category = "dangcomuPost";
+		String category = "comuPost";
 		
 		try {
-	        List<String> upload = s3UploadService.upload(category, multipartFile);
-			imageServiceImpl.inputDogProf(user_email, /* upload.get(0), */ category);		// imageServiceImpl에 게시물 이미지 업로드 함수 만들 것
-	        																				// 다수 업로드하므로 get(0) 수정 필요
 	        
 			if (comuService.post(comuDTO) != 1)
 				throw new Exception("Post Fail");
 			
+			if (image1 != null) { 
+				List<String> upload = s3UploadService.upload(category, image1); 
+				imageService.inputComuPost(user_email, comuDTO.getPost_id(), upload.get(0), category);
+			}
+			
+			if (image2 != null) { 
+				List<String> upload = s3UploadService.upload(category, image2); 
+				imageService.inputComuPost(user_email, comuDTO.getPost_id(), upload.get(0), category);
+			}
+			
+			if (image3 != null) { 
+				List<String> upload = s3UploadService.upload(category, image3); 
+				imageService.inputComuPost(user_email, comuDTO.getPost_id(), upload.get(0), category);
+			}
+			
+			if (image4 != null) { 
+				List<String> upload = s3UploadService.upload(category, image4); 
+				imageService.inputComuPost(user_email, comuDTO.getPost_id(), upload.get(0), category);
+			}
+			
 			ra.addFlashAttribute("msg", "WRT_OK");
 			
 			return "redirect:/dangcomu/list";
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			m.addAttribute("mode", "new");
-			m.addAttribute("comuDTO", comuDTO);
 			ra.addFlashAttribute("msg", "WRT_ERR");
 			return "write";
 		}
-			
 	}
 	
 	@PostMapping("/delete")

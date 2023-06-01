@@ -200,6 +200,7 @@
                         <dd>${comuDTO.post_view_count}</dd>
                     </dl>
                 </div>
+                <div id="comu_photo">${imageDTO.image}</div>
                 <div class="cont">
                    ${comuDTO.post_content}
                 </div>

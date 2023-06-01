@@ -9,5 +9,7 @@ public interface ImageService {
     public ImageDto inputDogProf(String id, String address, String category);
     public ImageDto callDogProf(String id, String category);
 
-    // dangcomu post 이미지 db에 업로드 하는 함수 필요
+    // dangcomu post 이미지
+    public ImageDto inputComuPost(String user_id, int post_id, String address, String category);
+    public ImageDto callComuPost(String user_id,int post_id, String address, String category);
 }

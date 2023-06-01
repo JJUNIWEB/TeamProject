@@ -87,7 +87,10 @@
                                     <option value="7">기타</option>
 	                            </select>
 		                        <div class="img-sec">
-		                            <input id="imageinput" name="images" type="file" multiple="multiple" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
+		                            <input id="imageinput" name="image1" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
+		                            <input id="imageinput" name="image2" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
+		                            <input id="imageinput" name="image3" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
+		                            <input id="imageinput" name="image4" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
 		                            <div id="preview-list"></div>
 		                        </div>
 	                        </div>
