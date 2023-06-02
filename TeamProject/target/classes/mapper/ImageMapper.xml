@@ -15,8 +15,8 @@
             <when test='pt_category=="comuPost"'>
                 INSERT INTO
                 tb_post_photo
-				(pt_adres, pt_category, user_email, post_id, pt_reg_date)
-				VALUES(#{pt_adres}, #{pt_category}, #{user_email}, #{postNum}, now());
+				(pt_adres, pt_category, user_email, post_id, pt_reg_date, photo_num)
+				VALUES(#{pt_adres}, #{pt_category}, #{user_email}, #{postNum}, now(), #{photo_num});
             </when>
         </choose>
     </insert>
@@ -27,7 +27,26 @@
         where user_email = #{user_email}
           and pt_category = #{pt_category}
     </select>
-<!--    postnum 버전도 만들어야 함-->
+
+	<!-- dangcomu select all -->
+	<select id="comuSelectAll" parameterType="img" resultType="img">
+        select *
+        from tb_post_photo
+        where user_email = #{user_email}
+        and pt_category = #{pt_category}
+        and post_id = #{postNum}
+    </select>
+    
+    <!-- dangcomu select one -->
+	<select id="comuSelectOne" parameterType="img" resultType="img">
+        select *
+        from tb_post_photo
+        where user_email = #{user_email}
+        and pt_category = #{pt_category}
+        and post_id = #{postNum}
+        and photo_num = #{photo_num}
+    </select>
+
     <delete id="delete" parameterType="img">
         delete from tb_photo where user_email=#{user_email} and pt_category=#{pt_category}
     </delete>

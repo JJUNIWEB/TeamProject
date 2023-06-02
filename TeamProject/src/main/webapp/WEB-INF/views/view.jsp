@@ -200,7 +200,11 @@
                         <dd>${comuDTO.post_view_count}</dd>
                     </dl>
                 </div>
-                <div id="comu_photo">${imageDTO.image}</div>
+                <div id="comu_photo">
+                	<c:forEach var="image" items="${images}">
+                		<img alt="comu_image" src='${image.pt_adres}' style="width: auto; height: 100px; margin-right: 10px;">
+                	</c:forEach>
+                </div>
                 <div class="cont">
                    ${comuDTO.post_content}
                 </div>

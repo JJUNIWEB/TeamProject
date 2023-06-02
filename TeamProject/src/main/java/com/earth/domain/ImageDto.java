@@ -16,6 +16,8 @@ public class ImageDto {
     private int postNum;
 
     private int pt_idx;
+    
+    private int photo_num; // dangcomu 게시물 하나의 사진 순서
 
     public ImageDto() {
     }

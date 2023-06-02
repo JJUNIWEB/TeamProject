@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.earth.domain.ComuDTO;
+import com.earth.domain.ImageDto;
 import com.earth.domain.MemberDto;
 import com.earth.domain.PageResolver;
 import com.earth.domain.SearchItem;
@@ -69,13 +70,14 @@ public class ComuController {
 	}
 	
 	@GetMapping("/read")
-	public String read(Integer post_id, SearchItem sc, Model m) {
+	public String read(Integer post_id, SearchItem sc, Model m, HttpSession session) {
 		
 		try {
 			ComuDTO comuDTO = comuService.readPost(post_id);
-//			ImageDto imageDTO = imageService.callComuPost(user_id, post_id, address, category);	// tb_post, tb_post_photo inner join 필요
+			String user_email = comuDTO.getUser_email();
+			List<ImageDto> images = imageService.callComuPhoto(user_email, post_id, "comuPost");
 			m.addAttribute("comuDTO", comuDTO);
-//			m.addAttribute("imageDTO", imageDTO);
+			m.addAttribute("images", images);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/dangcomu/list";
@@ -112,24 +114,24 @@ public class ComuController {
 	        
 			int post_id = comuService.post(comuDTO);
 			
-			if (image1.get(0).equals("")) { 
+			if (!image1.get(0).getOriginalFilename().equals("")) { 
 				List<String> upload = s3UploadService.upload(category, image1); 
-				imageService.inputComuPost(user_email, post_id, upload.get(0), category);
+				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
 			}
 			
-			if (image2.get(0).equals("")) { 
+			if (!image2.get(0).getOriginalFilename().equals("")) { 
 				List<String> upload = s3UploadService.upload(category, image2); 
-				imageService.inputComuPost(user_email, post_id, upload.get(0), category);
+				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
 			}
 			
-			if (image3.get(0).equals("")) { 
+			if (!image3.get(0).getOriginalFilename().equals("")) { 
 				List<String> upload = s3UploadService.upload(category, image3); 
-				imageService.inputComuPost(user_email, post_id, upload.get(0), category);
+				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
 			}
 			
-			if (image4.get(0).equals("")) { 
+			if (!image4.get(0).getOriginalFilename().equals("")) { 
 				List<String> upload = s3UploadService.upload(category, image4); 
-				imageService.inputComuPost(user_email, post_id, upload.get(0), category);
+				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
 			}
 			
 			ra.addFlashAttribute("msg", "WRT_OK");
@@ -171,10 +173,15 @@ public class ComuController {
 		
 		ComuDTO comuDTO;
 		
+		// post 때처럼 원본 파일 이름 null 아닐 경우 원글 이미지 삭제 및 새 이미지 업로드
+		// 몇 번째 이미지를 선택할지는 DB에 새 속성 만들어서 1, 2, 3, 4번째 사진 명시
+		
 		try {
 			comuDTO = comuService.readPost(post_id);
+			String user_email = comuDTO.getUser_email();
+			List<ImageDto> images = imageService.callComuPhoto(user_email, post_id, "comuPost");
 			m.addAttribute("comuDTO", comuDTO); 
-			System.out.println(comuDTO);
+			m.addAttribute("images", images);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
