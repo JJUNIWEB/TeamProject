@@ -54,7 +54,7 @@
 </header>
 
 
-<form action="<c:url value='/dangcomu/update${searchItem.queryString}?post_id=${comuDTO.post_id}'/>" id="form" class="board_modify_wrap" method="post">
+<form action="<c:url value='/dangcomu/update${searchItem.queryString}?post_id=${comuDTO.post_id}'/>" id="form" class="board_modify_wrap" enctype="multipart/form-data" method="post">
 	<div class="board_wrap">
 	    <div class="board_title">
 	        <strong>댕댕커뮤</strong>
@@ -82,14 +82,11 @@
 	                               <option value="6">기타</option>
 	                        </select>
 	                        <div class="img-sec">
-	                            <input id="imageinput0" name="image1" type="file" accept=".jpg, .jpeg, .png" onchange="modifyImage(); previewImage(this, 0);">
-	                            <input id="imageinput1" name="image2" type="file" accept=".jpg, .jpeg, .png" onchange="modifyImage(); previewImage(this, 1);">
-	                            <input id="imageinput2" name="image3" type="file" accept=".jpg, .jpeg, .png" onchange="modifyImage(); previewImage(this, 2);">
-	                            <input id="imageinput3" name="image4" type="file" accept=".jpg, .jpeg, .png" onchange="modifyImage(); previewImage(this, 3);">
+	                            <input id="imageinput0" name="image1" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 0);">
+	                            <input id="imageinput1" name="image2" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 1);">
+	                            <input id="imageinput2" name="image3" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 2);">
+	                            <input id="imageinput3" name="image4" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 3);">
 	                            <div id="preview-list">
-	                            	<c:forEach var="image" items="${images}" varStatus="status">
-				                		<img id="preview${status.index}" src='${image.pt_adres}' style="width: auto; height: 100px; margin-right: 10px;">
-				                	</c:forEach>
 	                            </div>
 	                        </div>
 	                    </div>

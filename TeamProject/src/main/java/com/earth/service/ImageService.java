@@ -14,5 +14,5 @@ public interface ImageService {
     // dangcomu post 이미지
     public ImageDto inputComuPhoto(String user_email, int post_id, String address, String category);
     public List<ImageDto> callComuPhoto(String user_email, int post_id, String category);
-    public void deleteComuPhoto(String user_email, int post_id, String category, int photo_num);
+    public void deleteComuPhoto(String user_email, int post_id, String category);
 }

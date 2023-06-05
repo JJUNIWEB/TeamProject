@@ -5,7 +5,7 @@
   <mapper namespace="com.earth.mapper.ComuMapper">
   
   		<sql id="selectFromPost">
-  			SELECT post_id, post_title, post_content, post_ctgr_id, post_created_time, tp.user_email, post_view_count
+  			SELECT post_id, post_title, post_content, post_ctgr_id, post_created_time, tp.user_email, post_view_count, user_name
 			FROM tb_post tp
   		</sql>
   		
@@ -68,7 +68,7 @@
 	  		limit #{pageSize} offset #{offset}
   		</select>
 
-  		<select id="selectUserName" parameterType="String" resultType="String">
+		<select id="selectUserName" parameterType="String" resultType="String">
   			select user_name
   			from tb_user
   			where user_email = #{user_email}
@@ -116,8 +116,8 @@
   		
   		<insert id="insert" parameterType="ComuDTO" useGeneratedKeys="true" keyProperty="post_id" keyColumn="post_id"> <!-- insert한 후 serial 타입인 post_id 반환 -->
   			INSERT INTO tb_post
-			(post_title, post_content, post_ctgr_id, user_email)
-			VALUES(#{post_title}, #{post_content}, #{post_ctgr_id}, #{user_email});
+			(post_title, post_content, post_ctgr_id, user_email, user_name)
+			VALUES(#{post_title}, #{post_content}, #{post_ctgr_id}, #{user_email}, #{user_name});
   		</insert>
   		
   		<delete id="delete" parameterType="map">

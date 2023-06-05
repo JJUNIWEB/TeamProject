@@ -78,7 +78,8 @@ public class ImageServiceImpl implements ImageService{
 	}
 	
 	// dangcomu post 이미지 삭제
-	public void deleteComuPhoto(String user_email, int post_id, String category, int photo_num) {
-		
+	public void deleteComuPhoto(String user_email, int post_id, String category) {
+		ImageDto dto = new ImageDto(null, category, user_email, post_id);
+		mapper.comuDelete(dto);
 	}
 }

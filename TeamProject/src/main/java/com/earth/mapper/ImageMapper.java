@@ -13,10 +13,10 @@ public interface ImageMapper {
     public void insert(ImageDto dto);
 
     public List<ImageDto> select(ImageDto dto);
-    
-    // dangcomu
-    public List<ImageDto> comuSelectAll(ImageDto dto);
-    public ImageDto comuSelectOne(ImageDto dto);
 
     public void delete(ImageDto dto);
+
+    // dangcomu
+    public List<ImageDto> comuSelectAll(ImageDto dto);
+    public void comuDelete(ImageDto dto);
 }

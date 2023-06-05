@@ -1,6 +1,5 @@
 var list = document.getElementById('preview-list');
 var count = [0, 0, 0, 0];	// 이미지 반복 업로드 횟수(input 태그 하나당)
-var modify = false;
 
 function previewImage(input_img, input_num) {	
     var reader = new FileReader();
@@ -21,17 +20,11 @@ function previewImage(input_img, input_num) {
     
     reader.readAsDataURL(input_img.files[0]);
     
-    console.log("modify = " + modify)
-    
-    if (count[input_num] >= 2 || modify) {		// 업로드 횟수가 2 이상인 경우(같은 input 태그로 여러 번 업로드 했을 경우) preview 이미지 변경
+    if (count[input_num] >= 2) {		// 업로드 횟수가 2 이상인 경우(같은 input 태그로 여러 번 업로드 했을 경우) preview 이미지 변경
     	var change = document.getElementById('preview' + input_num)
     	change.replaceWith(image)
     } else {
     	list.appendChild(image);
     }
     
-}
-
-function modifyImage() {
-	modify = true;
 }

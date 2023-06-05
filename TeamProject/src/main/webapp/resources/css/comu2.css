@@ -683,4 +683,6 @@ input[type="submit"]:hover {
         margin: 10%;
     }
 
-
+#modifyBtn {
+	width: 100px;
+}

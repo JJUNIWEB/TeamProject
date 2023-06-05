@@ -46,8 +46,6 @@ public class ComuServiceImpl implements ComuService{
 	@Override
 	public ComuDTO readPost(Integer post_id) throws Exception {
 		ComuDTO comuDTO = comuMapper.select(post_id);
-		String user_name = comuMapper.selectUserName(comuDTO.getUser_email());
-		comuDTO.setUser_name(user_name);
 		comuMapper.increaseViewCnt(post_id);
 		return comuDTO;
 	}
@@ -70,11 +68,6 @@ public class ComuServiceImpl implements ComuService{
 	public List<ComuDTO> getSearchSelectPage(SearchItem sc) throws Exception {
 		List<ComuDTO> comuDTOs = comuMapper.searchSelectPage(sc);
 		
-		for (ComuDTO c : comuDTOs) {
-			String user_name = comuMapper.selectUserName(c.getUser_email());
-			c.setUser_name(user_name);
-		}
-		
 		return comuDTOs;
 	}
 	
@@ -88,11 +81,6 @@ public class ComuServiceImpl implements ComuService{
 		map.put("option", sc.getOption());
 		
 		List<ComuDTO> comuDTOs = comuMapper.searchCategoryPage(map);
-		
-		for (ComuDTO c : comuDTOs) {
-			String user_name = comuMapper.selectUserName(c.getUser_email());
-			c.setUser_name(user_name);
-		}
 		
 		return comuDTOs;
 	}

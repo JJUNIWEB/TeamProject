@@ -58,6 +58,14 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		let login_user = getUserEmail();
+		let writer = document.getElementById("user_email")
+		
+		if (login_user === writer.value) {
+			console.log('if문 들어왓서요,,,')
+			$("#modifyBtn").attr('style', 'display:block;')
+		}
+		
 		let post_id = $("input[name=post_id]").val()
 		
 		$("#commentButton").click(function() {
@@ -179,6 +187,7 @@
         <div class="board_view_wrap">
             <div class="board_view">
             	<input type="hidden" name="post_id" value="${comuDTO.post_id}"/>
+            	<input type="hidden" id="user_email" value="${comuDTO.user_email}"/>
                 <div class="title">
                     ${comuDTO.post_title}  
                 </div>  
@@ -221,7 +230,7 @@
             </ul>
 
             <div class="bt_wrap">  
-                <a href="${pageContext.request.contextPath}/dangcomu/update?post_id=${comuDTO.post_id}" class="on">수정</a>  
+                <a href="${pageContext.request.contextPath}/dangcomu/update?post_id=${comuDTO.post_id}" class="on" id="modifyBtn" style="display:none;">수정</a>  
                 <a href="${pageContext.request.contextPath}/dangcomu/list">목록</a>  
             </div>
             <br>
