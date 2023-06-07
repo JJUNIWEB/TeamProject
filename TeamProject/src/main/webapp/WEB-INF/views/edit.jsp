@@ -22,7 +22,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
             integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
             crossorigin="anonymous"></script>
-
     <title>댕댕커뮤 글 수정</title>
 </head>
 
@@ -44,7 +43,6 @@
                 <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
             </c:if>
             <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
         </ul>
 
         <a href="#" class="navbar__toggleBtn">
@@ -90,7 +88,6 @@
 	                            </div>
 	                        </div>
 	                    </div>
-	
 	                </div>
 	                <div class="cont">
 		                <textarea id="post_content" name="post_content" placeholder="내용 입력" required>

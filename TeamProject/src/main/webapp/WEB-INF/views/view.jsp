@@ -25,7 +25,8 @@
         integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-	
+	<!-- SweetAlert JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
     <title>댕댕커뮤</title>
 </head>
 
@@ -62,52 +63,67 @@
 		let writer = document.getElementById("user_email")
 		
 		if (login_user === writer.value) {
-			console.log('if문 들어왓서요,,,')
 			$("#modifyBtn").attr('style', 'display:block;')
 		}
 		
 		let post_id = $("input[name=post_id]").val()
 		
 		$("#commentButton").click(function() {
-			let cmt_content = $("textarea[name=comment]").val()
-			
+		    let cmt_content = $("textarea[name=comment]").val().trim();
+				if('${sessionScope.member.user_email}' == '') {					// session에서  user_email을 가져옴.
+					alert("로그인이 필요합니다.");
+					window.location.href = "http://localhost:8080/withdang/login"
+					
+					return false;			// 함수가 작동된 후 다시 작동이 되지 않게함. 
+				}
+				
+				if($('#commentInput').val()=='') {
+					alert("내용을 입력하세요");
+					$('#commentInput').focus();
+					
+					return false;
+				}
+		    	
 			$.ajax({
 				type: 'post',
 				url: '/withdang/dangcomu/comments/' + post_id,
 				headers: { "content-type" : "application/json" }, 
 				data : JSON.stringify({post_id: post_id, cmt_content: cmt_content}),  
-				success : function(result) {	
+				success : function(result) {
 					showList(post_id)
+					$('#commentInput').val('')
+					
 				},
 				error : function(jqXHR, textStauts, errorThrown) {
 					
-					if (jqXHR.status == 403) {
+					/* if (jqXHR.status == 403) {
 						alert("로그인이 필요합니다.");
 						window.location.href = "http://localhost:8080/withdang/login"
 					} else {
 						alert("error")
-					}
+					} */
 				}  
 			})
-			
 		})	
 		
 		$("#commentList").on("click", "#cmt_delete", function() {
-			confirm("삭제하시겠습니까?")
-			
-			let cmt_id = $(this).parent().attr("cmt_id")	
-			let post_id = $(this).parent().attr("post_id")	
-			
-			$.ajax({
-				type: 'DELETE',					
-				url: '/withdang/dangcomu/comments/' + post_id + "/" + cmt_id,
-				success: function(result) {		
-					showList(post_id)
-				},
-				error: function() { alert("error") } 		
-			})
-		})	
-		
+    if (confirm("삭제하시겠습니까?")) {							//아니오를 눌러도 삭제가 됨. 조건문 안에 넣어서 해결. 
+        let cmt_id = $(this).parent().attr("cmt_id");
+        let post_id = $(this).parent().attr("post_id");
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/withdang/dangcomu/comments/' + post_id + "/" + cmt_id,
+            success: function(result) {
+                showList(post_id);
+            },
+            error: function() {
+                alert("error");
+		            }
+		        });
+		    }
+		});
+
     	let showList = function(post_id) {
     		$.ajax({
     			type: 'GET',					
@@ -221,10 +237,11 @@
 
             <!-- 댓글 기능 -->
             <br>
-            <div class="comment-form">
-                <textarea id="commentInput" placeholder="댓글 내용" name="comment" required></textarea>
-                <button type="button" id="commentButton">댓글 달기</button>
-            </div>
+           <div class="comment-form">
+			  <textarea id="commentInput" placeholder="댓글 내용" name="comment" required></textarea>
+			  <button type="button" id="commentButton">댓글 달기</button>
+			</div>
+            
             <ul class="comment-list" id="commentList">
                 <!-- 댓글 리스트 -->
             </ul>
