@@ -94,22 +94,6 @@
 		})	
 		
 		$("#commentList").on("click", "#cmt_delete", function() {
-			confirm("삭제하시겠습니까?")
-			
-			let cmt_id = $(this).parent().attr("cmt_id")	
-			let post_id = $(this).parent().attr("post_id")	
-			
-			$.ajax({
-				type: 'DELETE',					
-				url: '/withdang/dangcomu/comments/' + post_id + "/" + cmt_id,
-				success: function(result) {		
-					showList(post_id)
-				},
-				error: function() { alert("error") } 		
-			})
-		})	
-		
-		$("#commentList").on("click", "#cmt_delete", function() {
 		    if (confirm("삭제하시겠습니까?")) {							//아니오를 눌러도 삭제가 됨. 조건문 안에 넣어서 해결. 
 		        let cmt_id = $(this).parent().attr("cmt_id");
 		        let post_id = $(this).parent().attr("post_id");
