@@ -71,6 +71,7 @@
     
 <div id="find-form">
 <div id="find-id-result">
+
 		<!-- 닉네임이 일치하지 않을 때-->
 		<c:if  test="${check == 1}">
 		<i class="fa-solid fa-circle-exclamation" style="color: #fffff; font-size: 50px;"></i>
@@ -80,7 +81,6 @@
             <div><a class="find-footer" href="/withdang/login">로그인으로 돌아가기</a> |
             <a class="find-footer" href="/withdang/emailFind">다시 찾기</a></div>
         </c:if>
-
 
 		<!-- 이름과 비밀번호가 일치 -->
 		<c:if test="${check == 0 }">

@@ -95,7 +95,7 @@ public class LoginController {
 	
 	//비밀번호 변경 실행
 	@PostMapping("/pwUpdate")
-	public String pwUpdate(MemberDto member, RedirectAttributes rttr) throws Exception {
+	public String pwUpdate(MemberDto member, RedirectAttributes rttr, HttpSession session) throws Exception {
 		String rawPw = "";
 		String encodePw = "";
 
@@ -104,6 +104,7 @@ public class LoginController {
 		member.setUser_pw(encodePw);
 
 		memberservice.pwUpdate(member);
+		session.invalidate();
 		
 		rttr.addFlashAttribute("msg", "pwUdate");
 
