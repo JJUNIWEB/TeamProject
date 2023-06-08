@@ -58,7 +58,7 @@ public class MapController {
                     System.out.println(list.get(i));
                 }
             } else if (mapVo.getType().equals("kinder")) {
-                if (distance < 3) {
+                if (distance < 1) {
                     pinList.add(list.get(i));
                     System.out.println(list.get(i));
                 }

@@ -16,12 +16,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- SweetAlert CSS -->
+  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <script src='${pageContext.request.contextPath}/resources/script/toggle.js' defer></script>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-
+    <!-- SweetAlert JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+	
     <title>댕댕커뮤</title>
 </head>
 
@@ -78,17 +82,6 @@
                 </div>
             </c:forEach>
         </div>
-        <!-- <div class="board_page">
-            <a href="#" class="bt first"><<</a>
-            <a href="#" class="bt prev"><</a>
-            <a href="#" class="num on">1</a>
-            <a href="#" class="num">2</a>
-            <a href="#" class="num">3</a>
-            <a href="#" class="num">4</a>
-            <a href="#" class="num">5</a>
-            <a href="#" class="bt next">></a>
-            <a href="#" class="bt last">>></a>
-        </div> -->
 
         <div class="board_page">
             <div class="paging">
@@ -122,10 +115,44 @@
 	            <button type="submit" id="btn-search"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
             </form>
         </div>
+		
+      <div class="bt_wrap">
+	    <a href="#" onclick="checkLogin(event)" class="on">등록</a>
+	</div>
+	
+	<input type="hidden" value="${isLoggedIn}" id="isLoggedIn";>
 
-        <div class="bt_wrap">
-            <a href="${pageContext.request.contextPath}/dangcomu/post" class="on">등록</a>
-        </div>
+	<script>
+	function checkLogin(event) {
+		  event.preventDefault(); // 링크로의 이동 방지
+
+		  // 로그인 체크 로직... 로그인 확인을 어떻게 하지? 
+		  var isLoggedIn = document.getElementById("isLoggedIn").value;
+		  console.log("isLoggedIn" + isLoggedIn)
+		  
+		  if (isLoggedIn === 'true') {
+		    // 로그인되어 있을 경우 등록 페이지로 이동
+		    window.location.href = '${pageContext.request.contextPath}/dangcomu/post';
+		  } else {
+		    // 로그인되어 있지 않을 경우 알림 창 표시
+		    showAlert();
+		  }
+		}
+
+    function showAlert() {
+        Swal.fire({
+            title: '알림',
+            text: '로그인이 필요합니다.',
+            icon: 'info',
+            confirmButtonText: '확인'
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                // 확인 버튼 클릭 시 로그인 화면으로 이동
+                window.location.href = '${pageContext.request.contextPath}/login';
+            }
+        });
+    }
+	</script>
     </div>
 </div>
 
