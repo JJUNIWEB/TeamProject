@@ -12,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/resources/script/toggle.js" defer></script>
     <script src="${pageContext.request.contextPath}/resources/script/html2canvas.js"></script>
@@ -24,6 +25,7 @@
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
             crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <style type="text/css">
     #pwChange-Form {
     background-color: #9d8db3;
@@ -34,7 +36,7 @@
     width: 300px;
     }
     </style>
-    <title>비밀번호 찾기</title>s
+    <title>비밀번호 찾기</title>
 </head>
 
 <body>
@@ -62,6 +64,7 @@
 		    <input id="text-box" type="password" class="input_pwck" placeholder="비밀번호 확인">
 		    <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
 		    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
+		    <span class="info_ck">비밀번호를 입력해주세요.</span>
 			<br>
 			<button type="button" class="pwd-submit-btn">비밀번호 변경</button>
 			<div><a href="/withdang/login">로그인으로 돌아가기</a> |
@@ -90,12 +93,18 @@
 		/*	비밀번호 유효성 검사 */
         if(pw == "") {
             pwCheck = false;
+            $('.info_ck').css('display','block');
          } else {
+        	 $('.info_ck').css('display','none');
             pwCheck = true;
             
         /* 비밀번호 정규식 검사 */
         if(!pwdCheck.test(pw)) {
-           alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
+        	swal.fire({
+     			text: '비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.',
+     			icon: 'warning',
+     			confirmButtonText: '확인',
+     		});        
            pw.focus
            pwdCheck = false;
        } else {
@@ -105,8 +114,10 @@
                   
         /* 비밀번호 확인 유효성 검사 */
         if(pwck == "") {
+        	$('.info_ck').css('display','block');
             pwckCheck = false;
         } else {
+        	$('.info_ck').css('display','none');
             pwckCheck = true;
         }
 
@@ -119,23 +130,27 @@
          
    });
    
-   /* 비밀번호 확인 일치 유효성 검사 */
-    
+  	$('.input_pw').on("propertychange change keyup paste input", function() {
+  		var pw = $('.input_pw').val();
+  		
+		if(pw != "") $('.info_ck').css('display','none');
+	})
+	
+	 /* 비밀번호 확인 일치 유효성 검사 */
       $('.input_pwck').on("propertychange change keyup paste input", function(){
               
          var pw = $('.input_pw').val();
           var pwck = $('.input_pwck').val();
-          $('.final_pwck_ck').css('display', 'none');
-          
-          if(pw == pwck){
-            $('.pwck_input_re_1').css('display','block');
-            $('.pwck_input_re_2').css('display','none');
-            pwckcorCheck = true;
-        } else {
-           $('.pwck_input_re_1').css('display','none');
-            $('.pwck_input_re_2').css('display','block');
-            pwckcorCheck = false;             
-        }        
+            
+        	  if(pw == pwck){
+                  $('.pwck_input_re_1').css('display','block');
+                  $('.pwck_input_re_2').css('display','none');
+                  pwckcorCheck = true;
+              } else {
+                 $('.pwck_input_re_1').css('display','none');
+                  $('.pwck_input_re_2').css('display','block');
+                  pwckcorCheck = false;             
+              }                    
       });
 </script>
 

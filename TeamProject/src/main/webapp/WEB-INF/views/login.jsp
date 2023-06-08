@@ -126,8 +126,8 @@
         var pw = $('.input_pw').val();                // 비밀번호 입력란
         var pwck = $('.input_pwck').val();            // 비밀번호 확인 입력란
         var name = $('.input_name').val();            // 이름 입력란
-        var nickname = $('.input_nickname').val();			  // 닉네임 입력란
-        var nickNameLen = $('.input_nickname').val().length;			  // 닉네임 길이
+        var nickname = $('.input_nickname').val();			  // 닉네임 입력란     
+        var nickNameLen = $('.input_nickname').val().length;	// 닉네임 길이
         var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식
         var warnMsg = $(".mail_input_box_warn");    // 이메일 입력 경고글
         var checked = $("#register-check").is(":checked");		// 체크박스 체크 확인
@@ -200,12 +200,7 @@
           }
           
           /* 닉네임 유효성 검사 */
-          if(nickNameLen >= 7) {
-        	  $('.nickname_length_ck').css('display','block');
-        	  $('.user_nickname_re_1').css("display", "none");
-        	  nickNameLenck = false;
-          }
-          else if(nickname == ""){
+          if(nickname == ""){
               $('.final_nickname_ck').css('display','block');
               $('.user_nickname_re_1').css("display", "none");
               nickNameCheck = false;
@@ -215,6 +210,15 @@
               nickNameCheck = true;
               nickNameLenck = true;
           }
+          
+          if(nickNameLen > 6) {
+				$('.user_nickname_re_1').css("display", "none");
+				$('.user_nickname_re_2').css("display", "none");
+				$('.nickname_length_ck').css('display',"block");
+				nickNameLenck = false;
+			} else {
+          		nickNameLenck = true;
+			}
           
           /* 최종 유효성 검사 */
           if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
@@ -246,7 +250,7 @@
 				$('.user_email_re_1').css("display","inline-block");
 				$('.user_email_re_2').css("display", "none");	
 				$('.user_email_re_3').css("display","none");
-				$('.final_email_ck').css('display', 'none');
+				$('.final_email_ck').css("display", "none");
 				emailckCheck = true;
 				} else if(result == 'fail') {
 					$('.user_email_re_2').css("display","inline-block");
@@ -269,56 +273,67 @@
  
 
 		//닉네임 중복검사
-		$('.input_nickname').on("propertychange change keyup paste input", function(){
-	
-		/* console.log("keyup 테스트"); */ 	
-		var user_nickname = $('.input_nickname').val();			// .input_nickname에 입력되는 값
-		var data = {user_nickname : user_nickname}				// '컨트롤에 넘길 데이터 이름' : '데이터(.input_nickname에 입력되는 값)'
-	
-		$.ajax({
-		type : "post",
-		url : "/withdang/nickNameCheck",
-		data : data,
-		 success : function(result){
-			 if(result != 'fail'){
-				$('.user_nickname_re_1').css("display","inline-block");
-				$('.user_nickname_re_2').css("display", "none");
-				$('.final_nickname_ck').css('display', 'none');
-				$('.nickname_length_ck').css('display','none');
-				nickNameckCheck = true;
-				} else {
-					$('.user_nickname_re_2').css("display","inline-block");
-					$('.user_nickname_re_1').css("display", "none");	
-					$('.final_nickname_ck').css('display', 'none');
-					nickNameckCheck = false;
-				} 
+		$('.input_nickname').on("propertychange change keyup paste input", function(){	
+			var user_nickname = $('.input_nickname').val();			// .input_nickname에 입력되는 값
+			var data = {user_nickname : user_nickname}				// '컨트롤에 넘길 데이터 이름' : '데이터(.input_nickname에 입력되는 값)'
 				
-			}// success 종료
-	}); // ajax 종료	
+			$.ajax({
+			type : "post",
+			url : "/withdang/nickNameCheck",
+			data : data,
+			 success : function(result){
+				 if(result != 'fail'){
+					$('.user_nickname_re_1').css("display","inline-block");
+					$('.user_nickname_re_2').css("display", "none");
+					$('.final_nickname_ck').css('display', 'none');
+					$('.nickname_length_ck').css("display","none");
+					nickNameckCheck = true;
+					} else {
+						$('.user_nickname_re_2').css("display","inline-block");
+						$('.user_nickname_re_1').css("display", "none");	
+						$('.final_nickname_ck').css('display', 'none');
+						$('.nickname_length_ck').css("display","none");
+						nickNameckCheck = false;
+					} 
+					
+				}// success 종료
+			}); // ajax 종료	
 	
 	});// function 종료
    	
+	//input_pw on keyup시 final_pw_ck 안보이기
+	$('.input_pw').on("propertychange change keyup paste input", function() {
+		var pw = $('.input_pw').val();
+		if(pw != "") $('.final_pw_ck').css('display', 'none');
+	})
+	
    	/* 비밀번호 확인 일치 유효성 검사 */
    	$('.input_pwck').on("propertychange change keyup paste input", function(){
    	        
    		var pw = $('.input_pw').val();
    	    var pwck = $('.input_pwck').val();	    
    	    
-   	 	if(pw == pwck){
-         	$('.pwck_input_re_1').css('display','block');
-         	$('.pwck_input_re_2').css('display','none');
-         	$('.final_pw_ck').css('display', 'none');
-         	$('.final_pwck_ck').css('display', 'none');
-         	pwckcorCheck = true;
-     	}else{
-     		$('.pwck_input_re_2').css('display','block');
-        	$('.pwck_input_re_1').css('display','none');       	
-         	$('.final_pw_ck').css('display', 'none');
-         	$('.final_pwck_ck').css('display', 'none');
-         	pwckcorCheck = false;
-     }        
-   	    
-   	});    
+   	    if(pwck != "") { 								
+   	    	$('.final_pwck_ck').css('display', 'none');
+   	    	
+   	    	if(pw == pwck){
+   	         	$('.pwck_input_re_1').css('display','block');
+   	         	$('.pwck_input_re_2').css('display','none');
+   	         	pwckcorCheck = true;
+   	     	}else{
+   	     		$('.pwck_input_re_2').css('display','block');
+   	        	$('.pwck_input_re_1').css('display','none');       	
+   	         	pwckcorCheck = false;
+   	     }         
+   	    	
+   	    }
+   	});
+	
+	//input_name on keyup시 final_name_ck 안보이기
+	$('.input_name').on("propertychange change keyup paste input", function() {
+		var name = $('.input_name').val();            // 이름 입력란
+		if(name != "") $('.final_name_ck').css('display', 'none');
+	});
 
     $(".login_button").click(function(){
     	
@@ -343,7 +358,6 @@
   				  icon: 'success',                         // Alert 타입
   				  confirmButtonText: '확인',
   				});
-  				/* alert("비밀번호가 변경되었습니다.")   */
   			}
   			
   			if(msg=="joinOK") {
@@ -352,7 +366,6 @@
   				  icon: 'success',                         // Alert 타입
   				  confirmButtonText: '확인',
   				});
-  				/* alert("회원가입이 완료되었습니다.") */
   			}
 	})
   

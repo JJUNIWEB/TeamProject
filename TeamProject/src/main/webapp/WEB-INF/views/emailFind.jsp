@@ -40,7 +40,7 @@
         <input id="find-btn" type="button" value="이메일 찾기">
     </div>
     <div id="find-set">
-        <a id="find-pwd" href="findID.html">아이디 찾기</a>|
+        <a id="find-pwd" href="/withdang/pwdFind">비밀번호 찾기</a>|
         <a id="joinus" href="login.html">회원가입</a>|
         <a id="login" href="login.html">로그인</a>
     </div>
