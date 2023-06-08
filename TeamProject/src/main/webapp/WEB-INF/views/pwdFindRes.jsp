@@ -24,56 +24,51 @@
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
             crossorigin="anonymous">
     </script>
-    <title>비밀번호 찾기</title>
+    <style type="text/css">
+    #pwChange-Form {
+    background-color: #9d8db3;
+    padding: 40px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    width: 300px;
+    }
+    </style>
+    <title>비밀번호 찾기</title>s
 </head>
 
 <body>
-<header>
-    <nav class="navbar">
+    <jsp:include page="header.jsp"></jsp:include>
+    
+<div id="Chk-form">
 
-        <div class="navbar__logo">
-            <a href="${pageContext.request.contextPath}/main">with DANG</a>
-        </div>
-
-        <ul class="navbar__menu">
-            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
-            <c:if test="${ member != null }">
-                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
-            </c:if>
-            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-        </ul>
-        <a href="#" class="navbar__toggleBtn">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </a>
-    </nav>
-</header>
 <!-- 입력한 정보가 일치하지 않을 때-->
-<c:if test="${check == 1}">
-    <p>입력하신 정보가 없거나 일치하지 않습니다.</p>
-    <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-    <span><a href="/withdang/pwdFind">다시 찾기</a></span>
-</c:if>
-
-<!-- 입력한 정보 일치 -->
-<c:if test="${check == 0 }">
-    <p>비밀번호 변경</p>
-    <form id="pwChange-Form" method="post">
-	    <input type="hidden" name="user_email" value="${pwd.user_email }">
-	    <input type="hidden" name="user_name" value="${pwd.user_name }">
-	    <input type="hidden" name="user_nickname" value="${pwd.user_nickname }">
-	    <input type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요">
-	    <input type="password" class="input_pwck" placeholder="비밀번호 확인을 입력해주세요">
-	    <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
-	    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
+	<c:if test="${check == 1}">
+	<i class="fa-solid fa-circle-exclamation" style="color: #fffff; font-size: 50px;"></i>
+	    <h2>입력하신 정보가 없거나 일치하지 않습니다.</h2>
 	    <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
 	    <span><a href="/withdang/pwdFind">다시 찾기</a></span>
-		<button type="button" class="btn">비밀번호 변경</button>
-	</form>
-</c:if>
+	</c:if>
+	
+	<!-- 입력한 정보 일치 -->
+	<c:if test="${check == 0 }">
+	    <form id="pwChange-Form" method="post">
+	    	    <h2>비밀번호 변경</h2>
+	    
+		    <input id="text-box" type="hidden" name="user_email" value="${pwd.user_email }">
+		    <input id="text-box" type="hidden" name="user_name" value="${pwd.user_name }">
+		    <input id="text-box" type="hidden" name="user_nickname" value="${pwd.user_nickname }">
+		    <input id="text-box" type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요"><br>
+		    <input id="text-box" type="password" class="input_pwck" placeholder="비밀번호 확인">
+		    <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
+		    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
+			<br>
+			<button type="button" class="pwd-submit-btn">비밀번호 변경</button>
+			<div><a href="/withdang/login">로그인으로 돌아가기</a> |
+		    <a href="/withdang/pwdFind">다시 찾기</a></div>
+		</form>
+	</c:if>
+</div>
 
 <script type="text/javascript">
 	
@@ -85,7 +80,7 @@
 	$(document).ready(function() {
 		
 		//비밀번호 변경 버튼(비밀번호 변경 기능 작동)
-		$(".btn").click(function() {
+		$(".pwd-submit-btn").click(function() {
 		
 		/* 입력값 변수 */
 		var pw = $('.input_pw').val();			// 비밀번호 입력란
