@@ -47,9 +47,12 @@
                     <div>
                     	<div id="label"><input id="chk" type="checkbox" name="rememberEmail" value="on" ${empty cookie.email.value ? "" : "checked"} />이메일 기억</div>
                     	<input type="button" class="login_button" value="로그인">
-                    	<!-- <button type="button" class="login_button" value="로그인"></button> -->
+                    	<!-- <button type="button" class="login_button" value="로그인">로그인</button> -->
                     </div>
-                    <a href="#">비밀번호를 잊으셨습니까?</a>
+                    <div>
+                    	<span><a href="/withdang/emailFind" >이메일 찾기</a></span> |
+                    	<span><a href="/withdang/pwdFind" >비밀번호 찾기</a></span>
+                    </div>
                 </form>
             </div>
             <div class="form signupform">
@@ -61,10 +64,10 @@
                     <span class="user_nickname_re_1">사용 가능한 닉네임입니다</span>
                     <span class="user_nickname_re_2">닉네임이 이미 존재합니다</span>
                     <span class="final_nickname_ck">닉네임을 입력해 주세요</span>
-                    <!-- <input type="text"  class="input_dogname" name="dog_name" placeholder="강아지이름"> -->
                     <input type="email" class="input_email" name="user_email" placeholder="Email">
                     <span class="user_email_re_1">사용 가능한 이메일입니다</span>
 					<span class="user_email_re_2">이메일이 이미 존재합니다</span>
+					<span class="user_email_re_3">이메일 형식이 맞지 않습니다.</span>
 					<span class="final_email_ck">이메일을 입력해 주세요</span>
 					<sapn class="mail_input_box_warn"></sapn>
                     <input type="password" class="input_pw"  name="user_pw" placeholder="비밀번호">
@@ -73,7 +76,9 @@
                     <span class="final_pwck_ck">비밀번호 확인을 입력해 주세요</span>
                     <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
                 	<span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
-                	<div id="register-policy"><input type="checkbox" id="register-check" name="register-check" value="T" onchange="if (this.checked) {showPopup();}" />회원가입 약관에 동의합니다.</div>
+                	<div id="register-policy">
+                		<input type="checkbox" id="register-check" name="register-check" value="T" onchange="if (this.checked) {showPopup();}" />회원가입 약관에 동의합니다.
+                	</div>
                 	<input type="button" class="btn" value="가입하기">
                     </form>
                     <div id="return" class="return-main"><a href="/withdang">메인화면으로 돌아가기</a></div>
@@ -81,7 +86,7 @@
         </div>
     </div>
     
-    <script>
+   <script>
     	const signin = document.querySelector(".signinbtn");
         const signup = document.querySelector(".signupbtn");
         const formbox = document.querySelector(".form-box");
@@ -105,7 +110,8 @@
 	    var nickNameCheck = false;		 // 닉네임
 	    var nickNameckCheck = false;	// 닉네임 중복
         var pwdCheck = false;			// 비번 정규식 확인	
-      	
+      	var boxCheck = false;			//약관 체크박스 확인
+
         $(document).ready(function(){
         	//회원가입 버튼(회원가입 기능 작동)
         	$(".btn").click(function(){
@@ -116,9 +122,10 @@
         var pwck = $('.input_pwck').val();            // 비밀번호 확인 입력란
         var name = $('.input_name').val();            // 이름 입력란
         var nickname = $('.input_nickname').val();			  // 닉네임 입력란
-        var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+        var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식
         var warnMsg = $(".mail_input_box_warn");    // 이메일 입력 경고글
-               
+        var checked = $("#register-check").is(":checked");		// 체크박스 체크 확인
+
            /* 이메일 유효성검사 */
            if(email == ""){
                $('.final_email_ck').css('display','block');
@@ -128,25 +135,35 @@
                emailCheck = true;
            }
         
-         
+         /*	비밀번호 유효성 검사 */
           if(pw == ""){
               $('.final_pw_ck').css('display','block');
               pwCheck = false;
           }else{
               $('.final_pw_ck').css('display', 'none');
               pwCheck = true;
-          
-              if (!pwdCheck.test(pw)) {
-          	    alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
-          	    pw.focus
-          	    pwdCheck = false;
-          	  } else {
-          		  pwdCheck = true;
-          	  }
-          
+			
+              
+  			/* 비밀번호 정규식 검사 */
+            if (!pwdCheck.test(pw)) {
+        	    alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
+        	    pw.focus
+        	    pwdCheck = false;
+        	  } else {
+        		  pwdCheck = true;
+        	  }
+                
           }
-        
-          
+
+          /* 약관 동의 체크 */
+	     	if(!checked) {
+	     		alert("회원가입 약관에 동의해주세요.")
+	     		boxCheck = false;
+	     	} else {
+	     		boxCheck = true;
+	     	}
+
+
           /* 비밀번호 확인 유효성 검사 */
           if(pwck == ""){
               $('.final_pwck_ck').css('display','block');
@@ -175,11 +192,11 @@
           }
           
           /* 최종 유효성 검사 */
-          if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&pwdCheck&&nickNameCheck&&nickNameckCheck){
+          if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
+        		  pwckcorCheck&&nameCheck&&pwdCheck&&nickNameCheck&&nickNameckCheck&&boxCheck){
    		
           	$("#join_form").attr("action", "/withdang/join");
       		$("#join_form").submit();
-          	alert("회원가입이 완료 되었습니다.")
           }    
           
           	return false;
@@ -187,24 +204,31 @@
       });
  });
       		
-   		//이메일 중복검사
+   		//이메일 형식&중복 검사
 		$('.input_email').on("propertychange change keyup paste input", function(){
 
 		/* console.log("keyup 테스트"); */ 	
-		var user_email = $('.input_email').val();			// .id_input에 입력되는 값
-		var data = {user_email : user_email}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+		var user_email = $('.input_email').val();			// .input_email에 입력되는 값
+		var data = {user_email : user_email}				// '컨트롤에 넘길 데이터 이름' : '데이터(.input_email에 입력되는 값)'
 
 		$.ajax({
 		type : "post",
 		url : "/withdang/emailCheck",
 		data : data,
 		 success : function(result){
-			 if(result != 'fail'){
+			 if(result == 'success'){
 				$('.user_email_re_1').css("display","inline-block");
 				$('.user_email_re_2').css("display", "none");	
+					$('.user_email_re_3').css("display","none");
 				emailckCheck = true;
+				} else if(result == 'fail') {
+					$('.user_email_re_2').css("display","inline-block");
+					$('.user_email_re_1').css("display", "none");
+					$('.user_email_re_3').css("display","none");
+					emailckCheck = false;
 				} else {
-				$('.user_email_re_2').css("display","inline-block");
+					$('.user_email_re_3').css("display","inline-block");
+					$('.user_email_re_2').css("display","none");
 				$('.user_email_re_1').css("display", "none");	
 				emailckCheck = false;
 				} 
@@ -214,12 +238,13 @@
 
  });// function 종료
  
+
 		//닉네임 중복검사
 		$('.input_nickname').on("propertychange change keyup paste input", function(){
 	
 		/* console.log("keyup 테스트"); */ 	
-		var user_nickname = $('.input_nickname').val();			// .id_input에 입력되는 값
-		var data = {user_nickname : user_nickname}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+		var user_nickname = $('.input_nickname').val();			// .input_nickname에 입력되는 값
+		var data = {user_nickname : user_nickname}				// '컨트롤에 넘길 데이터 이름' : '데이터(.input_nickname에 입력되는 값)'
 	
 		$.ajax({
 		type : "post",
@@ -242,7 +267,6 @@
 	});// function 종료
    	
    	/* 비밀번호 확인 일치 유효성 검사 */
-    
    	$('.input_pwck').on("propertychange change keyup paste input", function(){
    	        
    		var pw = $('.input_pw').val();
@@ -260,10 +284,7 @@
      }        
    	    
    	});    
- 
-   	
-   	/* $(document).ready(function(){ */
-    /* 로그인 버튼 클릭 메서드 */
+
     $(".login_button").click(function(){
     	
     	/* 로그인 메서드 서버 요청 */
@@ -271,10 +292,14 @@
         $("#login_form").submit(); 
         
     });
-  /*  }); */
-
-        
-        </script>
+    
+    let msg = "${msg}"
+	if(msg=="pwUdate") alert("비밀번호가 변경되었습니다.")  
+	
+	if(msg=="joinOK") alert("회원가입이 완료되었습니다.")
+	
+	
+  </script>
         
 </body>
 
