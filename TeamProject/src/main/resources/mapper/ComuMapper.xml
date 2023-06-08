@@ -5,7 +5,7 @@
   <mapper namespace="com.earth.mapper.ComuMapper">
   
   		<sql id="selectFromPost">
-  			SELECT post_id, post_title, post_content, post_ctgr_id, post_created_time, tp.user_email, post_view_count, user_name
+  			SELECT post_id, post_title, post_content, post_ctgr_id, post_created_time, tp.user_email, post_view_count, tp.user_name
 			FROM tb_post tp
   		</sql>
   		
@@ -56,7 +56,7 @@
 					FROM tb_post tp
 					INNER JOIN tb_user tu ON tp.user_email = tu.user_email
 					where post_ctgr_id = #{post_ctgr_id}
-					AND tu.user_name LIKE concat('%', #{keyword}, '%')
+					AND tu.user_nickname LIKE concat('%', #{keyword}, '%')
 		        </when>
 	        	<otherwise>
 	        		<include refid="selectFromPost"/>
@@ -69,7 +69,7 @@
   		</select>
 
 		<select id="selectUserName" parameterType="String" resultType="String">
-  			select user_name
+  			select user_nickname
   			from tb_user
   			where user_email = #{user_email}
   		</select>
@@ -83,7 +83,7 @@
 		        <when test='option=="W"'>
 					INNER JOIN tb_user tu ON tp.user_email = tu.user_email
 					where true
-					AND tu.user_name LIKE concat('%', #{keyword}, '%')
+					AND tu.user_nickname LIKE concat('%', #{keyword}, '%')
 		        </when>
 	        	<otherwise>
   					where true
@@ -101,7 +101,7 @@
 		        <when test='option=="W"'>
 					INNER JOIN tb_user tu ON tp.user_email = tu.user_email
 					where post_ctgr_id = #{post_ctgr_id}
-					AND tu.user_name LIKE concat('%', #{keyword}, '%')
+					AND tu.user_nickname LIKE concat('%', #{keyword}, '%')
 		        </when>
 	        	<otherwise>
   					where post_ctgr_id = #{post_ctgr_id}

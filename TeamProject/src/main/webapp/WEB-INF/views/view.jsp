@@ -30,6 +30,8 @@
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 	<!-- SweetAlert JS -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+	<!-- SweetAlert CSS -->
+  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <title>댕댕커뮤</title>
 </head>
 
@@ -64,19 +66,21 @@
 		
 		$("#commentButton").click(function() {
 		    let cmt_content = $("textarea[name=comment]").val().trim();
-				if('${sessionScope.member.user_email}' == '') {					// session에서  user_email을 가져옴.
-					alert("로그인이 필요합니다.");
-					window.location.href = "http://localhost:8080/withdang/login"
-					
-					return false;			// 함수가 작동된 후 다시 작동이 되지 않게함. 
-				}
+		    
+		    console.log(login_user)
+		    
+			if(login_user == 'Not Login') {					// session에서  user_email을 가져옴.
+				showAlert();
 				
-				if($('#commentInput').val()=='') {
-					alert("내용을 입력하세요");
-					$('#commentInput').focus();
-					
-					return false;
-				}
+				return false;			// 함수가 작동된 후 다시 작동이 되지 않게함. 
+			}
+			
+			if($('#commentInput').val()=='') {
+				alert("내용을 입력하세요");
+				$('#commentInput').focus();
+				
+				return false;
+			}
 		    	
 			$.ajax({
 				type: 'post',
@@ -178,6 +182,21 @@
 		}
 
 		showList(post_id);
+		
+		// SweetAlert JS
+		function showAlert() {
+	        Swal.fire({
+	            title: '알림',
+	            text: '로그인이 필요합니다.',
+	            icon: 'info',
+	            confirmButtonText: '확인'
+	        }).then(function(result) {
+	            if (result.isConfirmed) {
+	                // 확인 버튼 클릭 시 로그인 화면으로 이동
+	                window.location.href = '${pageContext.request.contextPath}/login';
+	            }
+	        });
+	    }
 	})
 	
 </script>
@@ -244,11 +263,6 @@
 				</dl>
 
 			    </dl>
-                </div>
-                <div id="comu_photo">
-                	<c:forEach var="image" items="${images}">
-                		<img alt="comu_image" src='${image.pt_adres}' style="width: auto; height: 100px; margin-right: 10px;">
-                	</c:forEach>
                 </div>
                 <div id="comu_photo">
                 	<c:forEach var="image" items="${images}">
