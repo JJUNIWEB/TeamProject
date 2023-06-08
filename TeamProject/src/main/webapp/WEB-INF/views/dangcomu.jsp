@@ -31,31 +31,7 @@
 
 <body>
 
-<header>
-    <nav class="navbar">
-
-        <div class="navbar__logo">
-            <a href="${pageContext.request.contextPath}/main">with DANG</a>
-        </div>
-
-        <ul class="navbar__menu">
-            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
-            <c:if test="${ member != null }">
-                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
-            </c:if>
-            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
-        </ul>
-
-        <a href="#" class="navbar__toggleBtn">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </a>
-    </nav>
-</header>
+    <jsp:include page="header.jsp"></jsp:include>
 
 <div class="board_wrap">
     <div class="board_title">
@@ -79,13 +55,13 @@
 	</script>
     
     <div class="category-group">
-        <button class="category1">전체</button>
-        <button class="category2">반려소식</button>
-        <button class="category3">반려일상</button>
-        <button class="category4">반려질문</button>
-        <button class="category5">펫과사전</button>
-        <button class="category6">육아꿀팁</button>
-        <button class="category7">기타</button>
+        <button id="ctgr-btn" class="category1">전체</button>
+        <button id="ctgr-btn" class="category2">반려소식</button>
+        <button id="ctgr-btn" class="category3">반려일상</button>
+        <button id="ctgr-btn" class="category4">반려질문</button>
+        <button id="ctgr-btn" class="category5">펫과사전</button>
+        <button id="ctgr-btn" class="category6">육아꿀팁</button>
+        <button id="ctgr-btn" class="category7">기타</button>
     </div>
     <div class="board_list_wrap">
         <div class="board_list">
@@ -98,10 +74,10 @@
             </div>
             <c:forEach var="comuDTO" items="${list}">
                 <div>
-                    <div class="num">${comuDTO.post_id}</div>
+                    <div id="comu-list-num" class="num">${comuDTO.post_id}</div>
                     <div class="title"><a href="${pageContext.request.contextPath}/dangcomu/read${pr.sc.queryString}&post_id=${comuDTO.post_id}">${comuDTO.post_title}</a></div>
                     <div class="writer">${comuDTO.user_name}</div>
-                    <div class="date"><fmt:formatDate value="${comuDTO.post_created_time}" pattern="yyyy-MM-dd" type="date"/></div>
+                    <div id="comu-list-date" class="date"><fmt:formatDate value="${comuDTO.post_created_time}" pattern="yyyy-MM-dd" type="date"/></div>
                     <div class="count">${comuDTO.post_view_count}</div>
                 </div>
             </c:forEach>
@@ -136,7 +112,7 @@
 	            </select>
 	            <input type="text" name="keyword" class="search-board" value="${param.keyword}"/>
 	            <input type="hidden" name="post_ctgr_id" value="${param.post_ctgr_id}"/>
-	            <button type="submit" id="btn-search">검색</button>
+	            <button type="submit" id="btn-search"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
             </form>
         </div>
 		

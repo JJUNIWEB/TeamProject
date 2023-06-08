@@ -24,31 +24,7 @@
     <title>마이페이지</title>
 </head>
 
-<header>
-    <nav class="navbar">
-
-        <div class="navbar__logo">
-            <a href="${pageContext.request.contextPath}/main">with DANG</a>
-        </div>
-
-        <ul class="navbar__menu">
-            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
-            <c:if test="${ member != null }">
-                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
-            </c:if>
-            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
-        </ul>
-
-        <a href="#" class="navbar__toggleBtn">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </a>
-    </nav>
-</header>
+    <jsp:include page="header.jsp"></jsp:include>
 
 
 <br>
@@ -63,31 +39,27 @@
             	<div class="mypage__list">
                 <ul>
                     <li><a href="#">내 정보</a></li>
-                    <li><a href="/withdang/mypage_chat">채팅</a></li>
-                    <li><a href="">마이댕근</a></li>
-                    <li><a href="">마이케어</a></li>
+                    <li><a href="/withdang/myCare">마이케어</a></li>
                 </ul>
             </div>
             </div>
         </aside>
         <form class="mypage-user">
             <h1 id="mypage-title">마이페이지</h1>
-               
-                   		<p class="user-info"> 내 정보</p>
-	                    <div><span>이름</span> ${member.user_name}</div>
-	                    <div><p>이메일 ${member.user_email }</p></div>
-	                    <div><p>닉네임 ${member.user_nickname }</p></div>
-	                    <div><p>연락처 ${member.user_pnum }</p></div>
-	                    <div><p>생일 <fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd" type="date"/></p></div>
-	                    <div><p>성별 ${member.user_gender }</p></div>
-	                    <div><p>주소 ${member.user_address }</p></div>
-	                
-                    <a class="reset-pwd" href="">비밀번호 재설정</a>
-                   </form>
-            
-         </article>
+            <hr>
+           	 <div class="user-info"> ▶ 내 정보</div><br>
+             <div><span>이름 : </span> ${member.user_name}</div>
+             <div><p>이메일 : ${member.user_email }</p></div>
+             <div><p>닉네임 : ${member.user_nickname }</p></div>
+             <div><p>연락처 : ${member.user_pnum }</p></div>
+             <div><p>생일 : <fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd" type="date"/></p></div>
+             <div><p>성별 : ${member.user_gender }</p></div>
+             <div><p>주소 : ${member.user_address }</p></div>
+	         <a class="reset-pwd" href="/withdang/pwReset">비밀번호 재설정</a>
+        </form>        
+      </article>
          
-         <footer>
+        <footer>
         <div class="mypage__update">
             <br>
             <a class="update_btn" href="/withdang/mypage_update">수정하기</a>
@@ -95,9 +67,11 @@
     	</footer>
     	<br><br><br><br>
     	
-    	<script type="text/javascript">
+    <script type="text/javascript">
 		let msg = "${msg}"
 		if(msg=="memberCheck") alert("신규 회원님 환영 합니다. 마이페이지에서 필수 회원 정보를 입력해주세요")
+	
+		if(msg=="updateOK") alert("수정이 완료되었습니다.")
 	</script>
     	
 	</body>

@@ -5,9 +5,10 @@
 <mapper namespace="com.earth.mapper.ImageMapper">
 
     <insert id="insert" parameterType="img">
+        insert into
+
         <choose>
             <when test='pt_category=="dogProfile"'>
-                insert into
                 tb_photo
                 (pt_adres,pt_category,user_email,pt_reg_date)
                 values (#{pt_adres},#{pt_category},#{user_email},now())

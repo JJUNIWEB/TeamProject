@@ -21,12 +21,14 @@ public class MemberDto {
 	private Date user_birth;
 	private String user_gender;
 	private String user_address;
-	
+	private String user_dtl_address;
 	
 	@Override
 	public String toString() {
-		return "MemberVo [user_email=" + user_email + ", user_nickname=" + user_nickname + ", user_pw=" + user_pw
-				+ ", user_name=" + user_name + ", user_pnum=" + user_pnum + "]";
+		return "MemberDto [user_email=" + user_email + ", user_nickname=" + user_nickname + ", user_pw=" + user_pw
+				+ ", user_name=" + user_name + ", user_pnum=" + user_pnum + ", user_birth=" + user_birth
+				+ ", user_gender=" + user_gender + ", user_address=" + user_address + ", user_dtl_address="
+				+ user_dtl_address + "]";
 	}
 	
 }

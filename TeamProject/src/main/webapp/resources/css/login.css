@@ -1,11 +1,32 @@
 @charset "UTF-8";
 
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Nanum+Gothic:wght@400;700;800&display=swap');
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+:root {
+    --background-color: #ed8b9e;
+    --bodybackground-color: #a1e1dc;
+}
+body {
+    font-family: 'NanumSquareNeo-Variable';
+    margin: 0;
+    background-color: var(--bodybackground-color);
+}
+
+a { text-decoration: none; color: #fff; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
 }
 
 
@@ -216,6 +237,16 @@ a {
     right: 50px;
 }
 
+/* 이메일 정규식 안맞는 경우 */
+.user_email_re_3{
+    color : red;
+    display : none;
+    font-size: x-small;
+    position: absolute;
+    top: 265px;
+    right: 50px;
+}
+
 /* 중복닉네임 존재하지 않는경우 */
 .user_nickname_re_1{
     color : green;
@@ -287,11 +318,12 @@ a {
     right: 50px;
 }
 
+
 /* 로그인 실패시 경고글 */
 .login_warn{
     font-size: x-small;
     text-align: center;
     color : red;
     position: absolute;
-    bottom: 150px;
+    bottom: 160px;
 }
