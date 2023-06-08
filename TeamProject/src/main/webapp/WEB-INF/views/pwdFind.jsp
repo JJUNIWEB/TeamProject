@@ -28,48 +28,33 @@
 </head>
 
 <body>
-<header>
-    <nav class="navbar">
+    <jsp:include page="header.jsp"></jsp:include>
 
-        <div class="navbar__logo">
-            <a href="${pageContext.request.contextPath}/main">with DANG</a>
-        </div>
 
-        <ul class="navbar__menu">
-            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
-            <c:if test="${ member != null }">
-                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
-            </c:if>
-            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-        </ul>
-
-        <a href="#" class="navbar__toggleBtn">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </a>
-    </nav>
-</header>
-
-<form method="post" class="form-signin" id="Chk-form" name="findform">
-    <div class="form-label-group">
-        <span><input type="text" id="name" name="user_name" class="input_name" placeholder="이름을 입력해주세요."/></span>
-        <span><input type="text" id="nickname" name="user_nickname" class="input_nickname" placeholder="닉네임을 입력해주세요."/></span>
-        <span><input type="text" id="email" name="user_email" class="input_email" placeholder="이메일을 입력해주세요."/></span>
+<form method="post" id="Chk-form" name="findform">
+<div id="form-box">
+    <div id="forget-input">
+       	<h2>비밀번호 찾기</h2>
+        <input type="text" id="text-box" name="user_name" class="input_name" placeholder="이름을 입력해주세요."/><br>
+        <input type="text" id="text-box" name="user_nickname" class="input_nickname" placeholder="닉네임을 입력해주세요."/><br>
+        <input type="text" id="text-box" name="user_email" class="input_email" placeholder="이메일을 입력해주세요."/><br>
+        <input id="find-btn" type=button value="비밀번호 찾기">
+        
         <span class="info_ck">정보를 입력해 주세요</span>
     </div>
 
-    <div class="form-label-group">
-        <input class="btn" type="button" value="비밀번호 찾기">
+    <div id="find-set">
+        <a id="find-pwd" href="findID.html">아이디 찾기</a>|
+        <a id="joinus" href="/withdang/login">회원가입</a>|
+        <a id="login" href="/withdang/login">로그인</a>
+    </div>
     </div>
 </form>
 
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".btn").click(function() {
+        $("#find-btn").click(function() {
 
             var nickname = $('.input_nickname').val();          // 닉네임 입력란
             var name = $('.input_name').val();					// 이름 입력란

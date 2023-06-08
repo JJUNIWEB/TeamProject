@@ -1,111 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Nanum+Gothic:wght@400;700;800&display=swap');
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 :root {
-  --text-color: #fff;
-  --background-color: #ed8b9e;
-  --accent-color: #a1e1dc;
-  --icons-color: rgb(152, 187, 201);
-  --bodybackground-color: #a1e1dc;
+    --background-color: #ed8b9e;
+    --bodybackground-color: #a1e1dc;
 }
-
-body { 
-  margin: 0;
-  background-color: var(--bodybackground-color);
-  font-family: 'STIX Two Math';
-  background-image: /resources/image/back-deco.png;
-
-  
-}
-
-a {
-  text-decoration: none;
-  color: var(--text-color);
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--background-color);
-  padding: 16px 12px;
-  font-family: 'STIX Two Math';
-  font-weight: 600;
-  color: #fff;
-}
-.navbar__logo {
-    position: sticky;
-    margin-left: 2%;
-}
-
-.navbar__menu {
-  list-style: none;
-  display: flex;
-  margin: 0%;
-  padding-left: 0;
-}
-
-.navbar__menu li {
-  padding: 12px 24px;
-}
-.navbar__menu li:hover {
-  background-color: #a1e1dc;
-  border-radius: 3px;
-}
-.navbar__icons {
-  list-style: none;
-  display: flex;
-  color: #fff;
-  padding-left: 0;
-}
-
-.navbar__icons li {
-  padding: 8px 12px;
-  margin: 0;
-}
-.navbar__toggleBtn {
-  display: none;
-  color: #fff;
-  position: absolute;
-  right: 30px;
-  font-size: 20px;
-}
-
-.btnLogin {
+body {
+    font-family: 'NanumSquareNeo-Variable';
     margin: 0;
-    color: #fff;
-    border: 1px solid #fff;
-    background-color: #ed8b9e;
-  }
-/*768 이하로 줄어들면 내비바*/
-@media screen and (max-width: 789px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px 30px;
-    height: 100%;
-  }
-  .navbar__menu {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .navbar__menu li {
-    width: 100%;
-    text-align: center;
-  }
-  .navbar__icons {
-    justify-content: center;
-    width: 100%;
-  }
-  .navbar__toggleBtn {
-    display: block;
-  }
+    background-color: var(--bodybackground-color);
 }
 
-.navbar__menu.active,
-.navbar__icons.active {
-  display: flex;
-}
+a { text-decoration: none; color: #fff; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+
 
 .idcard {
     width: 800px;
