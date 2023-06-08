@@ -1,5 +1,7 @@
 package com.earth.service;
 
+import java.util.List;
+
 import com.earth.domain.ImageDto;
 import com.earth.mapper.ImageMapper;
 
@@ -9,4 +11,8 @@ public interface ImageService {
     public ImageDto inputDogProf(String id, String address, String category);
     public ImageDto callDogProf(String id, String category);
 
+    // dangcomu post 이미지
+    public ImageDto inputComuPhoto(String user_email, int post_id, String address, String category);
+    public List<ImageDto> callComuPhoto(String user_email, int post_id, String category);
+    public void deleteComuPhoto(String user_email, int post_id, String category);
 }

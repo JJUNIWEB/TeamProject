@@ -22,15 +22,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
             integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
             crossorigin="anonymous"></script>
-
     <title>댕댕커뮤 글 수정</title>
 </head>
 
 <body>
-    <jsp:include page="header.jsp"></jsp:include>
 
+<jsp:include page="header.jsp"></jsp:include>
 
-<form action="<c:url value='/dangcomu/update${searchItem.queryString}?post_id=${comuDTO.post_id}'/>" id="form" class="board_modify_wrap" method="post">
+<form action="<c:url value='/dangcomu/update${searchItem.queryString}?post_id=${comuDTO.post_id}'/>" id="form" class="board_modify_wrap" enctype="multipart/form-data" method="post">
 	<div class="board_wrap">
 	    <div class="board_title">
 	        <strong>댕댕커뮤</strong>
@@ -58,12 +57,14 @@
 	                               <option value="6">기타</option>
 	                        </select>
 	                        <div class="img-sec">
-	                            <input id="imageinput" type="file" multiple="multiple" accept=".jpg, .jpeg, .png"
-	                                   onchange="previewImage(this)">
-	                            <img id="preview" />
+	                            <input id="imageinput0" name="image1" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 0);">
+	                            <input id="imageinput1" name="image2" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 1);">
+	                            <input id="imageinput2" name="image3" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 2);">
+	                            <input id="imageinput3" name="image4" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 3);">
+	                            <div id="preview-list">
+	                            </div>
 	                        </div>
 	                    </div>
-	
 	                </div>
 	                <div class="cont">
 		                <textarea id="post_content" name="post_content" placeholder="내용 입력" required>
