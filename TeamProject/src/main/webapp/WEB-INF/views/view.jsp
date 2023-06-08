@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="com.earth.domain.ComuDTO" %>
 
 <c:set var="loginout" value="${sessionScope.member==null ? 'Login' : 'Logout' }" />
 <c:set var="loginoutlink" value="${sessionScope.member==null ? '/login' : '/logout' }" />
@@ -64,9 +67,24 @@
 		
 		if (login_user === writer.value) {
 			$("#modifyBtn").attr('style', 'display:block;')
+			$("#deleteBtn").attr('style', 'display:block;')
 		}
 		
 		let post_id = $("input[name=post_id]").val()
+		
+		$("#deleteBtn").click(function() {
+			if (confirm("삭제하시겠습니까?")) {		
+				$.ajax({
+					url: "delete?post_id=" + post_id,
+					method: "POST",
+					dataType: "text",
+					success: function name() {
+						alert('성공적으로 삭제되었습니다.')
+						location.href = 'list'
+					}
+				})
+			}
+		})
 		
 		$("#commentButton").click(function() {
 		    let cmt_content = $("textarea[name=comment]").val().trim();
@@ -94,31 +112,23 @@
 					$('#commentInput').val('')
 					
 				},
-				error : function(jqXHR, textStauts, errorThrown) {
-					
-					/* if (jqXHR.status == 403) {
-						alert("로그인이 필요합니다.");
-						window.location.href = "http://localhost:8080/withdang/login"
-					} else {
-						alert("error")
-					} */
-				}  
+				error : function(jqXHR, textStauts, errorThrown) { }  
 			})
 		})	
 		
 		$("#commentList").on("click", "#cmt_delete", function() {
-    if (confirm("삭제하시겠습니까?")) {							//아니오를 눌러도 삭제가 됨. 조건문 안에 넣어서 해결. 
-        let cmt_id = $(this).parent().attr("cmt_id");
-        let post_id = $(this).parent().attr("post_id");
-
-        $.ajax({
-            type: 'DELETE',
-            url: '/withdang/dangcomu/comments/' + post_id + "/" + cmt_id,
-            success: function(result) {
-                showList(post_id);
-            },
-            error: function() {
-                alert("error");
+		    if (confirm("삭제하시겠습니까?")) {							//아니오를 눌러도 삭제가 됨. 조건문 안에 넣어서 해결. 
+		        let cmt_id = $(this).parent().attr("cmt_id");
+		        let post_id = $(this).parent().attr("post_id");
+		
+		        $.ajax({
+		            type: 'DELETE',
+		            url: '/withdang/dangcomu/comments/' + post_id + "/" + cmt_id,
+		            success: function(result) {
+		                showList(post_id);
+		            },
+		            error: function() {
+		                alert("error");
 		            }
 		        });
 		    }
@@ -224,6 +234,39 @@
                         <dt>조회</dt>
                         <dd>${comuDTO.post_view_count}</dd>
                     </dl>
+                    <%-- <dl>
+                        <dt>카테고리</dt>
+                        <dd>${comuDTO.post_ctgr_id}</dd>
+                    </dl> --%>
+                    <dl>
+			      <%
+				// 카테고리 ID와 문자열 매핑을 위한 맵 생성
+				Map<Integer, String> categoryMap = new HashMap<>();
+				categoryMap.put(1, "전체");
+				categoryMap.put(2, "반려소식");
+				categoryMap.put(3, "반려일상");
+				categoryMap.put(4, "반려질문");
+				categoryMap.put(5, "펫과사전");
+				categoryMap.put(6, "육아꿀팁");
+				categoryMap.put(7, "기타");
+				
+				// 요청 속성에서 comuDTO 객체 가져오기
+				ComuDTO comuDTO = (ComuDTO) request.getAttribute("comuDTO");
+				
+				// comuDTO 객체가 null이 아닌 경우에만 카테고리 ID에 해당하는 문자열 값 가져오기
+				String categoryName = "";
+				if (comuDTO != null) {
+				    int categoryId = comuDTO.getPost_ctgr_id();
+				    categoryName = categoryMap.get(categoryId);
+				}
+				%>
+				
+				<dl>
+				    <dt>카테고리</dt>
+				    <dd><%= categoryName %></dd>
+				</dl>
+
+			    </dl>
                 </div>
                 <div id="comu_photo">
                 	<c:forEach var="image" items="${images}">
@@ -247,7 +290,8 @@
             </ul>
 
             <div class="bt_wrap">  
-                <a href="${pageContext.request.contextPath}/dangcomu/update?post_id=${comuDTO.post_id}" class="on" id="modifyBtn" style="display:none;">수정</a>  
+                <a href="${pageContext.request.contextPath}/dangcomu/update?post_id=${comuDTO.post_id}" class="on" id="modifyBtn" style="display:none;">수정</a> 
+                <a class="on" id="deleteBtn" style="display:none;">삭제</a> 
                 <a href="${pageContext.request.contextPath}/dangcomu/list">목록</a>  
             </div>
             <br>
