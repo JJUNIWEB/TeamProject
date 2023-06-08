@@ -30,23 +30,25 @@
 <body>
     <jsp:include page="header.jsp"></jsp:include>
 
-
-    <form id="pwChange-Form" method="post">
-    <div id="form-box">
-       <h2>비밀번호 변경</h2>
+<div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+    <form id="pwChange-Form" method="post" >
+    <div id="form-box" style="text-align:center;">
+    	<h2>비밀번호 변경</h2>
     
-       <input id="text-box" type="hidden" name="user_email" value="${member.user_email }">
-       <input id="text-box" type="hidden" name="user_name" value="${member.user_name }">
-       <input id="text-box" type="hidden" name="user_nickname" value="${member.user_nickname }">
-       <input id="text-box" type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요"><br>
-       <input id="text-box" type="password" class="input_pwck" placeholder="비밀번호 확인을 입력해주세요"><br>
-       <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
-       <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span><br>
-       <span><a href="/withdang">매인으로 돌아가기</a></span>
-      <button id="find-btn" type="button" class="btn">비밀번호 변경</button>
+	    <input id="text-box" type="hidden" name="user_email" value="${member.user_email }">
+	    <input id="text-box" type="hidden" name="user_name" value="${member.user_name }">
+	    <input id="text-box" type="hidden" name="user_nickname" value="${member.user_nickname }">
+	    <input id="text-box" type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요"><br>
+	    <input id="text-box" type="password" class="input_pwck" placeholder="비밀번호 확인을 입력해주세요"><br>
+	    <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
+	    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span><br>
+	    <span><a href="/withdang">매인으로 돌아가기</a></span>
+		<button id="find-btn" type="button" class="btn">비밀번호 변경</button>
+	</div>
     </form>
     </div>
     
+</div>
     <script type="text/javascript">
     var pwCheck = false;            // 비번
    var pwckCheck = false;            // 비번 확인

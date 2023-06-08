@@ -34,7 +34,7 @@
 <form method="post" id="Chk-form" name="findform">
 <div id="form-box">
     <div id="forget-input">
-          <h2>비밀번호 찾기</h2>
+       	<h2>비밀번호 찾기</h2>
         <input type="text" id="text-box" name="user_name" class="input_name" placeholder="이름을 입력해주세요."/><br>
         <input type="text" id="text-box" name="user_nickname" class="input_nickname" placeholder="닉네임을 입력해주세요."/><br>
         <input type="text" id="text-box" name="user_email" class="input_email" placeholder="이메일을 입력해주세요."/><br>
@@ -44,7 +44,7 @@
     </div>
 
     <div id="find-set">
-        <!-- <a id="find-pwd" href="findID.html">아이디 찾기</a>| -->
+        <a id="find-pwd" href="findID.html">아이디 찾기</a>|
         <a id="joinus" href="/withdang/login">회원가입</a>|
         <a id="login" href="/withdang/login">로그인</a>
     </div>

@@ -43,23 +43,23 @@
     color: black;
     text-align: center;
     background-color: #9d8db3;
-   border: none;
-   border-radius: 10px;  
-   color: #fff;
-   
+	border: none;
+	border-radius: 10px;  
+	color: #fff;
+	
 }
 #find-id-result p {
-   font-size:20px;
-   font-weight: bold;
+	font-size:20px;
+	font-weight: bold;
 }
 #find-id-result a {
-   font-size:14px;
-   font-weight: bold;
-   color: #fff;
+	font-size:14px;
+	font-weight: bold;
+	color: #fff;
 }
 
 .find-footer {
-   color: black;
+	color: black;
 }
 
     </style>
@@ -71,22 +71,22 @@
     
 <div id="find-form">
 <div id="find-id-result">
-      <!-- 닉네임이 일치하지 않을 때-->
-      <c:if  test="${check == 1}">
-      <i class="fa-solid fa-circle-exclamation" style="color: #fffff; font-size: 50px;"></i>
 
-      <br>
+		<!-- 닉네임이 일치하지 않을 때-->
+		<c:if  test="${check == 1}">
+		<i class="fa-solid fa-circle-exclamation" style="color: #fffff; font-size: 50px;"></i>
+
+		<br>
             <p>입력하신 정보가 없거나 일치하지 않습니다.</p><br><br>
             <div><a class="find-footer" href="/withdang/login">로그인으로 돌아가기</a> |
             <a class="find-footer" href="/withdang/emailFind">다시 찾기</a></div>
         </c:if>
 
-
-      <!-- 이름과 비밀번호가 일치 -->
-      <c:if test="${check == 0 }">
-      <i class="fa-solid fa-circle-check" style="color: #fffff; font-size: 50px;"></i>
-      
-      <br>
+		<!-- 이름과 비밀번호가 일치 -->
+		<c:if test="${check == 0 }">
+		<i class="fa-solid fa-circle-check" style="color: #fffff; font-size: 50px;"></i>
+		
+		<br>
             <p>찾으시는 이메일은' ${email}' 입니다.</p><br><br>
             <div><a class="find-footer" href="/withdang/login">로그인으로 돌아가기</a> |
             <a class="find-footer" href="/withdang/pwdFind">비밀번호 찾기</a></div>

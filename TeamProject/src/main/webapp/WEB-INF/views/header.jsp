@@ -51,6 +51,9 @@ a {
 .logo {
     width: 120px;
     margin-left: 30px;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 800;
 }
 .navbar__menu {
     list-style: none;
@@ -154,6 +157,7 @@ a {
         width: 50px;
         margin: 0px;
         height: 50px;
+        font-size: 20px;
     }
     .navbar__menu {
         display: none;
@@ -201,31 +205,33 @@ a {
 </head>
 
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="navbar__logo">
-                <a href=/withdang><img src="${pageContext.request.contextPath}/resources/image/logo.png" class="logo"></a>
-            </div>
-            <ul class="navbar__menu">
-	            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
-	            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
-	            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
-	            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
-	            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
+<header>
+    <nav class="navbar">
+
+        <div class="navbar__logo">
+            <a class="logo" href="${pageContext.request.contextPath}/main">with DANG</a>
+        </div>
+
+        <ul class="navbar__menu">
+            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
+            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
+            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
+            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
+            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
+            <li><a><i class="fa-sharp fa-solid fa-comment" style="color: #ed8b9e;"></i></a></li>
+            
             <c:if test="${ member != null }">
-                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
+                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa-solid fa-user" style="color: #ed8b9e;" aria-hidden="true"></i></a></li>
             </c:if>
-	            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-	            
-            </ul>
-            <a href="#" class="navbar__toggleBtn">
-                <i class="fas fa-bars" aria-hidden="true"></i>
-            </a>
-        </nav>
-    </header>
+            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
 
-    <a href="#" id="scroll-top">TOP</a>
+        </ul>
 
+        <a href="#" class="navbar__toggleBtn">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </a>
+    </nav>
+</header>
 
 </body>
 

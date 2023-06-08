@@ -31,18 +31,18 @@
     <jsp:include page="header.jsp"></jsp:include>
 
 <form method="post" class="form-signin" id="Chk-form" name="findform">
-   <div id="form-box">
+	<div id="form-box">
     <div id="forget-input">
-       <h2>이메일 찾기</h2>
+    	<h2>이메일 찾기</h2>
         <input type="text" id="text-box" name="user_name" class="input_name" placeholder="이름을 입력해주세요."/><br>
         <input type="text" id="text-box" name="user_nickname" class="input_nickname" placeholder="닉네임을 입력해주세요."/><br>
         <span class="info_ck">정보를 입력해 주세요</span>
         <input id="find-btn" type="button" value="이메일 찾기">
     </div>
     <div id="find-set">
-        <!-- <a id="find-pwd" href="findID.html">아이디 찾기</a>| -->
-        <a id="joinus" href="/withdang/login">회원가입</a>|
-        <a id="login" href="/withdang/login">로그인</a>
+        <a id="find-pwd" href="findID.html">아이디 찾기</a>|
+        <a id="joinus" href="login.html">회원가입</a>|
+        <a id="login" href="login.html">로그인</a>
     </div>
     </div>
     

@@ -43,51 +43,51 @@
 <div id="Chk-form">
 
 <!-- 입력한 정보가 일치하지 않을 때-->
-   <c:if test="${check == 1}">
-   <i class="fa-solid fa-circle-exclamation" style="color: #fffff; font-size: 50px;"></i>
-       <h2>입력하신 정보가 없거나 일치하지 않습니다.</h2>
-       <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-       <span><a href="/withdang/pwdFind">다시 찾기</a></span>
-   </c:if>
-   
-   <!-- 입력한 정보 일치 -->
-   <c:if test="${check == 0 }">
-       <form id="pwChange-Form" method="post">
-              <h2>비밀번호 변경</h2>
-       
-          <input id="text-box" type="hidden" name="user_email" value="${pwd.user_email }">
-          <input id="text-box" type="hidden" name="user_name" value="${pwd.user_name }">
-          <input id="text-box" type="hidden" name="user_nickname" value="${pwd.user_nickname }">
-          <input id="text-box" type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요"><br>
-          <input id="text-box" type="password" class="input_pwck" placeholder="비밀번호 확인">
-          <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
-          <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
-         <br>
-         <button type="button" class="pwd-submit-btn">비밀번호 변경</button>
-         <div><a href="/withdang/login">로그인으로 돌아가기</a> |
-          <a href="/withdang/pwdFind">다시 찾기</a></div>
-      </form>
-   </c:if>
+	<c:if test="${check == 1}">
+	<i class="fa-solid fa-circle-exclamation" style="color: #fffff; font-size: 50px;"></i>
+	    <h2>입력하신 정보가 없거나 일치하지 않습니다.</h2>
+	    <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
+	    <span><a href="/withdang/pwdFind">다시 찾기</a></span>
+	</c:if>
+	
+	<!-- 입력한 정보 일치 -->
+	<c:if test="${check == 0 }">
+	    <form id="pwChange-Form" method="post">
+	    	    <h2>비밀번호 변경</h2>
+	    
+		    <input id="text-box" type="hidden" name="user_email" value="${pwd.user_email }">
+		    <input id="text-box" type="hidden" name="user_name" value="${pwd.user_name }">
+		    <input id="text-box" type="hidden" name="user_nickname" value="${pwd.user_nickname }">
+		    <input id="text-box" type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요"><br>
+		    <input id="text-box" type="password" class="input_pwck" placeholder="비밀번호 확인">
+		    <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
+		    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
+			<br>
+			<button type="button" class="pwd-submit-btn">비밀번호 변경</button>
+			<div><a href="/withdang/login">로그인으로 돌아가기</a> |
+		    <a href="/withdang/pwdFind">다시 찾기</a></div>
+		</form>
+	</c:if>
 </div>
 
 <script type="text/javascript">
-   
-   var pwCheck = false;            // 비번
-   var pwckCheck = false;            // 비번 확인
-   var pwckcorCheck = false;        // 비번 확인 일치 확인
-   var pwdCheck = false;         // 비번 정규식 확인
-   
-   $(document).ready(function() {
-      
-      //비밀번호 변경 버튼(비밀번호 변경 기능 작동)
-      $(".pwd-submit-btn").click(function() {
-      
-      /* 입력값 변수 */
-      var pw = $('.input_pw').val();         // 비밀번호 입력란
-      var pwck = $('.input_pwck').val();      // 비밀번호 확인 입력란
-      var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;   // 비밀번호 정규식 변수
-      
-      /*   비밀번호 유효성 검사 */
+	
+	var pwCheck = false;            // 비번
+	var pwckCheck = false;            // 비번 확인
+	var pwckcorCheck = false;        // 비번 확인 일치 확인
+	var pwdCheck = false;			// 비번 정규식 확인
+	
+	$(document).ready(function() {
+		
+		//비밀번호 변경 버튼(비밀번호 변경 기능 작동)
+		$(".pwd-submit-btn").click(function() {
+		
+		/* 입력값 변수 */
+		var pw = $('.input_pw').val();			// 비밀번호 입력란
+		var pwck = $('.input_pwck').val();		// 비밀번호 확인 입력란
+		var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식 변수
+		
+		/*	비밀번호 유효성 검사 */
         if(pw == "") {
             pwCheck = false;
          } else {

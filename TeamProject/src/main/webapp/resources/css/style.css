@@ -599,7 +599,8 @@ body h3 {
   }
   
   #Chk-form {
-     display: flex;
+
+  	display: flex;
     justify-content: center;
     align-items: center;
     margin: 10px;
@@ -661,19 +662,23 @@ body h3 {
 
 }
 #result-box a {
-   color: #fff;
-   font-size: 14px;
-   font-weight: bold;
-   margin: 5px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 5px;
 
 }
+
+#pwChange-form {
+	text-align: center;
+}
 #pwChange-form a {
-   color: #fff;
-   font-size: 14px;
-   font-weight: bold;
-   margin: 5px;
-   
-   
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 5px;
+	
+	
 }
 
 #pwdset-btn {
@@ -712,7 +717,7 @@ body h3 {
     font-weight: bold;
 }
 #set-pwd-form {
-   display: flex;
+	display: flex;
     justify-content: center;
     align-items: center;
     height: 400px;
@@ -721,7 +726,7 @@ body h3 {
     
 }
 #set-pwd-box {
-   background-color: #e495a5;
+	background-color: #e495a5;
     padding: 40px;
     border-radius: 10px;
     border: none;
@@ -729,14 +734,14 @@ body h3 {
     color: #fff;
 }
 #form-box  a {
-   color: #fff;
-   font-size: 14px;
-   font-weight: bold;
-   margin: 5px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 5px;
 }
 
 .pwd-submit-btn {
-   width: 200px;
+	width: 200px;
     height: 30px;
     margin: 20px;
     text-align: center;    
@@ -746,5 +751,6 @@ body h3 {
     color: #9d8db3;
     font-weight: bold;
     border: none;
-   
+	
 }
+

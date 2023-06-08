@@ -21,31 +21,7 @@
 </head>
 
 <body>
-<header>
-    <nav class="navbar">
-
-        <div class="navbar__logo">
-            <a href="${pageContext.request.contextPath}/main">with DANG</a>
-        </div>
-
-        <ul class="navbar__menu">
-            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
-            <c:if test="${ member != null }">
-                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
-            </c:if>
-            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
-        </ul>
-
-        <a href="#" class="navbar__toggleBtn">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </a>
-    </nav>
-</header>
+    <jsp:include page="header.jsp"></jsp:include>
 
 
 
@@ -67,7 +43,7 @@
                         <p>가격<dd><input type="text" placeholder="판매 가격"> 원</dd></p>
                     </dl>
                     <div id="dangguen-img">
-                        <select class="form-select" aria-label="category">
+                        <select class="search-select" aria-label="category">
                             <optgroup label="카테고리">
                                 <option selected>카테고리</option>
                                 <option value="1">사료/간식</option>
