@@ -14,7 +14,6 @@
                 values (#{pt_adres},#{pt_category},#{user_email},now())
             </when>
             <when test='pt_category=="comuPost"'>
-                INSERT INTO
                 tb_post_photo
 				(pt_adres, pt_category, user_email, post_id, pt_reg_date)
 				VALUES(#{pt_adres}, #{pt_category}, #{user_email}, #{postNum}, now());
