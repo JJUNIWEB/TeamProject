@@ -12,5 +12,16 @@
     	<typeAlias type="com.earth.domain.CommentDTO" alias="CommentDTO"/>
     	<typeAlias type="com.earth.domain.SearchItem" alias="SearchItem"/>
     	<typeAlias type="com.earth.domain.ImageDto" alias="img"/>
+	    <typeAlias type="com.earth.domain.DanggeunInfoDTO" alias="DanggeunInfoDto"/>
+    	<typeAlias type="com.earth.domain.DanggeunPhotoDTO" alias="DanggeunPhotoDto"/>
+		<typeAlias type="com.earth.domain.DanggeunTypeDTO" alias="DanggeunTypeDto"/>
+		<typeAlias type="com.earth.domain.DanggeunSearchItem" alias="DanggeunSearchItem"/>
+		<typeAlias type="com.earth.domain.DanggeunZzimDTO" alias="DanggeunZzimDto"/>
+		<typeAlias type="com.earth.domain.AddressSidoDTO" alias="AddressSidoDto"/>
+		<typeAlias type="com.earth.domain.AddressSigoonDTO" alias="AddressSigoonDto"/>
+		<typeAlias type="com.earth.domain.AddressDongDTO" alias="AddressDongDto"/>
+		<typeAlias type="com.earth.domain.ChatChatRoomDTO" alias="ChatChatRoomDto"/>
+		<typeAlias type="com.earth.domain.ChatChattingDTO" alias="ChatChattingDto"/>
+		<typeAlias type="com.earth.domain.ChatUserChatRoomDTO" alias="ChatUserChatRoomDto"/>
 	</typeAliases>
 </configuration>  

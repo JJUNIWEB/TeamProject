@@ -148,13 +148,13 @@ public class LoginController {
             if(true == pwEncoder.matches(rawPw, encodePw)) {        // 비밀번호 일치여부 판단
                 session.setAttribute("member", lvo);     // session에 사용자의 정보 저장
                 session.setAttribute("dvo", dvo);
-	
+                session.setAttribute("nickname", lvo.getUser_nickname());
 		if(!memberCheck(member)) {
 			rttr.addFlashAttribute("msg", "memberCheck");
 
 			session.setAttribute("member", lvo);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
 			session.setAttribute("dvo", dvo);
-			
+			session.setAttribute("nickname", lvo.getUser_nickname());
 			return "redirect:/mypage";
 			}
 	
