@@ -35,7 +35,7 @@
 <body>
     <jsp:include page="header.jsp"></jsp:include>
         
-	<form action="<c:url value='/dangcomu/post${searchItem.queryString}'/>" id="form" class="board_write_wrap" method="post">
+	<form action="<c:url value='/dangcomu/post${searchItem.queryString}'/>" id="form" class="board_write_wrap" enctype="multipart/form-data" method="post">
 		<div class="board_wrap">
 	        <div class="board_title">
 	            <strong>댕댕커뮤</strong>
@@ -64,9 +64,11 @@
 	                        </dl>
 	                        <div id="dangguen-img">
 		                        <div class="img-sec">
-		                            <input id="imageinput" type="file" multiple="multiple" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
-		                            <img id="preview" />
-		                            <input id="imageinput" type="file" accept=".jpg, .jpeg, .png" multiple/>
+		                            <input id="imageinput0" name="image1" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 0)">
+		                            <input id="imageinput1" name="image2" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 1)">
+		                            <input id="imageinput2" name="image3" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 2)">
+		                            <input id="imageinput3" name="image4" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 3)">
+		                            <div id="preview-list"></div>
 		                        </div>
 	                        </div>
 	                    </div>
