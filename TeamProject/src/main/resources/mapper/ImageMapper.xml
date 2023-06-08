@@ -6,7 +6,6 @@
 
     <insert id="insert" parameterType="img">
         insert into
-
         <choose>
             <when test='pt_category=="dogProfile"'>
                 tb_photo

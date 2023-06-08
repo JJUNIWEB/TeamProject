@@ -6,7 +6,6 @@
 
     <insert id="insert" parameterType="img">
         insert into
-
         <choose>
             <when test='pt_category=="dogProfile"'>
                 tb_photo
@@ -14,10 +13,6 @@
                 values (#{pt_adres},#{pt_category},#{user_email},now())
             </when>
             <when test='pt_category=="comuPost"'>
-<<<<<<< HEAD
-=======
-                INSERT INTO
->>>>>>> f0434a15923a9e98b06b5c6818173b97bb2c9eac
                 tb_post_photo
 				(pt_adres, pt_category, user_email, post_id, pt_reg_date)
 				VALUES(#{pt_adres}, #{pt_category}, #{user_email}, #{postNum}, now());
