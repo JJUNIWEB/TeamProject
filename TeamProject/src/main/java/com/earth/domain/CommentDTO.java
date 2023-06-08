@@ -12,7 +12,6 @@ public class CommentDTO {
 	private Date cmt_created_time;
 	private int post_id;
 	private String user_email;
-	private String user_nickname;	//유저 닉네임 추가 
-	
+	private String user_nickname;	//유저 닉네임 추가. 댓글 기능
 }
 	

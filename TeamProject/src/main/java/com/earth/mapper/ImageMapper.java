@@ -15,4 +15,8 @@ public interface ImageMapper {
     public List<ImageDto> select(ImageDto dto);
 
     public void delete(ImageDto dto);
+
+    // dangcomu
+    public List<ImageDto> comuSelectAll(ImageDto dto);
+    public void comuDelete(ImageDto dto);
 }
