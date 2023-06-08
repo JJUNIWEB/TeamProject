@@ -55,7 +55,7 @@ public class RegisterController {
 			
 		}
 		
-		// 이메일 중복 검사
+		// 이메일 중복 검사 & 정규식 검사
 		@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String memberEmailCheckPOST(String user_email) throws Exception{

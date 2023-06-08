@@ -63,10 +63,11 @@
                     <h3>회원가입</h3>
                     <input type="text"  class="input_name" name="user_name" placeholder="이름">
                     <span class="final_name_ck">이름을 입력해 주세요</span>
-                    <input type="text"  class="input_nickname" name="user_nickname" placeholder="닉네임">
+                    <input type="text"  class="input_nickname" name="user_nickname" placeholder="닉네임 최대 6자">
                     <span class="user_nickname_re_1">사용 가능한 닉네임입니다</span>
                     <span class="user_nickname_re_2">닉네임이 이미 존재합니다</span>
                     <span class="final_nickname_ck">닉네임을 입력해 주세요</span>
+                    <span class="nickname_length_ck">닉네임은 최대 6자까지 가능합니다.</span>
                     <input type="email" class="input_email" name="user_email" placeholder="Email">
                     <span class="user_email_re_1">사용 가능한 이메일입니다</span>
 					<span class="user_email_re_2">이메일이 이미 존재합니다</span>
@@ -111,6 +112,7 @@
 	    var pwckcorCheck = false;        // 비번 확인 일치 확인
 	    var nameCheck = false;            // 이름
 	    var nickNameCheck = false;		 // 닉네임
+	    var nickNameLenck = false;		// 닉네임 글자수 체크
 	    var nickNameckCheck = false;	// 닉네임 중복
         var pwdCheck = false;			// 비번 정규식 확인	
       	var boxCheck = false;			//약관 체크박스 확인
@@ -125,6 +127,7 @@
         var pwck = $('.input_pwck').val();            // 비밀번호 확인 입력란
         var name = $('.input_name').val();            // 이름 입력란
         var nickname = $('.input_nickname').val();			  // 닉네임 입력란
+        var nickNameLen = $('.input_nickname').val().length;			  // 닉네임 길이
         var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식
         var warnMsg = $(".mail_input_box_warn");    // 이메일 입력 경고글
         var checked = $("#register-check").is(":checked");		// 체크박스 체크 확인
@@ -132,6 +135,7 @@
            /* 이메일 유효성검사 */
            if(email == ""){
                $('.final_email_ck').css('display','block');
+               $('.user_email_re_3').css("display","none");
                emailCheck = false;
            }else{
                $('.final_email_ck').css('display', 'none');
@@ -148,7 +152,7 @@
 			
               
   			/* 비밀번호 정규식 검사 */
-            if (!pwdCheck.test(pw)) {
+            if (!pwdCheck.test(pw) && !pwdCheck.test(pwck)) {
             	swal.fire({
 	     			text: '비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.',
 	     			icon: 'warning',
@@ -196,17 +200,26 @@
           }
           
           /* 닉네임 유효성 검사 */
-          if(nickname == "" || nickname > 7){
+          if(nickNameLen >= 7) {
+        	  $('.nickname_length_ck').css('display','block');
+        	  $('.user_nickname_re_1').css("display", "none");
+        	  nickNameLenck = false;
+          }
+          else if(nickname == ""){
               $('.final_nickname_ck').css('display','block');
+              $('.user_nickname_re_1').css("display", "none");
               nickNameCheck = false;
           }else{
               $('.final_nickname_ck').css('display', 'none');
+              $('.nickname_length_ck').css('display','none');
               nickNameCheck = true;
+              nickNameLenck = true;
           }
           
           /* 최종 유효성 검사 */
           if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
-        		  pwckcorCheck&&nameCheck&&pwdCheck&&nickNameCheck&&nickNameckCheck&&boxCheck){
+        		  pwckcorCheck&&nameCheck&&pwdCheck&&nickNameCheck&&
+        		  nickNameckCheck&&boxCheck&&nickNameLenck){
    		
           	$("#join_form").attr("action", "/withdang/join");
       		$("#join_form").submit();
@@ -215,7 +228,8 @@
         		
       });
  });
-      		
+      	
+      	
    		//이메일 형식&중복 검사
 		$('.input_email').on("propertychange change keyup paste input", function(){
 
@@ -231,18 +245,21 @@
 			 if(result == 'success'){
 				$('.user_email_re_1').css("display","inline-block");
 				$('.user_email_re_2').css("display", "none");	
-					$('.user_email_re_3').css("display","none");
+				$('.user_email_re_3').css("display","none");
+				$('.final_email_ck').css('display', 'none');
 				emailckCheck = true;
 				} else if(result == 'fail') {
 					$('.user_email_re_2').css("display","inline-block");
 					$('.user_email_re_1').css("display", "none");
 					$('.user_email_re_3').css("display","none");
+					$('.final_email_ck').css('display', 'none');
 					emailckCheck = false;
 				} else {
 					$('.user_email_re_3').css("display","inline-block");
 					$('.user_email_re_2').css("display","none");
-				$('.user_email_re_1').css("display", "none");	
-				emailckCheck = false;
+					$('.user_email_re_1').css("display", "none");	
+					$('.final_email_ck').css('display', 'none');
+					emailckCheck = false;
 				} 
 				
 			}// success 종료
@@ -265,12 +282,15 @@
 		 success : function(result){
 			 if(result != 'fail'){
 				$('.user_nickname_re_1').css("display","inline-block");
-				$('.user_nickname_re_2').css("display", "none");	
+				$('.user_nickname_re_2').css("display", "none");
+				$('.final_nickname_ck').css('display', 'none');
+				$('.nickname_length_ck').css('display','none');
 				nickNameckCheck = true;
 				} else {
-				$('.user_nickname_re_2').css("display","inline-block");
-				$('.user_nickname_re_1').css("display", "none");	
-				nickNameckCheck = false;
+					$('.user_nickname_re_2').css("display","inline-block");
+					$('.user_nickname_re_1').css("display", "none");	
+					$('.final_nickname_ck').css('display', 'none');
+					nickNameckCheck = false;
 				} 
 				
 			}// success 종료
@@ -282,16 +302,19 @@
    	$('.input_pwck').on("propertychange change keyup paste input", function(){
    	        
    		var pw = $('.input_pw').val();
-   	    var pwck = $('.input_pwck').val();
-   	    $('.final_pwck_ck').css('display', 'none');
+   	    var pwck = $('.input_pwck').val();	    
    	    
    	 	if(pw == pwck){
          	$('.pwck_input_re_1').css('display','block');
          	$('.pwck_input_re_2').css('display','none');
+         	$('.final_pw_ck').css('display', 'none');
+         	$('.final_pwck_ck').css('display', 'none');
          	pwckcorCheck = true;
      	}else{
-        	$('.pwck_input_re_1').css('display','none');
-         	$('.pwck_input_re_2').css('display','block');
+     		$('.pwck_input_re_2').css('display','block');
+        	$('.pwck_input_re_1').css('display','none');       	
+         	$('.final_pw_ck').css('display', 'none');
+         	$('.final_pwck_ck').css('display', 'none');
          	pwckcorCheck = false;
      }        
    	    

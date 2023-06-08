@@ -37,6 +37,8 @@
 
 <body>
 
+	<jsp:include page="header.jsp"></jsp:include>
+
 <section id="main">
     <div class="main-map">
         <a class="dogicon" style="height: 150px; z-index: 2"><img src="${pageContext.request.contextPath}/resources/image/dogicon.png" /></a>
