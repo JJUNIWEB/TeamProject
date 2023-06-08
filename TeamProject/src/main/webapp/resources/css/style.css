@@ -403,12 +403,14 @@ a:hover, a:active { text-decoration: none; }
     display : none;
     position: absolute;
     font-size: x-small;
+
 }
 .pwck_input_re_2 {
     color : red;
     display : none;
     position: absolute;
     font-size: x-small;
+
 }
 
 
@@ -599,6 +601,7 @@ body h3 {
   }
   
   #Chk-form {
+
   	display: flex;
     justify-content: center;
     align-items: center;

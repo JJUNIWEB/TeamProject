@@ -13,14 +13,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${path}/resources/css/mypage.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
     <script src="${path}/resources/script/toggle.js" defer></script>
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
         integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
         integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>
+    <script
+		  src="https://code.jquery.com/jquery-3.4.1.js"
+		  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		  crossorigin="anonymous">
+	</script>  
+        
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <title>마이페이지</title>
 </head>
 
@@ -68,10 +78,28 @@
     	<br><br><br><br>
     	
     <script type="text/javascript">
-		let msg = "${msg}"
-		if(msg=="memberCheck") alert("신규 회원님 환영 합니다. 마이페이지에서 필수 회원 정보를 입력해주세요")
-	
-		if(msg=="updateOK") alert("수정이 완료되었습니다.")
+    	$(document).ready(function() {
+    		let msg = "${msg}"
+    		
+    			if(msg=="memberCheck") {
+    				Swal.fire({
+    	  				  text: '신규 회원님 환영 합니다. 마이페이지에서 필수 회원 정보를 입력해주세요',  // Alert 내용
+    	  				  icon: 'info',                         // Alert 타입
+    	  				  confirmButtonText: '확인',
+    	  				});
+    				/* alert("신규 회원님 환영 합니다. 마이페이지에서 필수 회원 정보를 입력해주세요") */
+    			}
+    		
+    			if(msg=="updateOK") {
+    				Swal.fire({
+    	  				  text: '수정이 완료되었습니다.',  // Alert 내용
+    	  				  icon: 'success',                         // Alert 타입
+    	  				  confirmButtonText: '확인',
+    	  				});
+    				/* alert("수정이 완료되었습니다.") */
+    			}
+		})
+		
 	</script>
     	
 	</body>
