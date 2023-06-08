@@ -1,23 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Nanum+Gothic:wght@400;700;800&display=swap');
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 :root {
-    /* --text-color: #fff; */
     --background-color: #ed8b9e;
-    --accent-color: #a1e1dc;
-    --icons-color: rgb(152, 187, 201);
     --bodybackground-color: #a1e1dc;
 }
-
 body {
+    font-family: 'NanumSquareNeo-Variable';
     margin: 0;
     background-color: var(--bodybackground-color);
-    font-family: 'STIX Two Math';
-    background-image: resouces/image/back-deco.png;
-
 }
 
-a {
-    text-decoration: none;
-    color: var(--text-color);
-}
+a { text-decoration: none; color: black; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
 
 .navbar {
     display: flex;
@@ -25,97 +26,159 @@ a {
     align-items: center;
     background-color: var(--background-color);
     padding: 16px 12px;
-    font-family: 'STIX Two Math';
-    font-weight: 600;
-    color: #fff;
+    height: 100px;
 }
-
 .navbar__logo {
     position: sticky;
     margin-left: 2%;
 }
-
+.logo {
+    width: 120px;
+    margin-left: 30px;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 800;
+}
 .navbar__menu {
     list-style: none;
     display: flex;
-    margin: 0%;
-    padding-left: 0;
+    margin-top: 55px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 0px 50px;
 }
-
 .navbar__menu li {
     padding: 12px 24px;
 }
-
-.navbar__menu li:hover {
-    background-color: #a1e1dc;
-    border-radius: 3px;
+.navbar__menu a {
+    color: #ed8b9e;
 }
-
+.navbar__menu li:hover {
+    background-image: linear-gradient(transparent 75%, #c4aedb 50%);    
+}
 .navbar__icons {
     list-style: none;
     display: flex;
     color: #fff;
-    padding-left: 0;
 }
-
 .navbar__icons li {
     padding: 8px 12px;
     margin: 0;
 }
-
 .navbar__toggleBtn {
     display: none;
     color: #fff;
     position: absolute;
+    margin-top: 12px;
     right: 30px;
     font-size: 20px;
 }
-
-.btnLogin {
+#btnLogin {
     margin: 0;
-    color: #fff;
-    border: 1px solid #fff;
+    color: #fff !important;
+    border: none;
     background-color: #ed8b9e;
+    font-weight: bold;
+}
+.btnLogin {
+    background-color: #ed8b9e;
+    border: 0.12rem solid #ed8b9e;
+}
+#scroll-top {
+    display:scroll;
+    position:fixed;
+    bottom:10%;
+    right:5%;
+    width: 50px;
+    border-radius: 30px;
+    border: none;
+    text-align: center;
+    padding: 1%;
+    font-weight: 800;
+    background-color: #b7a4cc;
+    color: #fff;
+}
+
+@media screen and (max-width: 1024px) {
+    .logo {
+        width: 80px;
+        margin-left: 0px;
+    }
+    .navbar__menu {
+        list-style: none;
+        display: flex;
+        padding: 0px;
+        font-size: 14px;
+    }
+    .navbar__menu li {
+        text-align: center;
+        padding: 12px 18px;
+
+    }
 }
 
 /*768 이하로 줄어들면 내비바*/
-@media screen and (max-width: 789px) {
+@media screen and (max-width: 768px) {
     .navbar {
         flex-direction: column;
         align-items: flex-start;
         padding: 20px 30px;
         height: 100%;
     }
+    .navbar__logo {
+        position: sticky;
+        margin-left: 2%;
+        width: 80px;
+        height: 40px;
+        margin: 0px;
+    }
+    .logo {
+        width: 50px;
+        margin: 0px;
+        height: 50px;
 
+    }
     .navbar__menu {
         display: none;
         flex-direction: column;
         align-items: center;
         width: 100%;
     }
-
     .navbar__menu li {
         width: 100%;
         text-align: center;
     }
-
+    .navbar__menu li:hover {
+        transform: scale(1.1);
+        background-image: none;    
+    }
     .navbar__icons {
         justify-content: center;
         width: 100%;
     }
-
     .navbar__toggleBtn {
         display: block;
     }
+    #scroll-top {
+        display:scroll;
+        position:fixed;
+        bottom:5%;
+        right:2%;
+        text-align: center;
+        padding: 1%;
+        border-radius: 30px;
+        border: none;
+        font-weight: 800;
+        background-color: #b7a4cc;
+        color: #fff;
+    }
 }
-
 .navbar__menu.active,
 .navbar__icons.active {
     display: flex;
 }
-
-/*댕댕여지도*/
-
 
 #main {
     width: 100%;
@@ -300,11 +363,6 @@ a {
 }
 
 
-
-
-
-
-
 /*댕댕케어 슬라이드*/
 .caremain {
     position: relative;
@@ -353,19 +411,6 @@ a {
     font-size: x-small;
 }
 
-form {
-    width: 300px;
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border: 1px solid rgb(89,117,196);
-    border-radius: 10px;
-    transform: translate(-50%, -50%)
-}
 
 body h3 {
     position: absolute;
@@ -382,4 +427,324 @@ body h3 {
 
 .input_nickname {
     margin-bottom: 30px;
+}
+
+/*채팅*/
+
+  #container{
+    box-sizing:border-box;
+    width:750px;
+    height:700px;
+    background:#f0e7e9;
+    margin:0 auto;
+    margin-top: 20px;
+    font-size:0;
+    border-radius:10px;
+    overflow:hidden;
+    align-items: center;
+  }
+  #chat-list{
+    width:260px;
+    height:800px;
+    background-color:#e5bac2;
+    
+    display:inline-block;
+    font-size:15px;
+    vertical-align:top;
+    text-align: left;
+  }
+  #chattings{
+    width:490px;
+    height:800px;
+    display:inline-block;
+    font-size:15px;
+    vertical-align:top;
+  }
+  
+  #chat-list header{
+    padding:20px 20px;
+  }
+  #chat-list #search-box {
+    width:150px;
+    height:40px;
+    line-height:50px;
+    padding:0 50px 0 20px;
+    background-color:#f0e7e9;
+    border:none;
+    border-radius:3px;
+    color:#2b2b2b;
+    background-repeat:no-repeat;
+    background-position:170px;
+    background-size:40px;
+  }
+  #chat-list input::placeholder{
+    color:#696969;
+    font-size: 12px;
+  }
+  #chat-list ul{
+    padding-left:0;
+    margin:0;
+    list-style-type:none;
+    height:690px;
+  }
+  #chat-list li{
+    padding:5px 0;
+    height: 50px;
+    padding-left: 30px;
+    background-color:#9d8db3;
+    border-bottom: 2px solid #ffffff5b;
+    border-radius: 10px;
+
+
+  }
+  #chat-list li:hover{
+    background-color:#9385a5;
+  }
+  
+  .new-msg{
+    width:50px;
+    height:20px;
+    border-radius:5%;
+    display:inline-block;
+    margin:15px;
+    background-color:tomato;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+
+  }
+  #chat-header {
+    height:10px;
+    padding:20px 20px 20px 50px;
+    font-weight: bold;
+  }
+  
+  #chat{
+    padding-left:0;
+    margin:0;
+    list-style-type:none;
+    overflow-y:scroll;
+    height:500px;
+    border-top:2px solid #fff;
+    border-bottom:2px solid #fff;
+    padding:10px 30px;
+
+  }
+  #chat-time {
+    color:#bbb;
+    font-size:13px;
+    display:inline-block;
+    margin-left: 5px;
+  }
+  #chat_other_id {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+  }
+  #chat .message{
+    padding:10px;
+    color:#fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height:25px;
+    max-width:90%;
+    display:inline-block;
+    text-align:left;
+    border-radius:5px;
+  }
+  #chat #chat-right{
+    text-align:right;
+  }
+  #chat #chat-left .message{
+    background-color:#9d8db3;
+  }
+  #chat #chat-right .message{
+    background-color:#ec98a8;
+  }
+  
+  #chat-footer{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    padding: 20px 20px 10px 20px;
+    
+  }
+  #send-btn {
+    border: none;
+    background-color: #ed8b9e;
+    font-weight: bold;
+    color: #fff;
+    width: 80px;
+    height: 80px;
+    border-radius: 0px 8px 8px 0px;
+    margin: 0px;
+  }
+  #msg-input{
+    border:none;
+    display:block;
+    width:70%;
+    height:60px;
+    border-radius:8px 0px 0px 8px ;
+    padding:10px;
+    font-size:13px;
+    margin-bottom:0px;
+  }
+  #msg-input::placeholder{
+    color:#cccccc;
+  }
+  #user-name {
+    color: #fff;
+    font-weight: bold;
+    
+  }
+  
+  #Chk-form {
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+#form-box {
+    background-color: #9d8db3;
+    padding: 40px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    width: 300px;
+}
+
+#forget-input {
+    text-align: center;
+    margin: 10px;
+    color: #fff;
+}
+#text-box{
+    width: 200px;
+    height: 30px;
+    margin: 5px;
+    border: none;
+    color: black;
+}
+
+#find-btn {
+    width: 70%;
+    height: 30px;
+    margin: 10px;
+    text-align: center;    
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #ac9dc0;
+    font-weight: bold;
+}
+#find-set {
+    text-align: center;
+    font-size: 13px;
+    color: #fff;
+    text-decoration: none;
+
+
+}
+
+#find-pwd, #joinus, #login {
+    margin: 5px;
+
+}
+
+#result-box {
+    background-color: #e495a5;
+    padding: 30px;
+    border-radius: 10px;
+    border: none;
+    color: #fff;
+
+}
+#result-box a {
+   color: #fff;
+   font-size: 14px;
+   font-weight: bold;
+   margin: 5px;
+
+}
+#pwChange-form a {
+   color: #fff;
+   font-size: 14px;
+   font-weight: bold;
+   margin: 5px;
+   
+   
+}
+
+#pwdset-btn {
+    width: 80%;
+    height: 30px;
+    margin: 10px;
+    text-align: center;    
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #e495a5;
+    font-weight: bold;
+}
+#findresult-set {
+    text-align: center;
+    font-size: 13px;
+    color: #9d8db3;
+    text-decoration: none;
+
+}
+
+#forget-result {
+    width: 400px;
+    color: #fff;
+    
+}
+#login-btn {
+    width: 100%;
+    height: 30px;
+    margin: 0 0 10px 0;
+    text-align: center;    
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #e495a5;
+    font-weight: bold;
+}
+#set-pwd-form {
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    margin: 10px;
+    text-align: center;
+    
+}
+#set-pwd-box {
+   background-color: #e495a5;
+    padding: 40px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    color: #fff;
+}
+#form-box  a {
+   color: #fff;
+   font-size: 14px;
+   font-weight: bold;
+   margin: 5px;
+}
+
+.pwd-submit-btn {
+   width: 200px;
+    height: 30px;
+    margin: 20px;
+    text-align: center;    
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #9d8db3;
+    font-weight: bold;
+    border: none;
+   
 }

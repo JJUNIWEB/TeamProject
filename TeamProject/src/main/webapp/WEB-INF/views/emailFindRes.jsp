@@ -24,52 +24,75 @@
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
             crossorigin="anonymous">
     </script>
+    <style type="text/css">
+    #find-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    margin: 0;
+    
+    }
+    
+    #find-id-result {
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 180px;
+    padding: 20px;
+    color: black;
+    text-align: center;
+    background-color: #9d8db3;
+   border: none;
+   border-radius: 10px;  
+   color: #fff;
+   
+}
+#find-id-result p {
+   font-size:20px;
+   font-weight: bold;
+}
+#find-id-result a {
+   font-size:14px;
+   font-weight: bold;
+   color: #fff;
+}
+
+.find-footer {
+   color: black;
+}
+
+    </style>
     <title>이메일 찾기</title>
 </head>
 
 <body>
-<header>
-    <nav class="navbar">
+    <jsp:include page="header.jsp"></jsp:include>
+    
+<div id="find-form">
+<div id="find-id-result">
+      <!-- 닉네임이 일치하지 않을 때-->
+      <c:if  test="${check == 1}">
+      <i class="fa-solid fa-circle-exclamation" style="color: #fffff; font-size: 50px;"></i>
 
-        <div class="navbar__logo">
-            <a href="${pageContext.request.contextPath}/main">with DANG</a>
-        </div>
-
-        <ul class="navbar__menu">
-            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
-            <c:if test="${ member != null }">
-                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
-            </c:if>
-            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
-        </ul>
-
-        <a href="#" class="navbar__toggleBtn">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </a>
-    </nav>
-</header>
-<span>
-		<!-- 닉네임이 일치하지 않을 때-->
-		<c:if  test="${check == 1}">
-            <p>입력하신 정보가 없거나 일치하지 않습니다.</p>
-            <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-            <span><a href="/withdang/emailFind">다시 찾기</a></span>
+      <br>
+            <p>입력하신 정보가 없거나 일치하지 않습니다.</p><br><br>
+            <div><a class="find-footer" href="/withdang/login">로그인으로 돌아가기</a> |
+            <a class="find-footer" href="/withdang/emailFind">다시 찾기</a></div>
         </c:if>
-		</span>
 
-<span>
-		<!-- 이름과 비밀번호가 일치 -->
-		<c:if test="${check == 0 }">
-            <p>찾으시는 이메일은' ${email}' 입니다.</p>
-            <span><a href="/withdang/login">로그인으로 돌아가기</a></span> |
-            <span><a href="/withdang/pwdFind">비밀번호 찾기</a></span>
+
+      <!-- 이름과 비밀번호가 일치 -->
+      <c:if test="${check == 0 }">
+      <i class="fa-solid fa-circle-check" style="color: #fffff; font-size: 50px;"></i>
+      
+      <br>
+            <p>찾으시는 이메일은' ${email}' 입니다.</p><br><br>
+            <div><a class="find-footer" href="/withdang/login">로그인으로 돌아가기</a> |
+            <a class="find-footer" href="/withdang/pwdFind">비밀번호 찾기</a></div>
         </c:if>
-		</span>
+</div>
+</div>
 
 </body>
 </html>

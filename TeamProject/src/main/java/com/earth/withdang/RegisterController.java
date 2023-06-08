@@ -80,23 +80,23 @@ public class RegisterController {
 		} // memberEmailChkPOST() 종료
 		
 		// 닉네임 중복 검사
-					@RequestMapping(value = "/nickNameCheck", method = RequestMethod.POST)
-					@ResponseBody
-					public String membernickNameCheckPOST(String user_nickname) throws Exception{
-						
-						int result = memberservice.nickNameCheck(user_nickname);
-						
-						if(result != 0) {
-							
-							return "fail";	// 중복 닉네임 존재
-							
-						} else {
-							
-							return "success";	// 중복 닉네임 x
-							
-						}	
-						
-						
+		@RequestMapping(value = "/nickNameCheck", method = RequestMethod.POST)
+		@ResponseBody
+		public String membernickNameCheckPOST(String user_nickname) throws Exception{
+			
+			int result = memberservice.nickNameCheck(user_nickname);
+			
+			if(result != 0) {
+				
+				return "fail";	// 중복 닉네임 존재
+				
+			} else {
+				
+				return "success";	// 중복 닉네임 x
+					
+				}	
+				
+				
 		} // membernickNameChkPOST() 종료
 
 }

@@ -37,7 +37,7 @@
 
 <body>
 <header>
-    <nav class="navbar">
+    <%-- <nav class="navbar">
 
         <div class="navbar__logo">
             <a href="${pageContext.request.contextPath}/main">with DANG</a>
@@ -59,7 +59,8 @@
         <a href="#" class="navbar__toggleBtn">
             <i class="fas fa-bars" aria-hidden="true"></i>
         </a>
-    </nav>
+    </nav> --%>
+    <jsp:include page="header.jsp"></jsp:include>
 </header>
 
 <section id="main">

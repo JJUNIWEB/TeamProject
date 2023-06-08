@@ -204,7 +204,7 @@ a {
     <header>
         <nav class="navbar">
             <div class="navbar__logo">
-                <a href=#><img src="resources/img/logo.png" class="logo"></a>
+                <a href=/withdang><img src="${pageContext.request.contextPath}/resources/image/logo.png" class="logo"></a>
             </div>
             <ul class="navbar__menu">
 	            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
@@ -215,7 +215,7 @@ a {
             <c:if test="${ member != null }">
                 <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
             </c:if>
-	            <li><a href="mypage.html"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
+	            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
 	            
             </ul>
             <a href="#" class="navbar__toggleBtn">

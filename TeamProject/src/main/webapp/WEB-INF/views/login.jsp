@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <c:set var="loginout" value="${sessionScope.member==null ? 'Login' : 'Logout' }" />
 <c:set var="loginoutlink" value="${sessionScope.member==null ? '/login' : '/logout' }" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,18 +11,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/css/login.css" />
-    <script src="/resources/script/login.js"></script>
-    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="/resources/script/login.js"></script>  
     <script
 		  src="https://code.jquery.com/jquery-3.4.1.js"
 		  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 		  crossorigin="anonymous">
 	</script>  
-	
 	<script language="javascript">
         function showPopup() { window.open("/withdang/agreement", "회원가입약관", "width=600, height=850, left=350px, top=125px")}
     </script>  
-    
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	
+    <title>Login</title>
 </head>
 
 <body>
@@ -146,7 +149,12 @@
               
   			/* 비밀번호 정규식 검사 */
             if (!pwdCheck.test(pw)) {
-        	    alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.");
+            	swal.fire({
+	     			text: '비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.',
+	     			icon: 'warning',
+	     			confirmButtonText: '확인',
+	     		});
+        	    /* alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다."); */
         	    pw.focus
         	    pwdCheck = false;
         	  } else {
@@ -157,7 +165,12 @@
 
           /* 약관 동의 체크 */
 	     	if(!checked) {
-	     		alert("회원가입 약관에 동의해주세요.")
+	     		swal.fire({
+	     			text: '회원가입 약관에 동의해주세요.',
+	     			icon: 'warning',
+	     			confirmButtonText: '확인',
+	     		});
+	     		/* alert("회원가입 약관에 동의해주세요.") */
 	     		boxCheck = false;
 	     	} else {
 	     		boxCheck = true;
@@ -183,7 +196,7 @@
           }
           
           /* 닉네임 유효성 검사 */
-          if(nickname == ""){
+          if(nickname == "" || nickname > 7){
               $('.final_nickname_ck').css('display','block');
               nickNameCheck = false;
           }else{
@@ -198,7 +211,6 @@
           	$("#join_form").attr("action", "/withdang/join");
       		$("#join_form").submit();
           }    
-          
           	return false;
         		
       });
@@ -293,12 +305,34 @@
         
     });
     
-    let msg = "${msg}"
-	if(msg=="pwUdate") alert("비밀번호가 변경되었습니다.")  
-	
-	if(msg=="joinOK") alert("회원가입이 완료되었습니다.")
+    
 	
 	
+  </script>
+  
+  <script type="text/javascript">
+  	$(document).ready(function() {
+  		let msg = "${msg}"
+  		
+  			if(msg=="pwUdate") {
+  				Swal.fire({
+  				  text: '비밀번호가 변경되었습니다.',  // Alert 내용
+  				  icon: 'success',                         // Alert 타입
+  				  confirmButtonText: '확인',
+  				});
+  				/* alert("비밀번호가 변경되었습니다.")   */
+  			}
+  			
+  			if(msg=="joinOK") {
+  				Swal.fire({
+  				  text: '회원가입이 완료되었습니다.',  // Alert 내용
+  				  icon: 'success',                         // Alert 타입
+  				  confirmButtonText: '확인',
+  				});
+  				/* alert("회원가입이 완료되었습니다.") */
+  			}
+	})
+  
   </script>
         
 </body>
