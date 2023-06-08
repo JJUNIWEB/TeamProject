@@ -33,33 +33,9 @@
 </head>
 
 <body>
-<header>
-    <nav class="navbar">
-
-        <div class="navbar__logo">
-            <a href="${pageContext.request.contextPath}/main">with DANG</a>
-        </div>
-
-        <ul class="navbar__menu">
-            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
-            <c:if test="${ member != null }">
-                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
-            </c:if>
-            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-
-        </ul>
-
-        <a href="#" class="navbar__toggleBtn">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </a>
-    </nav>
-</header>
+    <jsp:include page="header.jsp"></jsp:include>
         
-	<form action="<c:url value='/dangcomu/post${searchItem.queryString}'/>" id="form" class="board_write_wrap" method="post">
+	<form action="<c:url value='/dangcomu/post${searchItem.queryString}'/>" id="form" class="board_write_wrap" enctype="multipart/form-data" method="post">
 		<div class="board_wrap">
 	        <div class="board_title">
 	            <strong>댕댕커뮤</strong>
@@ -69,15 +45,8 @@
 	            <div class="board_write">
 	                <div class="title">
 	                    <dl>
-	                        <dd><input id="post_title" name="post_title" type="text" placeholder="제목 입력" required></dd>
-	                    </dl>
-	                </div>
-	                <section class="dangguen-sec">
-	                    <div class="info">
-	                        <dl>
-	                        </dl>
-	                        <div id="dangguen-img">
-	                            <select id="post_ctgr" name="post_ctgr_id" class="form-select" aria-label="category" required>
+	                    
+	                        <dd><select id="post_ctgr" name="post_ctgr_id" class="form-select" aria-label="category" required>
                                     <option value="">카테고리</option>
                                     <option value="2">반려소식</option>
                                     <option value="3">반려일상</option>
@@ -85,10 +54,21 @@
                                     <option value="5">펫과사전</option>
                                     <option value="6">육아꿀팁</option>
                                     <option value="7">기타</option>
-	                            </select>
+	                            </select><input id="post_title" name="post_title" type="text" placeholder="제목 입력" required></dd>
+	                        	
+	                    </dl>
+	                </div>
+	                <section class="dangguen-sec">
+	                    <div class="info">
+	                        <dl>
+	                        </dl>
+	                        <div id="dangguen-img">
 		                        <div class="img-sec">
-		                            <input id="imageinput" type="file" multiple="multiple" accept=".jpg, .jpeg, .png" onchange="previewImage(this)">
-		                            <img id="preview" />
+		                            <input id="imageinput0" name="image1" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 0)">
+		                            <input id="imageinput1" name="image2" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 1)">
+		                            <input id="imageinput2" name="image3" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 2)">
+		                            <input id="imageinput3" name="image4" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 3)">
+		                            <div id="preview-list"></div>
 		                        </div>
 	                        </div>
 	                    </div>
@@ -98,7 +78,7 @@
 	            </div>
 	            <div class="bt_wrap">
 	                <button type="submit" id="postButton" class="on">등록</button>
-	                <a href="${pageContext.request.contextPath}/dangcomu/list">취소</a>
+	                <button type="button" href="${pageContext.request.contextPath}/dangcomu/list">취소</button>
 	            </div>
 	        </div>
 	    </div>

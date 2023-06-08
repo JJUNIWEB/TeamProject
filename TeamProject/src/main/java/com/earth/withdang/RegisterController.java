@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.earth.domain.MemberDto;
 import com.earth.service.MemberService;
@@ -36,7 +37,7 @@ public class RegisterController {
 	
 		//회원가입 서비스 실행
 		@PostMapping("/join")
-		public String joinPOST(MemberDto member) throws Exception {
+		public String joinPOST(MemberDto member, RedirectAttributes rttr) throws Exception {
 
 			String rawPw = "";            // 인코딩 전 비밀번호
 	        String encodePw = "";        // 인코딩 후 비밀번호
@@ -47,6 +48,8 @@ public class RegisterController {
 
 			memberservice.memberJoin(member);
 			memberservice.dogInsert(member);
+			
+			rttr.addFlashAttribute("msg", "joinOK");
 			
 			return "redirect:/login";
 			

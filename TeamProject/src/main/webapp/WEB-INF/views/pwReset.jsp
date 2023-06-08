@@ -28,44 +28,26 @@
 </head>
 
 <body>
-<header>
-    <nav class="navbar">
+    <jsp:include page="header.jsp"></jsp:include>
 
-        <div class="navbar__logo">
-            <a href="${pageContext.request.contextPath}/main">with DANG</a>
-        </div>
-
-        <ul class="navbar__menu">
-            <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangguen">댕근마켓</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
-            <c:if test="${ member != null }">
-                <li><a href="${pageContext.request.contextPath}/mypage"><i class="fa fa-user-o" id="btnMypage" aria-hidden="true"></i></a></li>
-            </c:if>
-            <li><button class="btnLogin"><a href="<c:url value='${loginoutlink }' />">${loginout}</a></button></li>
-        </ul>
-        
-        <a href="#" class="navbar__toggleBtn">
-            <i class="fas fa-bars" aria-hidden="true"></i>
-        </a>
-    </nav>
-</header>
-
-	<p>비밀번호 변경</p>
-    <form id="pwChange-Form" method="post">
-	    <input type="hidden" name="user_email" value="${member.user_email }">
-	    <input type="hidden" name="user_name" value="${member.user_name }">
-	    <input type="hidden" name="user_nickname" value="${member.user_nickname }">
-	    <input type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요">
-	    <input type="password" class="input_pwck" placeholder="비밀번호 확인을 입력해주세요">
+<div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+    <form id="pwChange-Form" method="post" >
+    <div id="form-box" style="text-align:center;">
+    	<h2>비밀번호 변경</h2>
+    
+	    <input id="text-box" type="hidden" name="user_email" value="${member.user_email }">
+	    <input id="text-box" type="hidden" name="user_name" value="${member.user_name }">
+	    <input id="text-box" type="hidden" name="user_nickname" value="${member.user_nickname }">
+	    <input id="text-box" type="password" class="input_pw" name="user_pw" placeholder="비밀번호를 입력해주세요"><br>
+	    <input id="text-box" type="password" class="input_pwck" placeholder="비밀번호 확인을 입력해주세요"><br>
 	    <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
-	    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
+	    <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span><br>
 	    <span><a href="/withdang">매인으로 돌아가기</a></span>
-		<button type="button" class="btn">비밀번호 변경</button>
+		<button id="find-btn" type="button" class="btn">비밀번호 변경</button>
+	</div>
     </form>
     
+</div>
     <script type="text/javascript">
     var pwCheck = false;            // 비번
 	var pwckCheck = false;            // 비번 확인
