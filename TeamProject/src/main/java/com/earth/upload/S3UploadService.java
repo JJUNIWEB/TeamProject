@@ -66,7 +66,7 @@ public class S3UploadService {
 //dogProfile/5c014113-9937-4d15-9d61-234a5a7310ff.png    의 형태를 넣어줘야 함
     //업로드시에 버켓 주소를 붙였으니 떼어주는 작업이 필요
     public void deleteFile(String fileName) {
-        fileName.substring(bucketUrl.length(), fileName.length());
+        fileName = fileName.substring(bucketUrl.length(), fileName.length());
 //        amazonS3.doesObjectExist()
         amazonS3.deleteObject(bucket, fileName);
     }
