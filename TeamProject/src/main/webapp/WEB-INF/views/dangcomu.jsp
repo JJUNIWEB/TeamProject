@@ -23,6 +23,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <script src='${pageContext.request.contextPath}/resources/script/toggle.js' defer></script>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <!-- SweetAlert JS -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
 	
     <title>댕댕커뮤</title>
 </head>
@@ -120,9 +122,6 @@
 	
 	<input type="hidden" value="${isLoggedIn}" id="isLoggedIn";>
 
-	<!-- SweetAlert JS -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
-	
 	<script>
 	function checkLogin(event) {
 		  event.preventDefault(); // 링크로의 이동 방지

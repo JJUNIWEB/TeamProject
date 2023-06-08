@@ -22,13 +22,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
             integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
             crossorigin="anonymous"></script>
-
     <title>댕댕커뮤 글 수정</title>
 </head>
 
 <body>
-    <jsp:include page="header.jsp"></jsp:include>
 
+<jsp:include page="header.jsp"></jsp:include>
 
 <form action="<c:url value='/dangcomu/update${searchItem.queryString}?post_id=${comuDTO.post_id}'/>" id="form" class="board_modify_wrap" enctype="multipart/form-data" method="post">
 	<div class="board_wrap">
@@ -66,7 +65,6 @@
 	                            </div>
 	                        </div>
 	                    </div>
-	
 	                </div>
 	                <div class="cont">
 		                <textarea id="post_content" name="post_content" placeholder="내용 입력" required>

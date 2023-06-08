@@ -163,14 +163,13 @@ public class ComuController {
 		MemberDto memberDto = (MemberDto) session.getAttribute("member");
 		String user_email = memberDto.getUser_email();
 
-		ra.addFlashAttribute("msg", "DEL_OK");
+		String category = "comuPost";
 
 		try {
-			if (comuService.deletePost(post_id, user_email) != 1)
-				throw new Exception("Delete Fail");
+			comuService.deletePost(post_id, user_email);
+			imageService.deleteComuPhoto(user_email, post_id, category);
 		} catch (Exception e) {
 			e.printStackTrace();
-			ra.addFlashAttribute("msg", "DEL_ERR");
 		}
 
 		ra.addAttribute("page", page);
