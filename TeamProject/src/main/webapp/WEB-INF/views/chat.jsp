@@ -500,7 +500,7 @@
     }
     
    function connectWS() {
-      var ws = new WebSocket("ws://localhost/withdang/replyEcho")
+      var ws = new WebSocket("wss://q.withdang.click/withdang")
       socket = ws
       
       ws.onopen = function() {
