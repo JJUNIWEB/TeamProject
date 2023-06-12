@@ -67,7 +67,7 @@
                     <span class="user_nickname_re_1">사용 가능한 닉네임입니다</span>
                     <span class="user_nickname_re_2">닉네임이 이미 존재합니다</span>
                     <span class="final_nickname_ck">닉네임을 입력해 주세요</span>
-                    <span class="nickname_length_ck">닉네임은 최대 6자까지 가능합니다.</span>
+                    <span class="nickname_length_ck">닉네임은 2 ~ 6자까지 가능합니다.</span>
                     <input type="email" class="input_email" name="user_email" placeholder="Email">
                     <span class="user_email_re_1">사용 가능한 이메일입니다</span>
 					<span class="user_email_re_2">이메일이 이미 존재합니다</span>
@@ -112,7 +112,6 @@
 	    var pwckcorCheck = false;        // 비번 확인 일치 확인
 	    var nameCheck = false;            // 이름
 	    var nickNameCheck = false;		 // 닉네임
-	    var nickNameLenck = false;		// 닉네임 글자수 체크
 	    var nickNameckCheck = false;	// 닉네임 중복
         var pwdCheck = false;			// 비번 정규식 확인	
       	var boxCheck = false;			//약관 체크박스 확인
@@ -127,7 +126,6 @@
         var pwck = $('.input_pwck').val();            // 비밀번호 확인 입력란
         var name = $('.input_name').val();            // 이름 입력란
         var nickname = $('.input_nickname').val();			  // 닉네임 입력란     
-        var nickNameLen = $('.input_nickname').val().length;	// 닉네임 길이
         var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식
         var warnMsg = $(".mail_input_box_warn");    // 이메일 입력 경고글
         var checked = $("#register-check").is(":checked");		// 체크박스 체크 확인
@@ -184,6 +182,7 @@
           /* 비밀번호 확인 유효성 검사 */
           if(pwck == ""){
               $('.final_pwck_ck').css('display','block');
+              $('.pwck_input_re_2').css('display','none');
               pwckCheck = false;
           }else{
               $('.final_pwck_ck').css('display', 'none');
@@ -202,28 +201,18 @@
           /* 닉네임 유효성 검사 */
           if(nickname == ""){
               $('.final_nickname_ck').css('display','block');
-              $('.user_nickname_re_1').css("display", "none");
+              $('.nickname_length_ck').css("display","none");
               nickNameCheck = false;
           }else{
               $('.final_nickname_ck').css('display', 'none');
-              $('.nickname_length_ck').css('display','none');
+              $('.nickname_length_ck').css("display","none");
               nickNameCheck = true;
-              nickNameLenck = true;
           }
-          
-          if(nickNameLen > 6) {
-				$('.user_nickname_re_1').css("display", "none");
-				$('.user_nickname_re_2').css("display", "none");
-				$('.nickname_length_ck').css('display',"block");
-				nickNameLenck = false;
-			} else {
-          		nickNameLenck = true;
-			}
           
           /* 최종 유효성 검사 */
           if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
         		  pwckcorCheck&&nameCheck&&pwdCheck&&nickNameCheck&&
-        		  nickNameckCheck&&boxCheck&&nickNameLenck){
+        		  nickNameckCheck&&boxCheck){
    		
           	$("#join_form").attr("action", "/withdang/join");
       		$("#join_form").submit();
@@ -267,9 +256,9 @@
 				} 
 				
 			}// success 종료
-	}); // ajax 종료	
+		}); // ajax 종료	
 
- });// function 종료
+ 	});// function 종료
  
 
 		//닉네임 중복검사
@@ -282,19 +271,25 @@
 			url : "/withdang/nickNameCheck",
 			data : data,
 			 success : function(result){
-				 if(result != 'fail'){
+				 if(result == 'success'){
 					$('.user_nickname_re_1').css("display","inline-block");
 					$('.user_nickname_re_2').css("display", "none");
 					$('.final_nickname_ck').css('display', 'none');
 					$('.nickname_length_ck').css("display","none");
 					nickNameckCheck = true;
-					} else {
+					} else if(result == "fail"){
 						$('.user_nickname_re_2').css("display","inline-block");
 						$('.user_nickname_re_1').css("display", "none");	
 						$('.final_nickname_ck').css('display', 'none');
 						$('.nickname_length_ck').css("display","none");
 						nickNameckCheck = false;
-					} 
+					} else {
+						$('.nickname_length_ck').css("display","inline-block");
+						$('.user_nickname_re_2').css("display","none");
+						$('.user_nickname_re_1').css("display", "none");	
+						$('.final_nickname_ck').css('display', 'none');
+						nickNameckCheck = false;
+					}
 					
 				}// success 종료
 			}); // ajax 종료	
