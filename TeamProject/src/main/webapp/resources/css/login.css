@@ -285,6 +285,15 @@ a {
     font-size: x-small;
     top: 137px;
 }
+
+.name_ck{
+	color : red;
+    position: absolute;
+    display: none;
+    font-size: x-small;
+    top: 137px;
+}
+
 .final_nickname_ck{
     position: absolute;
     display: none;

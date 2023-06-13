@@ -434,25 +434,31 @@
         function closePopup() {
           var checkbox = window.opener.document.getElementById("register-check");
           if (checkbox.checked) {
-            checkbox.checked = false;
-            checkbox.dispatchEvent(new Event('change'));
-          }
+        		  checkbox.checked = false;
+                  checkbox.dispatchEvent(new Event('change'));
+          }    
           window.close();
         }
         </script>
         
+        <!-- X클릭시 -->
+     	<script type="text/javascript">
+        	$(document).ready(function() {
+		        var checked1 = $("#agree11").is(":checked");		// 체크박스 체크 확인
+		        var checked2 = $("#agree21").is(":checked");		// 체크박스 체크 확인
+		        var checkbox = window.opener.document.getElementById("register-check");
+		        
+		        if(!checked1 || !checked2) checkbox.checked = false;
+
+        	})
+        </script>
+        
         </form>
-     	<!-- <script type="text/javascript">
-     		// 약관 동의 창 x 클릭 시 동의 체크 해제
-     		var checkbox = window.opener.document.getElementById("register-check");
-     		
-     		if(window.close) checkbox.checked = false;
-     			
-     	</script> -->
+        
         <script>
-          function fregister_submit(f) {
-        	var checkbox = window.opener.document.getElementById("register-check");  
-        	  
+          function fregister_submit(f) {  
+        	var checkbox = window.opener.document.getElementById("register-check"); 
+   
 	        if (!f.agree1.checked) {
 	            alert("회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
 	            f.agree1.focus();
@@ -467,25 +473,14 @@
 
 	        f.submit();
 	        if (f.agree1.checked && f.agree2.checked) {
-	        window.close();
-	        }
-	        return true;
+	        	checkbox.checked = true;
+	        	window.close();
+	        } 
+	        	return true;
 	        }
         
         </script>
-        <script type="text/javascript">
-        	var checked1 = $("#agree11").is(":checked");		// 체크박스 체크 확인
-        	var checked2 = $("#agree21").is(":checked");		// 체크박스 체크 확인
-        	var checkbox = window.opener.document.getElementById("register-check");
-        	
-        	if(window.close) {
-        		if(!checked1 || !checked2) {
-        			checkbox.checked = false;
-        		}
-        			
-        	}
-        	
-        </script>
+       
       </div>
       <!-- } 회원가입 약관 동의 끝 -->
     </div>
