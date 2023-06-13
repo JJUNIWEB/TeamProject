@@ -143,7 +143,7 @@
 				},
 				error: function() { alert("error") }		 
     		})
-		}
+    	}
 		
 		let toHtml = function(comments) {
 		    let tmp = '';
@@ -161,6 +161,7 @@
 		        tmp += ' 작성날짜 : <span class="cmt_created_time">' + dateFormat(date) + '</span><br>';  // 작성 날짜 줄바꿈 추가
 		        
 		        if (comment.user_email == user_email) {
+		        	tmp += ' <button id="cmt_modify">수정</button>';
 		        	tmp += ' <button id="cmt_delete">삭제</button>';
 		        }
 

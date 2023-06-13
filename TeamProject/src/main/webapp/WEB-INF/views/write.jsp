@@ -23,13 +23,18 @@
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-    .board_write_wrap {
-        width: 100%;
-       	display: flex;
-        flex-direction: column;
-    }
+	    .board_write_wrap {
+	        width: 100%;
+	       	display: flex;
+	        flex-direction: column;
+	    }
     	
+    	#image-icon {
+    		font-size: 40px;
+    		margin-right: 20px;
+    	}
     </style>
     <title>댕댕커뮤</title>
 </head>
@@ -65,6 +70,10 @@
 	                        <dl>
 	                        </dl>
 	                        <div id="dangguen-img">
+	                        	<label for="imageinput0"><i id="image-icon" class="fa-solid fa-image"></i></label>
+	                        	<label for="imageinput1"><i id="image-icon" class="fa-solid fa-image"></i></label>
+	                        	<label for="imageinput2"><i id="image-icon" class="fa-solid fa-image"></i></label>
+	                        	<label for="imageinput3"><i id="image-icon" class="fa-solid fa-image"></i></label>
 		                        <div class="img-sec">
 		                            <input id="imageinput0" name="image1" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 0)">
 		                            <input id="imageinput1" name="image2" type="file" accept=".jpg, .jpeg, .png" onchange="previewImage(this, 1)">
