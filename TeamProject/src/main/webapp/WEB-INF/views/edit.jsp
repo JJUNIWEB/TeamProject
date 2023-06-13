@@ -22,6 +22,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
             integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
             crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+            
     <title>댕댕커뮤 글 수정</title>
 </head>
 
@@ -79,6 +81,19 @@
 	    </div>
 	</div>
 </form>
+<script>
+document.getElementById("form").addEventListener("submit", function(event) {
+  event.preventDefault();
+  Swal.fire({
+    icon: 'success',
+    title: '글 등록이 완료되었습니다.',
+    confirmButtonText: '확인'
+  }).then(() => {
+    this.submit();
+  });
+});
+</script>
+
 </body>
 
 </html>

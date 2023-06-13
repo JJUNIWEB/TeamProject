@@ -21,6 +21,8 @@
         integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <style>
     .board_write_wrap {
         width: 100%;
@@ -83,6 +85,17 @@
 	        </div>
 	    </div>
 	</form>
+	<script>
+		document.getElementById("postButton").addEventListener("click", function(event) {
+			  event.preventDefault();
+			  Swal.fire({
+			    icon: 'success',
+			    title: '글 등록이 완료되었습니다.',
+			    confirmButtonText: '확인'
+			  }).then(() => {
+			    document.getElementById("form").submit();
+			  });
+			});
+		</script>
 </body>
-
 </html>

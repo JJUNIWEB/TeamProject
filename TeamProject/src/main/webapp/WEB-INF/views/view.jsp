@@ -51,68 +51,87 @@
 		let post_id = $("input[name=post_id]").val()
 		
 		$("#deleteBtn").click(function() {
-			if (confirm("삭제하시겠습니까?")) {		
-				$.ajax({
-					url: "delete?post_id=" + post_id,
-					method: "POST",
-					dataType: "text",
-					success: function name() {
-						alert('성공적으로 삭제되었습니다.')
-						location.href = 'list'
-					}
-				})
-			}
-		})
+		    Swal.fire({
+		        title: '삭제하시겠습니까?',
+		        icon: 'warning',
+		        showCancelButton: true,
+		        confirmButtonText: '삭제',
+		        cancelButtonText: '취소'
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		            $.ajax({
+		                url: "delete?post_id=" + post_id,
+		                method: "POST",
+		                dataType: "text",
+		                success: function() {
+		                    Swal.fire("성공적으로 삭제되었습니다.").then(function() {
+		                        location.href = 'list';
+		                    });
+		                }
+		            });
+		        }
+		    });
+		});
 		
 		$("#commentButton").click(function() {
 		    let cmt_content = $("textarea[name=comment]").val().trim();
 		    
 		    console.log(login_user)
 		    
-			if(login_user == 'Not Login') {					// session에서  user_email을 가져옴.
-				showAlert();
-				
-				return false;			// 함수가 작동된 후 다시 작동이 되지 않게함. 
-			}
-			
-			if($('#commentInput').val()=='') {
-				alert("내용을 입력하세요");
-				$('#commentInput').focus();
-				
-				return false;
-			}
-		    	
-			$.ajax({
-				type: 'post',
-				url: '/withdang/dangcomu/comments/' + post_id,
-				headers: { "content-type" : "application/json" }, 
-				data : JSON.stringify({post_id: post_id, cmt_content: cmt_content}),  
-				success : function(result) {
-					showList(post_id)
-					$('#commentInput').val('')
-					
-				},
-				error : function(jqXHR, textStauts, errorThrown) { }  
-			})
-			
-		})	
-		
-		$("#commentList").on("click", "#cmt_delete", function() {
-		    if (confirm("삭제하시겠습니까?")) {							//아니오를 눌러도 삭제가 됨. 조건문 안에 넣어서 해결. 
-		        let cmt_id = $(this).parent().attr("cmt_id");
-		        let post_id = $(this).parent().attr("post_id");
-		
-		        $.ajax({
-		            type: 'DELETE',
-		            url: '/withdang/dangcomu/comments/' + post_id + "/" + cmt_id,
-		            success: function(result) {
-		                showList(post_id);
-		            },
-		            error: function() {
-		                alert("error");
-		            }
-		        });
+		    if (login_user == 'Not Login') {
+		        showAlert();
+		        
+		        return false; // 함수가 작동된 후 다시 작동이 되지 않게 함.
 		    }
+		    
+		    if ($('#commentInput').val() == '') {
+		        Swal.fire('내용을 입력하세요');
+		        $('#commentInput').focus();
+		        
+		        return false;
+		    }
+		    
+		    $.ajax({
+		        type: 'post',
+		        url: '/withdang/dangcomu/comments/' + post_id,
+		        headers: { "content-type" : "application/json" },
+		        data: JSON.stringify({post_id: post_id, cmt_content: cmt_content}),
+		        success: function(result) {
+		            showList(post_id);
+		            $('#commentInput').val('');
+		            
+		            Swal.fire('댓글이 등록됐습니다!');
+		        },
+		        error: function(jqXHR, textStauts, errorThrown) {}
+		    });
+		});
+
+		$("#commentList").on("click", "#cmt_delete", function() {
+		    Swal.fire({
+		        title: '삭제하시겠습니까?',
+		        icon: 'warning',
+		        showCancelButton: true,
+		        confirmButtonText: '삭제',
+		        cancelButtonText: '취소'
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		            let cmt_id = $(this).parent().attr("cmt_id");
+		            let post_id = $(this).parent().attr("post_id");
+
+		            $.ajax({
+		                type: 'DELETE',
+		                url: '/withdang/dangcomu/comments/' + post_id + "/" + cmt_id,
+		                success: function(result) {
+		                    Swal.fire('댓글이 삭제됐습니다!').then(function() {
+		                        showList(post_id);
+		                    });
+		                },
+		                error: function() {
+		                    Swal.fire('오류가 발생했습니다.');
+		                }
+		            });
+		        }
+		    });
 		});
 
     	let showList = function(post_id) {
@@ -183,7 +202,7 @@
 
 		showList(post_id);
 		
-		// SweetAlert JS
+		// SweetAlert JS 로그인 화면으로 이동
 		function showAlert() {
 	        Swal.fire({
 	            title: '알림',
@@ -230,10 +249,7 @@
                         <dt>조회</dt>
                         <dd>${comuDTO.post_view_count}</dd>
                     </dl>
-                    <%-- <dl>
-                        <dt>카테고리</dt>
-                        <dd>${comuDTO.post_ctgr_id}</dd>
-                    </dl> --%>
+                    
                     <dl>
 			      <%
 				// 카테고리 ID와 문자열 매핑을 위한 맵 생성
@@ -280,7 +296,7 @@
 			  <textarea id="commentInput" placeholder="댓글 내용" name="comment" required></textarea>
 			  <button type="button" id="commentButton">댓글 달기</button>
 			</div>
-            
+          
             <ul class="comment-list" id="commentList">
                 <!-- 댓글 리스트 -->
             </ul>
