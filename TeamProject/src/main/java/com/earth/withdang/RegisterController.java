@@ -86,23 +86,17 @@ public class RegisterController {
 			int lvo = user_nickname.length();
 			int result = memberservice.nickNameCheck(user_nickname);
 			
-			if(result != 0) {
 				if(lvo>6 || lvo <2) {
 					return "fail1";
-				}
-				return "fail";	// 중복 닉네임 존재
-				
-				
-			} else {
-				if(lvo>6 || lvo <2) {
-					return "fail1";
-				}
-				
-				return "success";	// 중복 닉네임 x
-					
-				}	
-				
-				
+				} else {
+					if(result != 0) {
+						return "fail";	// 중복 닉네임 존재
+				 } 	else {
+						return "success";	// 중복 닉네임 x
+				 }
+						
+			} 
+						
 		} // membernickNameChkPOST() 종료
 
 }
