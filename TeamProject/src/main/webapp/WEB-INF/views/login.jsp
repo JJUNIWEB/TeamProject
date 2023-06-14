@@ -63,12 +63,12 @@
                     <h3>회원가입</h3>
                     <input type="text"  class="input_name" name="user_name" placeholder="이름">
                     <span class="final_name_ck">이름을 입력해 주세요</span>
-                    <span class="name_ck">올바르지 않은 이름입니다.</span>
+                    <span class="name_ck">이름이 올바르지 않습니다.</span>
                     <input type="text"  class="input_nickname" name="user_nickname" placeholder="닉네임(2~6자)">
                     <span class="user_nickname_re_1">사용 가능한 닉네임입니다</span>
                     <span class="user_nickname_re_2">닉네임이 이미 존재합니다</span>
                     <span class="final_nickname_ck">닉네임을 입력해 주세요</span>
-                    <span class="nickname_length_ck">닉네임은 2 ~ 6자까지 가능합니다.</span>
+                    <span class="nickname_length_ck">닉네임이 올바르지 않습니다</span>
                     <input type="email" class="input_email" name="user_email" placeholder="Email">
                     <span class="user_email_re_1">사용 가능한 이메일입니다</span>
 					<span class="user_email_re_2">이메일이 이미 존재합니다</span>
@@ -77,6 +77,7 @@
 					<sapn class="mail_input_box_warn"></sapn>
                     <input type="password" class="input_pw"  name="user_pw" placeholder="비밀번호">
                     <span class="final_pw_ck">비밀번호를 입력해 주세요</span>
+                    <span class="pw_ck">최소 8 자, 영문, 숫자 및 특수 문자 조합으로 사용해야 합니다</span>
                     <input id="pwdck" type="password" class="input_pwck" name="user_pw2" placeholder="비밀번호 재확인" ><span id ="confirmMsg"></span>
                     <span class="final_pwck_ck">비밀번호 확인을 입력해 주세요</span>
                     <span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
@@ -116,7 +117,7 @@
 	    var nameCheck = false;            // 이름
 	    var nickNameCheck = false;		 // 닉네임
 	    var nickNameckCheck = false;	// 닉네임 중복
-        var pwdCheck = false;			// 비번 정규식 확인	
+        /* var pwdCheck = false;			// 비번 정규식 확인	 */
       	var boxCheck = false;			//약관 체크박스 확인
 
         $(document).ready(function(){
@@ -129,82 +130,48 @@
         var pwck = $('.input_pwck').val();            // 비밀번호 확인 입력란
         var name = $('.input_name').val();            // 이름 입력란
         var nickname = $('.input_nickname').val();			  // 닉네임 입력란     
-        var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식
         var checked = $("#register-check").is(":checked");		// 체크박스 체크 확인
 
-           /* 이메일 유효성검사 */
-           if(email == "" || email == null){
+            /* 이메일 null 검사 */
+            if(email == "" || email == null){
                $('.final_email_ck').css('display','block');
                $('.user_email_re_3').css("display","none");
                emailCheck = false;
-           }else{
-               $('.final_email_ck').css('display', 'none');
-               emailCheck = true;
-           }
+           }  
         
-         /*	비밀번호 유효성 검사 */
-          if(pw == "" || pw == null){
+         /*	비밀번호 null 검사 */
+           if(pw == "" || pw == null){
               $('.final_pw_ck').css('display','block');
               pwCheck = false;
-          }else{
-              $('.final_pw_ck').css('display', 'none');
-              pwCheck = true;
-			
-              
-  			/* 비밀번호 정규식 검사 */
-            if (!pwdCheck.test(pw) && !pwdCheck.test(pwck)) {
-            	swal.fire({
-	     			text: '비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.',
-	     			icon: 'warning',
-	     			confirmButtonText: '확인',
-	     		});
-        	    /* alert("비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다."); */
-        	    pw.focus
-        	    pwdCheck = false;
-        	  } else {
-        		  pwdCheck = true;
-        	  }
-                
           }
-         
-          /* 비밀번호 확인 유효성 검사 */
-          if(pwck == "" || pwck == null){
+          
+          /* 비밀번호 확인 null 검사 */
+           if(pwck == "" || pwck == null){
               $('.final_pwck_ck').css('display','block');
               $('.pwck_input_re_2').css('display','none');
               pwckCheck = false;
-          }else{
-              $('.final_pwck_ck').css('display', 'none');
-              pwckCheck = true;
-          }
+          } 
           
-          /* 이름 유효성 검사 */
-          if(name == "" || name == null){
+          /* 이름 null 검사 */
+           if(name == "" || name == null){
               $('.final_name_ck').css('display','block');
               nameCheck = false;
-          }else{
-              $('.final_name_ck').css('display', 'none');
-              nameCheck = true;
-          }
+          } 
           
-          /* 닉네임 유효성 검사 */
+          /* 닉네임 null 검사 */
           if(nickname == "" || nickname == null){
               $('.final_nickname_ck').css('display','block');
               $('.nickname_length_ck').css("display","none");
               nickNameCheck = false;
-          }else{
-              $('.final_nickname_ck').css('display', 'none');
-              $('.nickname_length_ck').css("display","none");
-              nickNameCheck = true;
-          }
-
-          /* 약관 동의 체크 */
+          }  
+          
+          	/* 약관 동의 체크 검사 */
 	     	if(!checked) {
 	     		swal.fire({
 	     			text: '회원가입 약관에 동의해주세요.',
 	     			icon: 'warning',
 	     			confirmButtonText: '확인',
 	     		});
-	     		/* alert("회원가입 약관에 동의해주세요.") */
 	     		boxCheck = false;
 	     	} else {
 	     		boxCheck = true;
@@ -212,7 +179,7 @@
 
           /* 최종 유효성 검사 */
           if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
-        		  pwckcorCheck&&nameCheck&&pwdCheck&&nickNameCheck&&
+        		  pwckcorCheck&&nameCheck&&nickNameCheck&&
         		  nickNameckCheck&&boxCheck){
    		
           	$("#join_form").attr("action", "/withdang/join");
@@ -224,7 +191,7 @@
  });
       	
       	
-   		//이메일 형식&중복 검사
+   		//이메일 유효성 검사
 		$('.input_email').on("propertychange change keyup paste input", function(){
 
 		/* console.log("keyup 테스트"); */ 	
@@ -236,12 +203,20 @@
 		url : "/withdang/emailCheck",
 		data : data,
 		 success : function(result){
-			 if(result == 'success'){
-				$('.user_email_re_1').css("display","inline-block");
-				$('.user_email_re_2').css("display", "none");	
-				$('.user_email_re_3').css("display","none");
-				$('.final_email_ck').css("display", "none");
-				emailckCheck = true;
+			 if(user_email == "" || user_email == null) {
+				 $('.final_email_ck').css("display", "inline-block");
+				 $('.user_email_re_1').css("display", "none");
+				 $('.user_email_re_2').css("display", "none");	
+				 $('.user_email_re_3').css("display","none");
+				 emailckCheck = false;
+			 } else {
+			 	if(result == 'success') {
+					$('.user_email_re_1').css("display","inline-block");
+					$('.user_email_re_2').css("display", "none");	
+					$('.user_email_re_3').css("display","none");
+					$('.final_email_ck').css("display", "none");
+					emailCheck = true;
+					emailckCheck = true;
 				} else if(result == 'fail') {
 					$('.user_email_re_2').css("display","inline-block");
 					$('.user_email_re_1').css("display", "none");
@@ -255,14 +230,14 @@
 					$('.final_email_ck').css('display', 'none');
 					emailckCheck = false;
 				} 
-				
+			 }	
 			}// success 종료
 		}); // ajax 종료	
 
  	});// function 종료
  
 
-		//닉네임 중복검사
+		//닉네임 유효성 검사
 		$('.input_nickname').on("propertychange change keyup paste input", function(){	
 			var user_nickname = $('.input_nickname').val();			// .input_nickname에 입력되는 값
 			var data = {user_nickname : user_nickname}				// '컨트롤에 넘길 데이터 이름' : '데이터(.input_nickname에 입력되는 값)'
@@ -272,13 +247,20 @@
 			url : "/withdang/nickNameCheck",
 			data : data,
 			 success : function(result){
-				 if(result == 'success'){
-					$('.user_nickname_re_1').css("display","inline-block");
-					$('.user_nickname_re_2').css("display", "none");
-					$('.final_nickname_ck').css('display', 'none');
-					$('.nickname_length_ck').css("display","none");
-					nickNameckCheck = true;
-					} else if(result == "fail"){
+				 if(user_nickname == "" || user_nickname == null) {
+					 $('.final_nickname_ck').css('display', 'inline-block');
+					 $('.user_nickname_re_1').css("display","none");
+					 $('.user_nickname_re_2').css("display", "none");
+					 $('.nickname_length_ck').css("display","none");
+				 } else {
+				 	if(result == 'success') {
+						$('.user_nickname_re_1').css("display","inline-block");
+						$('.user_nickname_re_2').css("display", "none");
+						$('.final_nickname_ck').css('display', 'none');
+						$('.nickname_length_ck').css("display","none");
+						nickNameckCheck = true;
+						nickNameCheck = true;
+					} else if(result == "fail") {
 						$('.user_nickname_re_2').css("display","inline-block");
 						$('.user_nickname_re_1').css("display", "none");	
 						$('.final_nickname_ck').css('display', 'none');
@@ -291,35 +273,41 @@
 						$('.final_nickname_ck').css('display', 'none');
 						nickNameckCheck = false;
 					}
-					
+				 }	
 				}// success 종료
 			}); // ajax 종료	
 	
 	});// function 종료
    	
-	//input_pw on keyup시 final_pw_ck 안보이기
+	//비밀번호 유효성 검사
 	$('.input_pw').on("propertychange change keyup paste input", function() {
 		var pw = $('.input_pw').val();
 		var pwck = $('.input_pwck').val();
+		var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식
 		if(pw == "" || pw == null) {
 			$('.pwck_input_re_2').css('display','none');
 			$('.pwck_input_re_1').css('display','none');
+			$('.pw_ck').css('display', 'none');
 			$('.final_pw_ck').css('display', 'inline-block');
 		} else {
 			$('.final_pw_ck').css('display', 'none');
-			$('.final_pwck_ck').css('display', 'none');
-			
-			if(pw == pwck){
-   	         	$('.pwck_input_re_1').css('display','block');
-   	         	$('.pwck_input_re_2').css('display','none');
-   	         	pwckcorCheck = true;
-   	     	}else{
-   	     		$('.pwck_input_re_2').css('display','block');
-   	        	$('.pwck_input_re_1').css('display','none');       	
-   	         	pwckcorCheck = false;
-   	     }         
-			
-		}
+			if (pwdCheck.test(pw)) {
+				$('.pw_ck').css('display', 'none');
+			} else {
+				$('.pw_ck').css('display', 'inline-block');
+ 				if(pw == pwck){
+   	         		$('.pwck_input_re_1').css('display','block');
+   	         		$('.pwck_input_re_2').css('display','none');
+   	         		pwckcorCheck = true;
+   	         		pwCheck = true;            // 비번
+   	     		} else {
+   	     			$('.final_pwck_ck').css('display', 'none');
+   	     			$('.pwck_input_re_2').css('display','block');
+   	        		$('.pwck_input_re_1').css('display','none');       	
+   	         		pwckcorCheck = false;
+   	     		}          
+			}
+	 	}
 	})
 	
    	/* 비밀번호 확인 일치 유효성 검사 */
@@ -328,41 +316,43 @@
    		var pw = $('.input_pw').val();
    	    var pwck = $('.input_pwck').val();	    
    	    
-   	    if(pwck != "" || pwck != null) { 								
+   	    if(pwck == "" || pwck == null) { 								
+   	    	$('.final_pwck_ck').css('display', 'inline-block');
+   	    	$('.pwck_input_re_1').css('display','none');
+   	    	$('.pwck_input_re_2').css('display','none');
+   	    } else {
    	    	$('.final_pwck_ck').css('display', 'none');
-   	    	
    	    	if(pw == pwck){
    	         	$('.pwck_input_re_1').css('display','inline-block');
    	         	$('.pwck_input_re_2').css('display','none');
    	         	pwckcorCheck = true;
-   	     	}else{
+   	         	pwckCheck = true;            // 비번 확인
+   	     	} else {
    	     		$('.pwck_input_re_2').css('display','inline-block');
-   	        	$('.pwck_input_re_1').css('display','none');       	
+   	        	$('.pwck_input_re_1').css('display','none');
    	         	pwckcorCheck = false;
-   	     }         
-   	    	
-   	    } else {
-   	    	$('.final_pwck_ck').css('display', 'inline-block');
-   	    	$('.pwck_input_re_1').css('display','none');
-   	    	$('.pwck_input_re_2').css('display','none');
-   	    }
+   	     	}         
+   	    }	
    	});
 	
-	//input_name on keyup시 final_name_ck 안보이기
+	//이름 유효성 검사
 	$('.input_name').on("propertychange change keyup paste input", function() {
 		var name = $('.input_name').val();            // 이름 입력란
-		var nameCk = /^[가-힣]{2,4}$/;				  // 이름 유효성
-		if(name != "") {
+		var nameCk = /^[가-힣]{2,5}$/;				  // 이름 유효성
+		if(name == "" || name == null) {
+			$('.final_name_ck').css('display', 'inline-block');
+			$('.name_ck').css('display', 'none');
+		} else {
 			$('.final_name_ck').css('display', 'none');
 			if(!nameCk.test(name)) {
 				$('.name_ck').css('display', 'inline-block');
+				nameCheck = false;
 			} else {
 				$('.name_ck').css('display', 'none');
+				nameCheck = true;
 			}
-		} else {
-			$('.final_name_ck').css('display', 'inline-block');
-			$('.name_ck').css('display', 'none');
-		}
+		} 
+			
 	});
 
     $(".login_button").click(function(){

@@ -64,17 +64,17 @@ public class RegisterController {
 			  Pattern p = Pattern.compile(regex);
 			  Matcher m = p.matcher(user_email);
 			  if(m.matches()) {
-			int result = memberservice.emailCheck(user_email);
+				  int result = memberservice.emailCheck(user_email);
 			
-			if(result != 0) {
+				  if(result != 0) {
 				
-				return "fail";	// 중복 아이디가 존재
+					  return "fail";	// 중복 아이디가 존재
 				
-			} else {
+				  } else {
 				
-				return "success";	// 중복 아이디 x
+					  return "success";	// 중복 아이디 x
 				
-			}	
+				  }	
 			  } return "fail1";		//이메일 형식 안맞음
 
 		} // memberEmailChkPOST() 종료
@@ -83,19 +83,22 @@ public class RegisterController {
 		@RequestMapping(value = "/nickNameCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String membernickNameCheckPOST(String user_nickname) throws Exception{
-			int lvo = user_nickname.length();
-			int result = memberservice.nickNameCheck(user_nickname);
+			String regex = "^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,6}$";
+			Pattern p = Pattern.compile(regex);
+			Matcher m = p.matcher(user_nickname);
 			
-				if(lvo>6 || lvo <2) {
-					return "fail1";
-				} else {
+				if(m.matches()) {
+					int result = memberservice.nickNameCheck(user_nickname);
+					
 					if(result != 0) {
 						return "fail";	// 중복 닉네임 존재
-				 } 	else {
+					} else {
 						return "success";	// 중복 닉네임 x
-				 }
+					}
+				} return "fail1";			//닉네임 형식 안맞음 
+					
 						
-			} 
+			
 						
 		} // membernickNameChkPOST() 종료
 
