@@ -117,7 +117,7 @@
 	    var nameCheck = false;            // 이름
 	    var nickNameCheck = false;		 // 닉네임
 	    var nickNameckCheck = false;	// 닉네임 중복
-        /* var pwdCheck = false;			// 비번 정규식 확인	 */
+        var pwdckCheck = false;			// 비번 정규식 확인	 
       	var boxCheck = false;			//약관 체크박스 확인
 
         $(document).ready(function(){
@@ -143,20 +143,20 @@
            if(pw == "" || pw == null){
               $('.final_pw_ck').css('display','block');
               pwCheck = false;
-          }
+           }  
           
           /* 비밀번호 확인 null 검사 */
            if(pwck == "" || pwck == null){
               $('.final_pwck_ck').css('display','block');
               $('.pwck_input_re_2').css('display','none');
               pwckCheck = false;
-          } 
+          }  
           
           /* 이름 null 검사 */
            if(name == "" || name == null){
               $('.final_name_ck').css('display','block');
               nameCheck = false;
-          } 
+          }  
           
           /* 닉네임 null 검사 */
           if(nickname == "" || nickname == null){
@@ -180,16 +180,13 @@
           /* 최종 유효성 검사 */
           if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
         		  pwckcorCheck&&nameCheck&&nickNameCheck&&
-        		  nickNameckCheck&&boxCheck){
+        		  nickNameckCheck&&boxCheck&&pwdckCheck){
    		
           	$("#join_form").attr("action", "/withdang/join");
       		$("#join_form").submit();
-          }    
-          	return false;
-        		
+          } else { return false; }            	   		
       });
  });
-      	
       	
    		//이메일 유효성 검사
 		$('.input_email').on("propertychange change keyup paste input", function(){
@@ -208,7 +205,6 @@
 				 $('.user_email_re_1').css("display", "none");
 				 $('.user_email_re_2').css("display", "none");	
 				 $('.user_email_re_3').css("display","none");
-				 emailckCheck = false;
 			 } else {
 			 	if(result == 'success') {
 					$('.user_email_re_1').css("display","inline-block");
@@ -236,7 +232,6 @@
 
  	});// function 종료
  
-
 		//닉네임 유효성 검사
 		$('.input_nickname').on("propertychange change keyup paste input", function(){	
 			var user_nickname = $('.input_nickname').val();			// .input_nickname에 입력되는 값
@@ -284,66 +279,75 @@
 		var pw = $('.input_pw').val();
 		var pwck = $('.input_pwck').val();
 		var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식
+		
 		if(pw == "" || pw == null) {
-			$('.pwck_input_re_2').css('display','none');
-			$('.pwck_input_re_1').css('display','none');
-			$('.pw_ck').css('display', 'none');
 			$('.final_pw_ck').css('display', 'inline-block');
+			$('.pw_ck').css('display', 'none');			
 		} else {
 			$('.final_pw_ck').css('display', 'none');
 			if (pwdCheck.test(pw)) {
 				$('.pw_ck').css('display', 'none');
+				if(pw == pwck) {
+					$('.pwck_input_re_1').css('display','inline-block');
+					$('.pwck_input_re_2').css('display','none');
+					pwCheck = true;
+					pwdckCheck = true;
+				} else {
+					$('.pwck_input_re_2').css('display','inline-block');
+					$('.pwck_input_re_1').css('display','none');
+				}
 			} else {
 				$('.pw_ck').css('display', 'inline-block');
- 				if(pw == pwck){
-   	         		$('.pwck_input_re_1').css('display','block');
-   	         		$('.pwck_input_re_2').css('display','none');
-   	         		pwckcorCheck = true;
-   	         		pwCheck = true;            // 비번
-   	     		} else {
-   	     			$('.final_pwck_ck').css('display', 'none');
-   	     			$('.pwck_input_re_2').css('display','block');
-   	        		$('.pwck_input_re_1').css('display','none');       	
-   	         		pwckcorCheck = false;
-   	     		}          
+				$('.pwck_input_re_2').css('display','none');
+				$('.pwck_input_re_1').css('display','none');
+   	        	pwdckCheck = false;
 			}
-	 	}
+		} 	 
 	})
 	
    	/* 비밀번호 확인 일치 유효성 검사 */
-   	$('.input_pwck').on("propertychange change keyup paste input", function(){
-   	        
+   	$('.input_pwck').on("propertychange change keyup paste input", function(){    
    		var pw = $('.input_pw').val();
-   	    var pwck = $('.input_pwck').val();	    
-   	    
-   	    if(pwck == "" || pwck == null) { 								
-   	    	$('.final_pwck_ck').css('display', 'inline-block');
-   	    	$('.pwck_input_re_1').css('display','none');
-   	    	$('.pwck_input_re_2').css('display','none');
-   	    } else {
-   	    	$('.final_pwck_ck').css('display', 'none');
-   	    	if(pw == pwck){
-   	         	$('.pwck_input_re_1').css('display','inline-block');
-   	         	$('.pwck_input_re_2').css('display','none');
-   	         	pwckcorCheck = true;
-   	         	pwckCheck = true;            // 비번 확인
-   	     	} else {
-   	     		$('.pwck_input_re_2').css('display','inline-block');
-   	        	$('.pwck_input_re_1').css('display','none');
-   	         	pwckcorCheck = false;
-   	     	}         
-   	    }	
+   	    var pwck = $('.input_pwck').val();
+   	 	var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;	// 비밀번호 정규식
+
+    	if(pwdCheck.test(pw)) {
+    		if(pwck == "" || pwck == null) {
+    			$('.pwck_input_re_2').css('display','inline-block');
+    			$('.pwck_input_re_1').css('display','none'); 
+    			$('.final_pwck_ck').css('display', 'none');	   	    	
+    		} else {
+    			$('.final_pwck_ck').css('display', 'none'); 	    			
+    			if(pw == pwck) {
+   	         		$('.pwck_input_re_1').css('display','inline-block');
+   	         		$('.pwck_input_re_2').css('display','none');
+   	         		pwckCheck = true;            // 비번 확인
+   	         		pwckcorCheck = true;
+   	     		} else {
+   	     			$('.pwck_input_re_2').css('display','inline-block');
+   	        		$('.pwck_input_re_1').css('display','none');
+   	        		pwckCheck = false;            // 비번 확인
+   	         		pwckcorCheck = false;
+   	     		}
+    		}  	    		  	    		
+    	} else {
+    		$('.final_pwck_ck').css('display', 'none');
+    		$('.pwck_input_re_1').css('display','none');
+    		$('.pwck_input_re_2').css('display','none');
+    	}	
    	});
 	
 	//이름 유효성 검사
 	$('.input_name').on("propertychange change keyup paste input", function() {
 		var name = $('.input_name').val();            // 이름 입력란
 		var nameCk = /^[가-힣]{2,5}$/;				  // 이름 유효성
+		
 		if(name == "" || name == null) {
 			$('.final_name_ck').css('display', 'inline-block');
 			$('.name_ck').css('display', 'none');
 		} else {
 			$('.final_name_ck').css('display', 'none');
+			
 			if(!nameCk.test(name)) {
 				$('.name_ck').css('display', 'inline-block');
 				nameCheck = false;
@@ -361,11 +365,7 @@
         $("#login_form").attr("action", "/withdang/login");
         $("#login_form").submit(); 
         
-    });
-    
-    
-	
-	
+    });   
   </script>
   
   <script type="text/javascript">
@@ -388,7 +388,6 @@
   				});
   			}
 	})
-  
   </script>
         
 </body>
