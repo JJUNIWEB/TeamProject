@@ -26,7 +26,13 @@
     <!-- SweetAlert JS -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
 	
-    <title>댕댕커뮤</title>
+	<style>
+	  .selected {
+	    background-color: yellow; /* 선택된 요소의 배경색 */
+	  }
+	</style>
+	
+	<title>댕댕커뮤</title>
 </head>
 
 <body>
@@ -93,7 +99,9 @@
                         <a class="bt prev" href="<c:url value="/dangcomu/list${pr.sc.getQueryString(pr.beginPage - 1)}"></c:url>">&lt;</a>
                     </c:if>
                     <c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage }">
-                        <a class="num" href="<c:url value="/dangcomu/list${pr.sc.getQueryString(i)}" />">${i}</a>
+                        <a class="num" href="<c:url value="/dangcomu/list${pr.sc.getQueryString(i)}" />">
+                    		  <strong onclick="changeBackground(this)">${i}</strong>
+               			</a>
                     </c:forEach>
                     <c:if test="${pr.showNext}">
                         <a class="bt next" href="<c:url value="/dangcomu/list${pr.sc.getQueryString(pr.endPage + 1)}"></c:url>">&gt;</a>
@@ -101,8 +109,17 @@
                 </c:if>
             </div>
         </div>
-
-
+        
+        <script>
+		  function changeBackground(element) {
+		    var selectedElements = document.querySelectorAll(".selected");
+		    for (var i = 0; i < selectedElements.length; i++) {
+		      selectedElements[i].classList.remove("selected");
+		    }
+		    element.classList.add("selected");
+		  }
+		</script>
+		
         <div class="search-item">
         	<form action='<c:url value="/dangcomu/list"/>' method="get">
 	            <select class="search-select" aria-label="category" name="option">

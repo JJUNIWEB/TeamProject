@@ -21,6 +21,8 @@ public interface ComuService {
 	List<ComuDTO> getSearchCategoryPage(Integer post_ctgr_id, SearchItem sc)  throws Exception;
 	int comment(CommentDTO commentDTO) throws Exception;
 	int deleteComment(Integer cmt_id, String user_email) throws Exception;
+	int updateComment(CommentDTO commentDTO) throws Exception;
+	CommentDTO getCommentByPostId(Integer post_id, Integer cmt_id) throws Exception;
 	List<CommentDTO> getCommentsByPostId(Integer post_id) throws Exception;
 	
 }

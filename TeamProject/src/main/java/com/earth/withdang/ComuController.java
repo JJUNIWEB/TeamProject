@@ -1,6 +1,12 @@
 package com.earth.withdang;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,11 +14,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.earth.domain.ComuDTO;
@@ -21,6 +29,7 @@ import com.earth.domain.MemberDto;
 import com.earth.domain.PageResolver;
 import com.earth.domain.SearchItem;
 import com.earth.mapper.ComuMapper;
+import com.earth.mapper.ImageMapper;
 import com.earth.service.ComuService;
 import com.earth.service.ImageService;
 import com.earth.upload.S3UploadService;
@@ -31,7 +40,7 @@ public class ComuController {
 
 	@Autowired
 	ComuService comuService;
-	
+
 	@Autowired
 	ComuMapper comuMapper;
 
@@ -39,7 +48,7 @@ public class ComuController {
 	private S3UploadService s3UploadService;
 
 	@Autowired
-	ImageService imageService;
+	ImageMapper imageMapper;
 
 	@GetMapping("/list")
 	public String list(Integer post_ctgr_id, SearchItem sc, Model m, HttpServletRequest request) {
@@ -84,11 +93,15 @@ public class ComuController {
 	public String read(Integer post_id, SearchItem sc, Model m, HttpSession session) {
 
 		try {
+
 			ComuDTO comuDTO = comuService.readPost(post_id);
 			String user_email = comuDTO.getUser_email();
-			List<ImageDto> images = imageService.callComuPhoto(user_email, post_id, "comuPost");
+
+			ImageDto dto = new ImageDto(null, "comuPost", user_email, post_id);
+			List<ImageDto> images = imageMapper.comuSelectAll(dto);
 			m.addAttribute("comuDTO", comuDTO);
 			m.addAttribute("images", images);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/dangcomu/list";
@@ -109,12 +122,10 @@ public class ComuController {
 	}
 
 	@PostMapping("/post")
-	public String post(ComuDTO comuDTO, @RequestParam(value = "image1", required = false) List<MultipartFile> image1,
-			@RequestParam(value = "image2", required = false) List<MultipartFile> image2,
-			@RequestParam(value = "image3", required = false) List<MultipartFile> image3,
-			@RequestParam(value = "image4", required = false) List<MultipartFile> image4, RedirectAttributes ra,
-			Model m, HttpSession session) {
-		
+	public String post(ComuDTO comuDTO, Model m, HttpSession session, MultipartHttpServletRequest request) {
+
+		List<String> addressList = new ArrayList<String>();
+
 		try {
 
 			MemberDto memberDto = (MemberDto) session.getAttribute("member");
@@ -122,37 +133,24 @@ public class ComuController {
 			String user_name = comuMapper.selectUserName(user_email);
 			comuDTO.setUser_email(user_email);
 			comuDTO.setUser_name(user_name);
-			String category = "comuPost";
-			
+
 			int post_id = comuService.post(comuDTO);
 
-			if (!image1.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image1);
-				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
-			}
+			Iterator<String> fileNames = request.getFileNames();
+			while (fileNames.hasNext()) {
+				String paramName = fileNames.next();
+				MultipartFile file = request.getFile(paramName);
+				int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
 
-			if (!image2.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image2);
-				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
+				List<String> upload = s3UploadService.upload("comuPost", Collections.singletonList(file));
+				ImageDto imageDto = new ImageDto(upload.get(0), "comuPost", user_email, post_id);
+				imageMapper.insert(imageDto);
 			}
-
-			if (!image3.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image3);
-				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
-			}
-
-			if (!image4.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image4);
-				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
-			}
-
-			ra.addFlashAttribute("msg", "WRT_OK");
 
 			return "redirect:/dangcomu/list";
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			ra.addFlashAttribute("msg", "WRT_ERR");
 			return "write";
 		}
 	}
@@ -163,11 +161,10 @@ public class ComuController {
 		MemberDto memberDto = (MemberDto) session.getAttribute("member");
 		String user_email = memberDto.getUser_email();
 
-		String category = "comuPost";
-
 		try {
 			comuService.deletePost(post_id, user_email);
-			imageService.deleteComuPhoto(user_email, post_id, category);
+			ImageDto dto = new ImageDto(null, "comuPost", user_email, post_id);
+			imageMapper.comuDelete(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -180,17 +177,21 @@ public class ComuController {
 	}
 
 	@GetMapping("/update")
-	public String update(Integer post_id, Model m, HttpSession session, HttpServletRequest request) {
+	public String update(Integer post_id, Model m, HttpSession session, HttpServletRequest reques) {
 
 		ComuDTO comuDTO;
 		MemberDto memberDto = (MemberDto) session.getAttribute("member");
 		String user_email = memberDto.getUser_email();
 
-		imageService.deleteComuPhoto(user_email, post_id, "comuPost");
+		ImageDto dto = new ImageDto(null, "comuPost", user_email, post_id);
+		List<ImageDto> photoList = imageMapper.comuSelectAll(dto);
 
 		try {
+
 			comuDTO = comuService.readPost(post_id);
 			m.addAttribute("comuDTO", comuDTO);
+			m.addAttribute("photoList", photoList);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -200,49 +201,65 @@ public class ComuController {
 	}
 
 	@PostMapping("/update")
-	public String update(ComuDTO comuDTO, Integer page, Integer pageSize,
-			@RequestParam(value = "image1", required = false) List<MultipartFile> image1,
-			@RequestParam(value = "image2", required = false) List<MultipartFile> image2,
-			@RequestParam(value = "image3", required = false) List<MultipartFile> image3,
-			@RequestParam(value = "image4", required = false) List<MultipartFile> image4, RedirectAttributes ra,
-			Model m, HttpSession session) {
+	public String update(ComuDTO comuDTO, Integer page, Integer pageSize, Integer post_id, Model m, HttpSession session,
+			MultipartHttpServletRequest multipartRequest, RedirectAttributes ra) {
 
+		Enumeration<String> parameterNames = multipartRequest.getParameterNames();
+		List<String> addressList = new ArrayList<String>();
 		MemberDto member = (MemberDto) session.getAttribute("member");
-		String user_email = member.getUser_email();
-		comuDTO.setUser_email(user_email);
-		String category = "comuPost";
 
 		try {
 
-			int post_id = comuDTO.getPost_id();
+			String user_email = member.getUser_email();
+			String user_name = comuMapper.selectUserName(user_email);
+			comuDTO.setUser_email(user_email);
+			comuDTO.setUser_name(user_name);
 
-			if (!image1.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image1);
-				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
+			 while(parameterNames.hasMoreElements()) { 
+				 String paramName = parameterNames.nextElement();
+			  
+				 if(paramName.startsWith("imgbox")) { 
+					 String paramValue = multipartRequest.getParameter(paramName);
+					 int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
+					 addressList.add(paramValue); 
+				 }
+			 }
+			 
+
+			Iterator<String> fileNames = multipartRequest.getFileNames();
+			while (fileNames.hasNext()) {
+				String paramName = fileNames.next();
+				MultipartFile file = multipartRequest.getFile(paramName);
+				int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
+
+				List<String> upload = s3UploadService.upload("comuPost", Collections.singletonList(file));
+				ImageDto imageDto = new ImageDto(upload.get(0), "comuPost", user_email, comuDTO.getPost_id());
+				imageMapper.insert(imageDto);
+				addressList.add(upload.get(0));
 			}
 
-			if (!image2.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image2);
-				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
-			}
-
-			if (!image3.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image3);
-				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
-			}
-
-			if (!image4.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image4);
-				imageService.inputComuPhoto(user_email, post_id, upload.get(0), category);
+			ImageDto dto = new ImageDto(null, "comuPost", user_email, comuDTO.getPost_id());
+			List<ImageDto> photoList = imageMapper.comuSelectAll(dto);
+			
+			for (String address : addressList) {
+				for (ImageDto photo : photoList) {	// for문 다시 작성, 순서 바꾸기 위함
+					if (photoList.contains(addressList)) {
+						s3UploadService.deleteFile(photo.getPt_adres());
+						imageMapper.comuDelete(photo);
+						
+						continue;
+					} else {
+						s3UploadService.deleteFile(photo.getPt_adres());
+						imageMapper.comuDelete(photo);
+					}
+				}
 			}
 
 			if (comuService.updatePost(comuDTO) != 1)
 				throw new Exception("Update Fail");
 
-			
 			ra.addAttribute("page", page);
 			ra.addAttribute("pageSize", pageSize);
-			ra.addFlashAttribute("msg", "UPDATE_OK");
 
 			return "redirect:/dangcomu/list";
 
@@ -250,9 +267,8 @@ public class ComuController {
 			e.printStackTrace();
 
 			m.addAttribute("comuDTO", comuDTO);
-			m.addAttribute("page", page); 
+			m.addAttribute("page", page);
 			m.addAttribute("pageSize", pageSize);
-			m.addAttribute("msg", "UPDATE_ERR");
 
 			return "edit";
 		}

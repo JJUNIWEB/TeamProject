@@ -43,7 +43,7 @@
     <!-- dangcomu delete -->
     <delete id="comuDelete" parameterType="img">
     	DELETE FROM tb_post_photo
-		WHERE post_id = #{postNum};
+		WHERE pt_adres = #{pt_adres};
     </delete>
     
 

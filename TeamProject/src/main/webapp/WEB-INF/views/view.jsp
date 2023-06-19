@@ -75,9 +75,7 @@
 		
 		$("#commentButton").click(function() {
 		    let cmt_content = $("textarea[name=comment]").val().trim();
-		    
-		    console.log(login_user)
-		    
+
 		    if (login_user == 'Not Login') {
 		        showAlert();
 		        
@@ -133,7 +131,39 @@
 		        }
 		    });
 		});
+		
+		$("#commentList").on("click", "#cmt_modify", function() {
+			let cmt_id = $(this).parent().attr("cmt_id");
+			let cmt_content = $(this).parent().children(".cmt_content").text();
 
+			$(this).parent().html("<li><textarea id='modifyComment' placeholder='댓글 내용' name='comment' required></textarea></li>");
+			$("textarea#modifyComment").text(cmt_content);	//6.19
+			$("textarea#modifyComment").parent().append("<button id='cmt_modify_confirm' name='modifyComment'>확인</button>");
+			
+			$("#cmt_modify_confirm").click(function() {
+				cmt_content = $("textarea#modifyComment").val();
+				
+				if ($('#modifyComment').val() == '') {
+			        Swal.fire('내용을 입력하세요');
+			        $('#modifyComment').focus();
+			        
+			        return false;
+			    }
+						
+				$.ajax({
+	                type: 'POST',
+	                url: '/withdang/dangcomu/comments/update/' + post_id + '/' + cmt_id,
+	                headers: { "content-type" : "application/json" },
+			        data: JSON.stringify({ cmt_content: cmt_content }),
+			        success: function(result) {
+			            showList(post_id);
+			            Swal.fire('댓글이 등록됐습니다!');
+			        },
+			        error: function(jqXHR, textStauts, errorThrown) {}
+	            });
+			});
+		});
+		
     	let showList = function(post_id) {
     		$.ajax({
     			type: 'GET',					
@@ -164,7 +194,7 @@
 		        	tmp += ' <button id="cmt_modify">수정</button>';
 		        	tmp += ' <button id="cmt_delete">삭제</button>';
 		        }
-
+				
 		        tmp += '</li>';
 		    });
 
@@ -215,7 +245,7 @@
 	                // 확인 버튼 클릭 시 로그인 화면으로 이동
 	                window.location.href = '${pageContext.request.contextPath}/login';
 	            }
-	        });
+	        })
 	    }
 	})
 	
