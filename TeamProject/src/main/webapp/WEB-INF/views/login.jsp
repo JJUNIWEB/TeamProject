@@ -282,6 +282,8 @@
 		
 		if(pw == "" || pw == null) {
 			$('.final_pw_ck').css('display', 'inline-block');
+			$('.pwck_input_re_1').css('display','none');
+			$('.pwck_input_re_2').css('display','none');
 			$('.pw_ck').css('display', 'none');			
 		} else {
 			$('.final_pw_ck').css('display', 'none');
