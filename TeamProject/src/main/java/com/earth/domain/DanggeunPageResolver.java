@@ -19,7 +19,7 @@ public class DanggeunPageResolver {
 	public DanggeunPageResolver() {}
 	
 	public DanggeunPageResolver(int totalCnt, Integer page) {
-		this(totalCnt, new DanggeunSearchItem(page, 8));
+		this(totalCnt, new DanggeunSearchItem(page, 10));
 	}
 	
 	public DanggeunPageResolver(int totalCnt, Integer page, Integer pageSize) {

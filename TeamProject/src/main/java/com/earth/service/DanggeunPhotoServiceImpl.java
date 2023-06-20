@@ -20,8 +20,8 @@ public class DanggeunPhotoServiceImpl implements DanggeunPhotoService {
 	}
 
 	@Override
-	public DanggeunPhotoDTO registerPhoto(String address, Integer danggeun_id) throws Exception {
-		DanggeunPhotoDTO danggeunPhotoDTO = new DanggeunPhotoDTO(address, danggeun_id);
+	public DanggeunPhotoDTO registerPhoto(String address, Integer danggeun_id, int sequence) throws Exception {
+		DanggeunPhotoDTO danggeunPhotoDTO = new DanggeunPhotoDTO(address, danggeun_id, sequence);
 		danggeunPhotoMapper.insert(danggeunPhotoDTO);
 		return danggeunPhotoDTO;
 	}

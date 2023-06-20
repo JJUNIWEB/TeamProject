@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.earth.mapper.ComuMapper">
   
-  		<sql id="selectFromPost">
-  			SELECT post_id, post_title, post_content, post_ctgr_id, post_created_time, tp.user_email, post_view_count, tp.user_name
-			FROM tb_post tp
-  		</sql>
-  		
+		<sql id="selectFromPost">
+           SELECT post_id, post_title, post_content, post_ctgr_id, post_created_time, tp.user_email, post_view_count, tp.user_name
+         FROM tb_post tp
+        </sql>  		
+        
   		<select id="select" parameterType="int" resultType="ComuDTO">
   			<include refid="selectFromPost"></include>
   			where post_id = #{post_id}
@@ -51,13 +51,13 @@
   					where post_ctgr_id = #{post_ctgr_id}
 		            AND post_content LIKE concat('%', #{keyword}, '%')
 		        </when>
-		        <when test='option=="W"'>
-		        	SELECT tp.post_id, tp.post_title, tp.post_content, tp.post_ctgr_id, tp.post_created_time, tp.post_view_count, tp.user_email
-					FROM tb_post tp
-					INNER JOIN tb_user tu ON tp.user_email = tu.user_email
-					where post_ctgr_id = #{post_ctgr_id}
-					AND tu.user_nickname LIKE concat('%', #{keyword}, '%')
-		        </when>
+ 			<when test='option=="W"'>
+                   SELECT tp.post_id, tp.post_title, tp.post_content, tp.post_ctgr_id, tp.post_created_time, tp.post_view_count, tp.user_email, tp.user_name
+	               FROM tb_post tp
+	               INNER JOIN tb_user tu ON tp.user_email = tu.user_email
+	               where post_ctgr_id = #{post_ctgr_id}
+	               AND tu.user_nickname LIKE concat('%', #{keyword}, '%')
+            </when>
 	        	<otherwise>
 	        		<include refid="selectFromPost"/>
   					where post_ctgr_id = #{post_ctgr_id}

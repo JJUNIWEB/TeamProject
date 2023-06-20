@@ -39,8 +39,6 @@
                 <div class="mypage__list">
                     <ul>
                         <li><a href="/withdang/mypage">내 정보</a></li>
-                        <li><a href="/withdang/mypage_chat">채팅</a></li>
-                        <li><a href="/withdang/myDangguen">마이댕근</a></li>
                         <li><a href="#">마이케어</a></li>
                     </ul>
                 </div>

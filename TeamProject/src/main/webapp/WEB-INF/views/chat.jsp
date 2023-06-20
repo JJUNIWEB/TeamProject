@@ -46,8 +46,16 @@
   }
   
   #chat-list header{
-    padding:20px 20px;
+    padding:10px 20px;
   }
+  
+  #list-header {
+  	font-weight: bold;
+  	font-size: 1rem;
+  	color: #383838;
+  }
+  
+  /*사용안하는 검색창*/
   #chat-list #search-box {
     width:130px;
     height:40px;
@@ -81,9 +89,9 @@
     height:690px;
   }
   #chat-list li{
-    padding:5px 0;
+    padding-top:15px;
     height: 50px;
-    padding-left: 30px;
+    padding-left: 20px;
     background-color:#9d8db3;
     border-bottom: 2px solid #ffffff5b;
     border-radius: 10px;
@@ -104,6 +112,8 @@
     margin-left:4px;
     color: #ffffff;
     text-align: center;
+    float: right;
+    margin-right: 15px;
 
   }
   #chat-header {
@@ -121,12 +131,28 @@
     margin:0;
     list-style-type:none;
     overflow-y:scroll;
+   scrollbar-width: thin;
+   scrollbar-color: #888 #f9f9f9;
     height:500px;
     border-top:2px solid #fff;
     border-bottom:2px solid #fff;
     padding:10px 30px;
 
   }
+  
+  #chat::-webkit-scrollbar {
+    width: 6px;
+}
+
+#chat::-webkit-scrollbar-track {
+    background: #f9f9f9;
+}
+
+#chat::-webkit-scrollbar-thumb {
+    background-color: #ed8b9e;
+    border-radius: 3px;
+}
+  
   #chat-time {
     color:#bbb;
     font-size:13px;
@@ -143,10 +169,12 @@
      font-size: 12px;
      margin-left: 120px;
      font-weight: normal;
-  }
+	float:right;
+	margin-right: 15px;
+	}
   #chat_other_id {
     font-weight: bold;
-    color: #333;
+    color: #383838;
     margin-right: 10px;
   }
   #chat .message{
@@ -203,7 +231,8 @@
   #user-name {
     color: #fff;
     font-weight: bold;
-    margin-top:7px;
+    margin-top:17px;
+    
     
   }
   #last-msg {
@@ -211,6 +240,7 @@
      font-size: 14px;
      font-weight: normal;
      width: 140px;
+     color: #fff;
   }
   #close-btn {
        margin-left: auto;
@@ -220,6 +250,69 @@
        font-weight: bold;
      
   }
+  
+@media (max-width: 786px) {
+  #container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+  }
+
+  #chat-list {
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+  }
+    #list-header {
+  	font-weight: bold;
+  	font-size: 1rem;
+  	color: #383838;
+  	text-align: center;
+  }
+  
+
+  #chattings {
+    width: 100%;
+    height: auto;
+  }
+  
+  #chat-list ul {
+    height: auto;
+  }
+  #chat-time-list {
+     color: #f2f2f2;
+     font-size: 12px;
+     font-weight: normal;
+     text-align: left;
+     margin-left: 30px;
+     
+  }
+}
+
+.chatroom {
+	padding-top: 20px;
+}
+
+#chatrooms {
+   overflow-y:scroll;
+   scrollbar-width: thin;
+   scrollbar-color: #888 #f9f9f9;
+}
+  
+#chatrooms::-webkit-scrollbar {
+    width: 6px;
+}
+
+#chatrooms::-webkit-scrollbar-track {
+    background: #f9f9f9;
+}
+
+#chatrooms::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 3px;
+}
+
   
     
     </style>
@@ -232,9 +325,8 @@
     <!-- 채팅 창 ----------------------------->
     <div id="container">
         <aside id="chat-list">
-          <header>
-            <input id="search-box" type="text" placeholder="닉네임검색">
-            <button id="search-btn">검색</button>
+          <header id="list-header">
+			<p>채팅방 선택</p>
           </header>
           <ul id="chatrooms">
           </ul>
@@ -285,9 +377,6 @@
           other_nickname = $(this).attr('data-other_nickname')
           recent_nickname = $(this).attr('data-recent_nickname')
           unread_cnt = $(this).attr('data-unread_cnt')
-          
-          console.log('chatroom_id : ', chatroom_id)
-          console.log('other_nickname : ', other_nickname)
           
           showChattingAndListwithsocket(chatroom_id)
           $('#chat-other_email').html(other_nickname + "님과의 대화")
@@ -362,17 +451,16 @@
 
        chatrooms.forEach(function(chatroom) {
            tmp += '<li class="chatroom" data-chatroom_id="' + chatroom.id + '" data-other_nickname="' + chatroom.other_nickname + '" data-recent_nickname="' + chatroom.recent_nickname + '" data-unread_cnt="' + chatroom.unread_cnt + '">'
-           tmp += '<div id="user-name">' + chatroom.other_nickname
-
+           tmp += '<span id="user-name">' + chatroom.other_nickname + '</span>'
            tmp += '<span id="chat-time-list">' + formatRegDate(chatroom.recent_date) + '</span>'
-           if (chatroom.recent_nickname !== login_nickname && chatroom.unread_cnt !== 0) {
-               tmp += '<span class="new-msg">' + chatroom.unread_cnt + '</span>'
-           }
-
            
            var recentChat = chatroom.recent_chat;
-           var truncatedChat = recentChat.length > 18 ? recentChat.substring(0, 18) + '...' : recentChat;
-           tmp += '<br><span id="last-msg">' + truncatedChat + '</span></div></li>'
+           var truncatedChat = recentChat.length > 16 ? recentChat.substring(0, 16) + '...' : recentChat;
+           tmp += '<br><span id="last-msg">' + truncatedChat + '</span>'
+           if (chatroom.recent_nickname !== login_nickname && chatroom.unread_cnt !== 0) {
+               tmp += '<span class="new-msg">' + chatroom.unread_cnt + '</span></li>'
+           }
+
 
 
        })
@@ -425,34 +513,59 @@
     }       
     
     let formatRegDate = function(regDate) {
-        let currentDate = new Date() // 현재 날짜와 시간
-        let inputDate = new Date(regDate) // 입력된 날짜와 시간을 JavaScript의 Date 객체로 변환
+        let currentDate = new Date(); // 현재 날짜와 시간
+        let inputDate = new Date(regDate); // 입력된 날짜와 시간을 JavaScript의 Date 객체로 변환
 
         // 현재 날짜와 입력된 날짜의 차이를 계산합니다.
-        let timeDiff = currentDate.getTime() - inputDate.getTime()
-        let daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24)) // 일 단위로 변환
+        let timeDiff = currentDate.getTime() - inputDate.getTime();
+        let daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24)); // 일 단위로 변환
 
-        if (daysDiff > 0) {
-            // 전날인 경우 월일을 표시합니다.
-            let month = inputDate.getMonth() + 1 // getMonth()의 반환값은 0부터 시작하므로 1을 더해줍니다.
-            let day = inputDate.getDate()
-            return month + '월 ' + day + '일'
-        } else {
-            // 같은 날인 경우 시간을 표시합니다.
-            let hours = inputDate.getHours()
-            let minutes = inputDate.getMinutes()
-            let period = hours >= 12 ? '오후' : '오전'
+        if (daysDiff > 1) {
+            // 2일 이상 전인 경우 월일과 시간을 표시합니다.
+            let month = inputDate.getMonth() + 1; // getMonth()의 반환값은 0부터 시작하므로 1을 더해줍니다.
+            let day = inputDate.getDate();
+            let hours = inputDate.getHours();
+            let minutes = inputDate.getMinutes();
+            let period = hours >= 12 ? '오후' : '오전';
 
             // 12시간 단위로 변환
-            hours = hours % 12
-            hours = hours === 0 ? 12 : hours // 0시일 경우 12로 표시합니다.
+            hours = hours % 12;
+            hours = hours === 0 ? 12 : hours; // 0시일 경우 12로 표시합니다.
 
             // 분이 한 자리 수인 경우 앞에 0 추가
-            minutes = minutes < 10 ? '0' + minutes : minutes
+            minutes = minutes < 10 ? '0' + minutes : minutes;
 
-            return period + ' ' + hours + ':' + minutes
+            return month + '월 ' + day + '일 ' + period + ' ' + hours + ':' + minutes;
+        } else if (daysDiff === 1) {
+            // 어제인 경우 어제, 오후, 오전 시간을 표시합니다.
+            let hours = inputDate.getHours();
+            let minutes = inputDate.getMinutes();
+            let period = hours >= 12 ? '오후' : '오전';
+
+            // 12시간 단위로 변환
+            hours = hours % 12;
+            hours = hours === 0 ? 12 : hours; // 0시일 경우 12로 표시합니다.
+
+            // 분이 한 자리 수인 경우 앞에 0 추가
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            return '어제 ' + period + ' ' + hours + ':' + minutes;
+        } else {
+            // 같은 날인 경우 시간을 표시합니다.
+            let hours = inputDate.getHours();
+            let minutes = inputDate.getMinutes();
+            let period = hours >= 12 ? '오후' : '오전';
+
+            // 12시간 단위로 변환
+            hours = hours % 12;
+            hours = hours === 0 ? 12 : hours; // 0시일 경우 12로 표시합니다.
+
+            // 분이 한 자리 수인 경우 앞에 0 추가
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            return period + ' ' + hours + ':' + minutes;
         }
-    }       
+    };     
    
     async function showListOnly() {
        try {
@@ -463,18 +576,18 @@
     }          
     
     async function sendChatting(chatroom_id) {
-       try {
-          await showChattingList(chatroom_id)
-          await showList()
+        try {
+           await showChattingList(chatroom_id)
+           await showList()
 
-         if(socket) {
-               let socketMsg = "sendchat," + other_nickname + "," + chatroom_id
-               socket.send(socketMsg)
-            }
-       } catch(error){
-          alert('error')
-       }
-    }   
+          if(socket) {
+                let socketMsg = "sendchat," + other_nickname + "," + chatroom_id + "," + login_nickname
+                socket.send(socketMsg)
+             }
+        } catch(error){
+           alert('error')
+        }
+     }  
     
     async function showChattingAndList(chatroom_id) {
        try {
@@ -499,43 +612,44 @@
        }
     }
     
-   function connectWS() {
-      var ws = new WebSocket("ws://localhost/withdang/replyEcho")
-      socket = ws
-      
-      ws.onopen = function() {
-         console.log('Info: connection opened.')
-      }
-      
-      ws.onmessage = function(event) {
-         console.log("ReceiveMessage:", event.data+'\n')
-         
-          let message = JSON.parse(event.data)
-          let cmd = message.cmd
-          
-          if (cmd === "sendchat") {
-             if(String(message.chatroom_id) === chatroom_id) {
-                showChattingAndListwithsocket(chatroom_id)
-             }
-             else {
-                showListOnly()
-             }
-          }
-          else if (cmd === "readchat") {
-             if(String(message.chatroom_id) === chatroom_id) {
-                showChattingAndList(chatroom_id)
-             }
-             else {
-                showListOnly()
-             }
-          }
-      }
-      
-      ws.onclose = function (event){ 
-         console.log('Info: connection closed')   
-      }
-      ws.onerror = function (err){ console.log('Error: ', err) }
-   }
+    function connectWS() {
+    	var ws = new WebSocket("ws:localhost:8080/withdang/replyEcho")
+		//var ws = new WebSocket("ws://withdang.shop/withdang/replyEcho")
+        socket = ws
+        
+        ws.onopen = function() {
+           console.log('Info: connection opened.')
+        }
+        
+        ws.onmessage = function(event) {
+           console.log("ReceiveMessage:", event.data+'\n')
+           
+            let message = JSON.parse(event.data)
+            let cmd = message.cmd
+            
+            if (cmd === "sendchat") {
+               if(String(message.chatroom_id) === chatroom_id) {
+                  showChattingAndListwithsocket(chatroom_id)
+               }
+               else {
+                  showListOnly()
+               }
+            }
+            else if (cmd === "readchat") {
+               if(String(message.chatroom_id) === chatroom_id) {
+                  showChattingAndList(chatroom_id)
+               }
+               else {
+                  showListOnly()
+               }
+            }
+        }
+        
+        ws.onclose = function (event){ 
+           console.log('Info: connection closed')   
+        }
+        ws.onerror = function (err){ console.log('Error: ', err) }
+     }
 </script>
     
     

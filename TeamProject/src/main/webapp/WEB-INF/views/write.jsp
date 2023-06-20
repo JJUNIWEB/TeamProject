@@ -78,7 +78,7 @@
 	            </div>
 	            <div class="bt_wrap">
 	                <button type="submit" id="postButton" class="on">등록</button>
-	                <button type="button" href="${pageContext.request.contextPath}/dangcomu/list">취소</button>
+	                <button type="button" id="backButton"> <a href="${pageContext.request.contextPath}/dangcomu/list">취소</a></button>
 	            </div>
 	        </div>
 	    </div>

@@ -73,7 +73,7 @@
                 <div class="count">조회</div>
             </div>
             <c:forEach var="comuDTO" items="${list}">
-                <div>
+                <div id="list-cont">
                     <div id="comu-list-num" class="num">${comuDTO.post_id}</div>
                     <div class="title"><a href="${pageContext.request.contextPath}/dangcomu/read${pr.sc.queryString}&post_id=${comuDTO.post_id}">${comuDTO.post_title}</a></div>
                     <div class="writer">${comuDTO.user_name}</div>
@@ -117,7 +117,7 @@
         </div>
 		
       <div class="bt_wrap">
-	    <a href="#" onclick="checkLogin(event)" class="on">등록</a>
+	    <button href="#" onclick="checkLogin(event)" class="on" id="bt-submit">등록</button>
 	</div>
 	
 	<input type="hidden" value="${isLoggedIn}" id="isLoggedIn";>

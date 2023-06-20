@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -32,12 +33,15 @@ public class ReplyEchoHandler extends TextWebSocketHandler {
 		if(cmd.equals("sendchat")) {
 			String receiver_nickname = strs[1];
 			Integer chatroom_id = Integer.parseInt(strs[2]);
+			String sender_nickname = strs[3];
+			
 			WebSocketSession receiverSession = userSessions.get(receiver_nickname);
 			
 			if(receiverSession != null) {
 				JSONObject replyMessage = new JSONObject();
 				replyMessage.put("cmd", "sendchat");
 				replyMessage.put("chatroom_id", chatroom_id);
+				replyMessage.put("sender_nickname", sender_nickname);
 				
 				TextMessage tmpMsg = new TextMessage(replyMessage.toString());
 				receiverSession.sendMessage(tmpMsg);
