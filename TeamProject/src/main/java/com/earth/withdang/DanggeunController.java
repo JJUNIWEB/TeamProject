@@ -2,7 +2,12 @@ package com.earth.withdang;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.earth.domain.AddressDongDTO;
@@ -53,6 +60,11 @@ public class DanggeunController {
 	
 	@GetMapping("/list")
 	public String danggeunList(DanggeunSearchItem dsc, Model m, HttpServletRequest request) {
+		
+		if(!loginCheck(request)) {
+			return "redirect:/login";
+		}
+		
 		String login_nickname = (String) request.getSession().getAttribute("nickname");
 		
 		try {
@@ -71,14 +83,12 @@ public class DanggeunController {
 		return "danggeun";
 		
 	}
-	
-	private boolean loginCheck(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		return session != null && session.getAttribute("nickname") != null && session.getAttribute("nickname") != "";
-	}
 
 	@GetMapping("/write")
-	public String write(Model m) {
+	public String write(Model m, HttpServletRequest request) {
+		if(!loginCheck(request)) {
+			return "redirect:/login";
+		}
 		try {
 			List<DanggeunTypeDTO> typeList = danggeunService.getTypeList();
 			m.addAttribute("mode", "new");
@@ -91,37 +101,25 @@ public class DanggeunController {
 	}
 	
 	@PostMapping("/write")
-	public String write(DanggeunInfoDTO danggeunInfoDTO, @RequestParam(value = "image1", required = false) List<MultipartFile> image1,
-			@RequestParam(value = "image2", required = false) List<MultipartFile> image2,
-			@RequestParam(value = "image3", required = false) List<MultipartFile> image3,
-			@RequestParam(value = "image4", required = false) List<MultipartFile> image4, RedirectAttributes rattr, Model m) {
-		
+	public String write(DanggeunInfoDTO danggeunInfoDTO, RedirectAttributes rattr, Model m, MultipartHttpServletRequest request) throws Exception {
 		List<DanggeunTypeDTO> typeList = null;
-		List<String> addressList = new ArrayList<String>();
-		String category = "danggeun";
+	    List<String> addressList = new ArrayList<String>();
+	    String category = "danggeun";
 		
+	    
+	    Iterator<String> fileNames = request.getFileNames();
+	    while (fileNames.hasNext()) {
+	        String paramName = fileNames.next();
+	        MultipartFile file = request.getFile(paramName);
+	        int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
+	        
+	        List<String> upload = s3UploadService.upload(category, Collections.singletonList(file));
+	        addressList.add(sequence, upload.get(0));
+	    }
+	    
 		try {
 			typeList = danggeunService.getTypeList();
-			
-			if (!image1.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image1);
-				addressList.add(upload.get(0));
-			}
-			
-			if (!image2.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image2);
-				addressList.add(upload.get(0));
-			}
-
-			if (!image3.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image3);
-				addressList.add(upload.get(0));
-			}
-
-			if (!image4.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image4);
-				addressList.add(upload.get(0));
-			}
+	        
 			danggeunService.registerDanggeun(danggeunInfoDTO, addressList);
 			
 			rattr.addFlashAttribute("msg", "WRT_OK");
@@ -137,17 +135,18 @@ public class DanggeunController {
 	}
 
 	@GetMapping("/modify")
-	public String modify(Integer id, HttpSession session, RedirectAttributes rattr, Model m) {
+	public String modify(Integer id, HttpSession session, RedirectAttributes rattr, Model m, HttpServletRequest request) {
+		if(!loginCheck(request)) {
+			return "redirect:/login";
+		}
 		String login_nickname = (String) session.getAttribute("nickname");
 		try {
 			DanggeunInfoDTO danggeunInfoDTO = danggeunService.readDanggeun(id, login_nickname);
 			List<DanggeunTypeDTO> typeList = danggeunService.getTypeList();
 			List<DanggeunPhotoDTO> photoList = danggeunPhotoService.showPhoto(id);
-			int photoCnt = photoList.size();
 			
 			m.addAttribute("danggeunInfoDTO", danggeunInfoDTO);
 			m.addAttribute("photoList", photoList);
-			m.addAttribute("photoCnt", photoCnt);
 			m.addAttribute("mode", "modify");
 			m.addAttribute("typeList", typeList);
 			return "danggeunwrite";
@@ -159,44 +158,43 @@ public class DanggeunController {
 	}
 	
 	@PostMapping("/modify")
-	public String modify(DanggeunInfoDTO danggeunInfoDTO, @RequestParam(value = "image1", required = false) List<MultipartFile> image1,
-			@RequestParam(value = "image2", required = false) List<MultipartFile> image2,
-			@RequestParam(value = "image3", required = false) List<MultipartFile> image3,
-			@RequestParam(value = "image4", required = false) List<MultipartFile> image4, HttpSession session, RedirectAttributes rattr, Model m) {
-		List<DanggeunTypeDTO> typeList = null;
-		List<String> addressList = new ArrayList<String>();
-		String category = "danggeun";
+	public String modify(DanggeunInfoDTO danggeunInfoDTO, RedirectAttributes rattr, Model m, MultipartHttpServletRequest request) throws IOException {
 		
-		try {
-			typeList = danggeunService.getTypeList();
-			
-			if (!image1.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image1);
-				addressList.add(upload.get(0));
-			}
-			
-			if (!image2.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image2);
-				addressList.add(upload.get(0));
-			}
-
-			if (!image3.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image3);
-				addressList.add(upload.get(0));
-			}
-
-			if (!image4.get(0).getOriginalFilename().equals("")) {
-				List<String> upload = s3UploadService.upload(category, image4);
-				addressList.add(upload.get(0));
-			}
-			
-			danggeunService.modifyDangguen(danggeunInfoDTO, addressList);
-			
+		List<DanggeunTypeDTO> typeList = null;
+		List<DanggeunPhotoDTO> photoList = null;
+		Enumeration<String> parameterNames = request.getParameterNames();
+	    Map<Integer, String> addressMap = new HashMap<Integer, String>();
+	    String category = "danggeun";
+	    
+	    while (parameterNames.hasMoreElements()) {
+	    	String paramName = parameterNames.nextElement();
+	    	if(paramName.startsWith("imgbox")) {
+	            String paramValue = request.getParameter(paramName);
+	            int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
+	            addressMap.put(sequence, paramValue);
+	    	}
+        }
+	    
+	    Iterator<String> fileNames = request.getFileNames();
+	    while (fileNames.hasNext()) {
+	        String paramName = fileNames.next();
+	        MultipartFile file = request.getFile(paramName);
+	        int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
+	        List<String> upload = s3UploadService.upload(category, Collections.singletonList(file));
+	        addressMap.put(sequence, upload.get(0));
+	    }
+	    
+	    // imageMap을 사용하여 이미지 데이터 처리
+	    try {
+	    	typeList = danggeunService.getTypeList();
+	    	photoList = danggeunPhotoService.showPhoto(danggeunInfoDTO.getId());
+			danggeunService.modifyDangguen(danggeunInfoDTO, addressMap);
 			rattr.addFlashAttribute("msg", "MOD_OK");
 			return "redirect:/danggeun/list";
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute("danggeunInfoDTO", danggeunInfoDTO);
+			m.addAttribute("photoList", photoList);
 			m.addAttribute("mode", "modify");
 			m.addAttribute("msg", "MOD_ERR");
 			m.addAttribute("typeList", typeList);
@@ -228,7 +226,10 @@ public class DanggeunController {
 	}
 	
 	@GetMapping("/view")
-	public String view(Integer id, DanggeunSearchItem dsc, Model m, HttpSession session) {
+	public String view(Integer id, DanggeunSearchItem dsc, Model m, HttpSession session, HttpServletRequest request) {
+		if(!loginCheck(request)) {
+			return "redirect:/login";
+		}
 		String login_nickname = (String) session.getAttribute("nickname");
 		try {
 			DanggeunInfoDTO danggeunInfoDTO = danggeunService.readDanggeun(id, login_nickname);
@@ -299,5 +300,10 @@ public class DanggeunController {
 			e.printStackTrace();
 			return new ResponseEntity<List<AddressDongDTO>>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	private boolean loginCheck(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		return session != null && session.getAttribute("nickname") != null && session.getAttribute("nickname") != "";
 	}
 }

@@ -55,7 +55,7 @@ public class RegisterController {
 			
 		}
 		
-		// 이메일 중복 검사 & 정규식 검사
+		// 이메일 유효성 검사
 		@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String memberEmailCheckPOST(String user_email) throws Exception{
@@ -64,22 +64,22 @@ public class RegisterController {
 			  Pattern p = Pattern.compile(regex);
 			  Matcher m = p.matcher(user_email);
 			  if(m.matches()) {
-				  int result = memberservice.emailCheck(user_email);
+			int result = memberservice.emailCheck(user_email);
 			
-				  if(result != 0) {
+			if(result != 0) {
 				
-					  return "fail";	// 중복 아이디가 존재
+				return "fail";	// 중복 아이디가 존재
 				
-				  } else {
+			} else {
 				
-					  return "success";	// 중복 아이디 x
+				return "success";	// 중복 아이디 x
 				
-				  }	
+			}	
 			  } return "fail1";		//이메일 형식 안맞음
 
 		} // memberEmailChkPOST() 종료
 		
-		// 닉네임 중복 검사
+		// 닉네임 유효성 검사
 		@RequestMapping(value = "/nickNameCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String membernickNameCheckPOST(String user_nickname) throws Exception{
@@ -95,11 +95,9 @@ public class RegisterController {
 					} else {
 						return "success";	// 중복 닉네임 x
 					}
-				} return "fail1";			//닉네임 형식 안맞음 
-					
-						
-			
-						
+				} return "fail1";			//닉네임 형식 안맞음
+				
+				
 		} // membernickNameChkPOST() 종료
 
 }

@@ -72,17 +72,36 @@ public class DanggeunServiceImpl implements DanggeunService {
 	//사진 추가하는거 넣어야 될듯?
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void modifyDangguen(DanggeunInfoDTO danggeunInfoDTO, List<String> list) throws Exception {
+	public void modifyDangguen(DanggeunInfoDTO danggeunInfoDTO, Map<Integer, String> map) throws Exception {
 		danggeunInfoDTO.setType_name(danggeunTypeMapper.select(danggeunInfoDTO.getType_id()).getName());
 		danggeunInfoDTO.setSido_name(addressSidoMapper.select(danggeunInfoDTO.getSido_code()).getName());
 		danggeunInfoDTO.setSigoon_name(addressSigoonMapper.select(danggeunInfoDTO.getSigoon_code()).getName());
 		danggeunInfoDTO.setDong_name(addressDongMapper.select(danggeunInfoDTO.getDong_code()).getName());
-		danggeunInfoDTO.setPhoto_address(list.get(0));
+		
+		List<DanggeunPhotoDTO> photoList = danggeunPhotoMapper.selectAllByDanggeunId(danggeunInfoDTO.getId());
+		
+		int count = 0;
+		for(DanggeunPhotoDTO photo : photoList) {
+			count = 0;
+			for(String address : map.values()) {
+				if(address.equals(photo.getAddress())) {
+					count = 1;
+					break;
+				}
+			}
+			if(count == 0) {
+				s3UploadService.deleteFile(photo.getAddress());
+			}
+		}
+		danggeunPhotoMapper.deleteAll(danggeunInfoDTO.getId());
+		danggeunInfoDTO.setPhoto_address(map.get(0));
 		danggeunInfoMapper.update(danggeunInfoDTO);
 		
-		for(String address : list) {
-			danggeunPhotoMapper.insert(new DanggeunPhotoDTO(address, danggeunInfoDTO.getId()));
-		}
+	    for (Map.Entry<Integer, String> entry : map.entrySet()) {
+	        Integer index = entry.getKey();
+	        String address = entry.getValue();
+	        danggeunPhotoMapper.insert(new DanggeunPhotoDTO(address, danggeunInfoDTO.getId(), index));
+	    }
 	}
 
 	//사진 추가하는거 넣어야 될듯?
@@ -96,8 +115,10 @@ public class DanggeunServiceImpl implements DanggeunService {
 		danggeunInfoDTO.setPhoto_address(list.get(0));
 		danggeunInfoMapper.insert(danggeunInfoDTO);
 		
+		int i = 0;
 		for(String address : list) {
-			danggeunPhotoMapper.insert(new DanggeunPhotoDTO(address, danggeunInfoDTO.getId()));
+			danggeunPhotoMapper.insert(new DanggeunPhotoDTO(address, danggeunInfoDTO.getId(), i));
+			i++;
 		}
 	}
 

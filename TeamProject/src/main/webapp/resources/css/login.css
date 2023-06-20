@@ -16,6 +16,10 @@ body {
     margin: 0;
     background-color: var(--bodybackground-color);
 }
+button {
+  font-family: 'NanumSquareNeo-Variable';
+}
+
 
 a { text-decoration: none; color: #fff; }
 a:visited { text-decoration: none; }
@@ -286,7 +290,7 @@ a {
     top: 137px;
 }
 
-.name_ck{
+.name_ck {
 	color : red;
     position: absolute;
     display: none;
@@ -320,7 +324,7 @@ a {
     top: 308px;
 }
 
-.pw_ck{
+.pw_ck {
 	color : red;
     position: absolute;
     display: none;

@@ -57,15 +57,33 @@
         <form class="mypage-user">
             <h1 id="mypage-title">마이페이지</h1>
             <hr>
-           	 <div class="user-info"> ▶ 내 정보</div><br>
-             <div><span>이름 : </span> ${member.user_name}</div>
-             <div><p>이메일 : ${member.user_email }</p></div>
-             <div><p>닉네임 : ${member.user_nickname }</p></div>
-             <div><p>연락처 : ${member.user_pnum }</p></div>
-             <div><p>생일 : <fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd" type="date"/></p></div>
-             <div><p>성별 : ${member.user_gender }</p></div>
+           	 <div class="user-info"> ▶ 내 정보<br></div>
+           	 <div id="user-default">
+	             <div><p>이름 : ${member.user_name}</p></div>
+	             <div><p>이메일 : ${member.user_email }</p></div>
+	             <div><p>닉네임 : ${member.user_nickname }</p></div>
+	             <div><p>연락처 : ${member.user_pnum }</p></div>
+             </div >
+	             <div id="user-option-info">
+	             <div><p>생일 : <fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd" type="date"/></p></div>
+	             <div><p>성별 : ${member.user_gender }</p></div>
              <div><p>주소 : ${member.user_address }</p></div>
+             </div>
 	         <a class="reset-pwd" href="/withdang/pwReset">비밀번호 재설정</a>
+	         
+	         <hr>
+	         <div class="dog-info"> ▶ 강아지 정보<br></div>
+	         
+	         <div id="dog-option-info">
+	             <div><p>이름 : ${dvo.dog_name }</p></div>
+	             <div><p>성별 : ${dvo.dog_gender }</p></div>
+	             <div><p>중성화 : ${dvo.dog_nutd }</p></div>
+	             <div><p>등록번호 : ${dvo.dog_regnum }</p></div>
+	             <div><p>견종 : ${dvo.dog_breed }</p></div>
+	             <div><p>특징 : ${dvo.dog_feature }</p></div>
+	             
+             </div>
+	         
         </form>        
       </article>
          
@@ -87,6 +105,7 @@
     	  				  icon: 'info',                         // Alert 타입
     	  				  confirmButtonText: '확인',
     	  				});
+    				/* alert("신규 회원님 환영 합니다. 마이페이지에서 필수 회원 정보를 입력해주세요") */
     			}
     		
     			if(msg=="updateOK") {
@@ -95,6 +114,7 @@
     	  				  icon: 'success',                         // Alert 타입
     	  				  confirmButtonText: '확인',
     	  				});
+    				/* alert("수정이 완료되었습니다.") */
     			}
 		})
 		
