@@ -23,6 +23,12 @@
 		<property name="password">
 			<value>${db.password}</value>
 		</property>
+		  <property name="maxLifetime">
+	         <value>30000</value>
+	      </property>
+	      <property name="connectionTimeout">
+	         <value>30000</value>
+	      </property>
 	</bean>	
 	
 	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">

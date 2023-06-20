@@ -159,12 +159,19 @@ public class ComuController {
 	public String delete(Integer post_id, Integer page, Integer pageSize, RedirectAttributes ra, HttpSession session) {
 
 		MemberDto memberDto = (MemberDto) session.getAttribute("member");
-		String user_email = memberDto.getUser_email();
+		String user_email = memberDto.getUser_email();	
 
 		try {
+			
 			comuService.deletePost(post_id, user_email);
-			ImageDto dto = new ImageDto(null, "comuPost", user_email, post_id);
-			imageMapper.comuDelete(dto);
+			ImageDto imageDto = new ImageDto(null, "comuPost", user_email, post_id);
+			List<ImageDto> images = imageMapper.comuSelectAll(imageDto);
+			
+			for (ImageDto image : images) {
+				imageMapper.comuDelete(image);						// db에서 삭제
+				s3UploadService.deleteFile(image.getPt_adres());    // 이미지 서버에서 삭제
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -215,7 +222,7 @@ public class ComuController {
 			comuDTO.setUser_email(user_email);
 			comuDTO.setUser_name(user_name);
 
-			 while(parameterNames.hasMoreElements()) { 
+			while(parameterNames.hasMoreElements()) { 
 				 String paramName = parameterNames.nextElement();
 			  
 				 if(paramName.startsWith("imgbox")) { 
@@ -223,9 +230,8 @@ public class ComuController {
 					 int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
 					 addressList.add(paramValue); 
 				 }
-			 }
+			}
 			 
-
 			Iterator<String> fileNames = multipartRequest.getFileNames();
 			while (fileNames.hasNext()) {
 				String paramName = fileNames.next();
@@ -233,28 +239,27 @@ public class ComuController {
 				int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
 
 				List<String> upload = s3UploadService.upload("comuPost", Collections.singletonList(file));
-				ImageDto imageDto = new ImageDto(upload.get(0), "comuPost", user_email, comuDTO.getPost_id());
-				imageMapper.insert(imageDto);
 				addressList.add(upload.get(0));
 			}
 
-			ImageDto dto = new ImageDto(null, "comuPost", user_email, comuDTO.getPost_id());
+			ImageDto dto = new ImageDto(null, "comuPost", user_email, post_id);
 			List<ImageDto> photoList = imageMapper.comuSelectAll(dto);
-			
-			for (String address : addressList) {
-				for (ImageDto photo : photoList) {	// for문 다시 작성, 순서 바꾸기 위함
-					if (photoList.contains(addressList)) {
-						s3UploadService.deleteFile(photo.getPt_adres());
-						imageMapper.comuDelete(photo);
-						
-						continue;
-					} else {
-						s3UploadService.deleteFile(photo.getPt_adres());
-						imageMapper.comuDelete(photo);
-					}
+
+			for (ImageDto photo : photoList) {
+				if (addressList.contains(photo.getPt_adres())) {
+					imageMapper.comuDelete(photo);
+				} else {
+					imageMapper.comuDelete(photo);
+					s3UploadService.deleteFile(photo.getPt_adres());
 				}
 			}
-
+			
+			for (String address : addressList) {
+				dto.setPt_adres(address);
+				imageMapper.insert(dto);
+			}
+			
+			
 			if (comuService.updatePost(comuDTO) != 1)
 				throw new Exception("Update Fail");
 
