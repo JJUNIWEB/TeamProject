@@ -431,14 +431,14 @@
             </div>
             
            <script>
-        function closePopup() {
-          var checkbox = window.opener.document.getElementById("register-check");
-          if (checkbox.checked) {
-            checkbox.checked = false;
-            checkbox.dispatchEvent(new Event('change'));
-          }
-          window.close();
-        }
+        	function closePopup() {
+          		var checkbox = window.opener.document.getElementById("register-check");
+          		if (checkbox.checked) {
+            		checkbox.checked = false;
+            		checkbox.dispatchEvent(new Event('change'));
+          		}
+          			window.close();
+        	}
         </script>
         
         <script type="text/javascript">
@@ -455,7 +455,7 @@
      
         <script>
           function fregister_submit(f) {
-        	  var checkbox = window.opener.document.getElementById("register-check"); 
+        	var checkbox = window.opener.document.getElementById("register-check"); 
         	   
   	        if (!f.agree1.checked) {
   	            alert("회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
@@ -469,7 +469,7 @@
   	            return false;
   	        }
 
-  	      f.submit();
+  	      	f.submit();
 	        if (f.agree1.checked && f.agree2.checked) {
 	        	checkbox.checked = true;
 	        	window.close();
