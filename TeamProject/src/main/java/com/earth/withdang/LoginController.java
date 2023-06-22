@@ -150,16 +150,17 @@ public class LoginController {
                 session.setAttribute("member", lvo);     // session에 사용자의 정보 저장
                 session.setAttribute("dvo", dvo);
                 session.setAttribute("nickname", lvo.getUser_nickname());
-		if(!memberCheck(member)) {
-			rttr.addFlashAttribute("msg", "memberCheck");
+                
+                if(!memberCheck(member)) {
+                	rttr.addFlashAttribute("msg", "memberCheck");
 
-			session.setAttribute("member", lvo);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
-			session.setAttribute("dvo", dvo);
-			session.setAttribute("nickname", lvo.getUser_nickname());
-			return "redirect:/mypage";
-			}
+					session.setAttribute("member", lvo);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+					session.setAttribute("dvo", dvo);
+					session.setAttribute("nickname", lvo.getUser_nickname());
+					return "redirect:/mypage";
+                }
 	
-                return "redirect:/";        // 메인페이지 이동
+                	return "redirect:/";        // 메인페이지 이동
 
             } else {
             	rttr.addFlashAttribute("result", 0);
@@ -167,7 +168,6 @@ public class LoginController {
             }
 			
 	    } else {										//일치하는 아이디가 존재하지 않을 시(로그인 실패)
-
 	    	rttr.addFlashAttribute("result", 0);
 	    	return "redirect:/login";
 	    }
