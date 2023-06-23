@@ -9,10 +9,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <style type="text/css">
     
   #container{
@@ -484,12 +486,12 @@
           alert('error')
        }
     }
-    
+
     async function showChattingAndListwithsocket(chatroom_id) {
        try {
           await showChattingList(chatroom_id)
           await showList()
-          
+
           if(socket) {
              let socketMsg = "readchat," + other_nickname + "," + chatroom_id
              socket.send(socketMsg)
@@ -498,44 +500,46 @@
           alert('error')
        }
     }
-    
+
    function connectWS() {
-      var ws = new WebSocket("wss://q.withdang.click/withdang")
-      socket = ws
-      
-      ws.onopen = function() {
-         console.log('Info: connection opened.')
-      }
-      
-      ws.onmessage = function(event) {
-         console.log("ReceiveMessage:", event.data+'\n')
-         
-          let message = JSON.parse(event.data)
-          let cmd = message.cmd
-          
-          if (cmd === "sendchat") {
-             if(String(message.chatroom_id) === chatroom_id) {
-                showChattingAndListwithsocket(chatroom_id)
-             }
-             else {
-                showListOnly()
-             }
-          }
-          else if (cmd === "readchat") {
-             if(String(message.chatroom_id) === chatroom_id) {
-                showChattingAndList(chatroom_id)
-             }
-             else {
-                showListOnly()
-             }
-          }
-      }
-      
-      ws.onclose = function (event){ 
-         console.log('Info: connection closed')   
-      }
-      ws.onerror = function (err){ console.log('Error: ', err) }
+
+
+       // var ws = new WebSocket("wss://withdang.click/withdang/replyEcho")
+       var ws = new SockJS('/withdang/replyEcho'
+           , null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]}
+       );
+       socket = ws;
+
+       ws.onopen = function () {
+           console.log('Info: connection opened.')
+       }
+
+       ws.onmessage = function (event) {
+           console.log("ReceiveMessage:", event.data + '\n')
+
+           let message = JSON.parse(event.data)
+           let cmd = message.cmd
+
+           if (cmd === "sendchat") {
+               if (String(message.chatroom_id) === chatroom_id) {
+                   showChattingAndListwithsocket(chatroom_id)
+               } else {
+                   showListOnly()
+               }
+           } else if (cmd === "readchat") {
+               if (String(message.chatroom_id) === chatroom_id) {
+                   showChattingAndList(chatroom_id)
+               } else {
+                   showListOnly()
+               }
+           }
+       }
+
+       ws.onclose = function (event) {
+           console.log('Info: connection closed')
+       }
    }
+
 </script>
     
     

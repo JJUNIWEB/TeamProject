@@ -17,6 +17,7 @@ var imageSrc = null;
 
 
 
+
 const contextPath = (window.location.pathname.split("/")[1].trim()=="")?   "":"/" + window.location.pathname.split("/")[1];
 
 //지도 생성

@@ -50,22 +50,22 @@ public class MapController {
             if (mapVo.getType().equals("beauty")) {
                 if (distance < 1) {
                     pinList.add(list.get(i));
-                    System.out.println(list.get(i));
+//                    System.out.println(list.get(i));
                 }
             } else if (mapVo.getType().equals("hospital")) {
                 if (distance < 1) {
                     pinList.add(list.get(i));
-                    System.out.println(list.get(i));
+//                    System.out.println(list.get(i));
                 }
             } else if (mapVo.getType().equals("kinder")) {
                 if (distance < 1) {
                     pinList.add(list.get(i));
-                    System.out.println(list.get(i));
+//                    System.out.println(list.get(i));
                 }
             }else {
                 if (distance < 10) {
                     pinList.add(list.get(i));
-                    System.out.println(list.get(i));
+//                    System.out.println(list.get(i));
                 }
             }
 

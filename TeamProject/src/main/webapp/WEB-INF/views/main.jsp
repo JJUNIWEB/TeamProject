@@ -12,7 +12,6 @@
 
     <link rel="icon" href="${pageContext.request.contextPath}/resources/image/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <script src="${pageContext.request.contextPath}/resources/script/main.js" defer></script>
     <script src="${pageContext.request.contextPath}/resources/script/maps.js" defer></script>
     <img id=mappin1 src="${pageContext.request.contextPath}/resources/image/mappin1.png" hidden/>
     <img id=mappin2 src="${pageContext.request.contextPath}/resources/image/mappin2.png" hidden/>

@@ -36,12 +36,12 @@
 	</beans:bean>
 	
 	<beans:bean id="replyEchochoHandler" class="com.earth.withdang.ReplyEchoHandler" />
-	
-	<websocket:handlers>
-		<websocket:mapping handler="replyEchochoHandler" path="/replyEcho" />
-		<websocket:handshake-interceptors>
-			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-		</websocket:handshake-interceptors>
-	</websocket:handlers>
+
+<!--	<websocket:handlers>-->
+<!--		<websocket:mapping handler="replyEchochoHandler" path="/replyEcho" />-->
+<!--		<websocket:handshake-interceptors>-->
+<!--			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />-->
+<!--		</websocket:handshake-interceptors>-->
+<!--	</websocket:handlers>-->
 
 </beans:beans>

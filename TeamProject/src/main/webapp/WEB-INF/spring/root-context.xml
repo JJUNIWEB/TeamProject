@@ -29,7 +29,7 @@
 	      <property name="connectionTimeout">
 	         <value>30000</value>
 	      </property>
-	</bean>	
+	</bean>
 	
 	<bean id="datasource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
