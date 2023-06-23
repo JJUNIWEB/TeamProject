@@ -95,9 +95,6 @@ public class RegisterController {
 					} else {
 						return "success";	// 중복 닉네임 x
 					}
-				} return "fail1";			//닉네임 형식 안맞음
-				
-				
+				} return "fail1";			//닉네임 형식 안맞음		
 		} // membernickNameChkPOST() 종료
-
 }

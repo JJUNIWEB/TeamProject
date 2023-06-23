@@ -81,7 +81,6 @@ public class LoginController {
 
 		HttpSession session = request.getSession();
 
-
 		if(pwd == null) {
 			m.addAttribute("check", 1);
 		} else {
