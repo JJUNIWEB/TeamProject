@@ -75,7 +75,7 @@ public class LoginController {
 	}
 
 	//비밀번호 찾기 실행
-	@PostMapping("/pwdFindRes")
+	@PostMapping("/pwReset")
 	public String findPwd(MemberDto member, Model m, HttpServletRequest request) throws Exception {
 		MemberDto pwd = memberservice.findPwd(member);
 
@@ -88,7 +88,7 @@ public class LoginController {
 			m.addAttribute("check", 0);
 		}
 
-		return "/pwdFindRes";
+		return "/pwReset";
 
 	}
 	
@@ -140,7 +140,7 @@ public class LoginController {
 			response.addCookie(cookie);
 		}
 
-		if(lvo != null) {                                // 일치하지 하는 아이디 존재시
+		if(lvo != null) {                                // 일치하는 정보 존재시
 
 			rawPw = member.getUser_pw();        // 사용자가 제출한 비밀번호
             encodePw = lvo.getUser_pw();        // 데이터베이스에 저장한 인코딩된 비밀번호
@@ -153,7 +153,7 @@ public class LoginController {
                 if(!memberCheck(member)) {
                 	rttr.addFlashAttribute("msg", "memberCheck");
 
-					session.setAttribute("member", lvo);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+					session.setAttribute("member", lvo);             // 일치하는 이메일, 비밀번호 경우 (로그인 성공)
 					session.setAttribute("dvo", dvo);
 					session.setAttribute("nickname", lvo.getUser_nickname());
 					return "redirect:/mypage";
@@ -166,7 +166,7 @@ public class LoginController {
                 return "redirect:/login";    // 로그인 페이지로 이동
             }
 			
-	    } else {										//일치하는 아이디가 존재하지 않을 시(로그인 실패)
+	    } else {										//일치하는 정보가 존재하지 않을 시(로그인 실패)
 	    	rttr.addFlashAttribute("result", 0);
 	    	return "redirect:/login";
 	    }
