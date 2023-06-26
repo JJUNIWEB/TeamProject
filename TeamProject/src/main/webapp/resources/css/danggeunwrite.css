@@ -14,6 +14,10 @@ body {
     margin: 0;
     background-color: var(--bodybackground-color);
 }
+button {
+  font-family: 'NanumSquareNeo-Variable';
+}
+
 
 a { text-decoration: none; color: #fff; }
 a:visited { text-decoration: none; }
