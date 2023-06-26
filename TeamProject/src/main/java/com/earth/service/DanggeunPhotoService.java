@@ -6,7 +6,7 @@ import com.earth.domain.DanggeunPhotoDTO;
 
 public interface DanggeunPhotoService {
 
-	DanggeunPhotoDTO registerPhoto(String address, Integer danggeun_id) throws Exception;
+	DanggeunPhotoDTO registerPhoto(String address, Integer danggeun_id, int sequence) throws Exception;
 	
 	List<DanggeunPhotoDTO> showPhoto(Integer danggeun_id) throws Exception;
 	

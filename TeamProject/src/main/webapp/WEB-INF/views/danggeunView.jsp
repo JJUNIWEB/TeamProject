@@ -14,7 +14,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<c:url value='/resources/css/danggeun.css' />">
+	<link rel="stylesheet" href="<c:url value='/resources/css/danggenn.css' />">
 	<script rel="stylesheet" href="<c:url value='/resources/script/dangguenView.js' />"></script>
 	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
@@ -293,9 +293,10 @@ a {
 }
 
 .board_view .info {
-    padding: 15px;
+    padding: 10px;
     border-bottom: 1px solid #503137;
     font-size: 0;
+    text-align: left;
 }
 
 .board_view .info dl {
@@ -325,7 +326,7 @@ a {
 .board_view .info dl dt,
 .board_view .info dl dd {
     display: inline-block;
-    font-size: 1.1rem;
+    font-size: 14px;
 }
 
 /*게시글 뷰 번호 이름 작성일 등 정보*/
@@ -336,85 +337,14 @@ a {
 }
 
 .board_view .cont {
-    padding: 15px;
+    padding: 25px;
     border-bottom: 1px solid #222222;
     line-height: 160%;
     font-size: 1.2rem;
+    text-align: left;
 }
 
-.board_write {
-    border-top: 2px solid #ed8b9e;
-}
 
-.board_write .title,
-.board_write .info {
-    padding: 15px;
-}
-
-.board_write .info {
-    /* border-bottom: 1px solid #000; */
-    font-size: 0;
-}
-
-.board_write .title dl {
-    font-size: 0;
-}
-
-.board_write .info dl {
-    display: inline-block;
-    width: 50%;
-    vertical-align: middle;
-}
-
-.board_write .title dt,
-.board_write .title dd,
-.board_write .info dt,
-.board_write .info dd {
-    display: inline-block;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #3e3e3e;
-}
-
-.board_write .title dt,
-.board_write .info dt {
-    width: 100px;
-}
-
-.board_write .title dd {
-    width: calc(100% - 100px);
-}
-
-.board_write .title input[type="text"],
-.board_write .info input[type="text"],
-.board_write .info input[type="password"] {
-    padding: 10px;
-    box-sizing: border-box;
-    border: none;
-    background-color: #e7ffff;
-
-}
-
-.board_write .title input[type="text"] {
-    width: 80%;
-    border: none;
-    background-color: #e7ffff;
-}
-
-.board_write .cont {
-    border: none;
-}
-
-.board_write .cont textarea {
-    display: block;
-    width: 100%;
-    height: 300px;
-    padding: 15px;
-    box-sizing: border-box;
-    border: 0;
-    resize: vertical;
-    background-color: #e7ffff;
-}
 
 @media (max-width: 1000px) {
     .board_wrap {
@@ -438,31 +368,15 @@ a {
         display: none;
     }
 
-    .board_view .info dl dt,
     .board_view .info dl dd {
-        font-size: 1.0rem;
+        font-size: 12px;
         padding: 2px;
     }
-
-    .board_write .info dl {
-        width: 49%;
-    }
-
-    .board_write .info dl:first-child {
-        margin-right: 2%;
-    }
-
-    .board_write .title dt,
-    .board_write .info dt {
+    .board_view .info dt {
         display: none;
     }
 
 
-    .board_write .title input[type="text"],
-    .board_write .info input[type="text"],
-    .board_write .info input[type="password"] {
-        width: 100%;
-    }
 }
 
 
@@ -503,109 +417,6 @@ input[type="submit"]:hover {
 
 }
 
-.mySlides {
-    display: none;
-    height: 500px;
-    width: 100%;
-    padding-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.mySlides img {
-    max-height: 100%;
-    max-width: 100%;
-}
-
-.slideshow-container {
-    width: 100% auto;
-    height: 500px;
-    background-color: #697070;
-    text-align: center;
-
-}
-
-.mySlides:first-child {
-    display: block;
-    /* 첫 번째 슬라이드 이미지만 보이게 함 */
-}
-
-
-/* Next & previous buttons */
-.prev,
-.next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    margin-right: 5%;
-    margin-left: -45%;
-    color: #fff;
-    font-weight: bold;
-    font-size: 28px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-}
-
-/* Position the "next button" to the right */
-.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-
-
-/* The dots/bullets/indicators */
-.dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #e6e6e6;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-}
-
-.active,
-.dot:hover {
-    background-color: #b3b3b3;
-}
-
-.slideshow-container {
-    height: 100%;
-    width: 100%;
-    position: relative;
-
-}
-
-.slideshow-container .slides>div {
-    position: absolute;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    /* 이미지를 최대한 안짤리게 한다. */
-    background-size: cover;
-    /* 배경 반복 금지 */
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 0.5s;
-}
-
-@media (max-width:786px) {
-    .slideshow-container {
-        width: 100%;
-    }
-}
-
-
-
-
-
 
 .bt_wrap {
     margin-top: 30px;
@@ -614,38 +425,48 @@ input[type="submit"]:hover {
 
 .bt_wrap a {
     display: inline-block;
-    min-width: 80px;
+    min-width: 60px;
     margin-left: 10px;
-    padding: 10px;
-    border: 2px solid #ed8b9e;
+    padding: 7px;
+    border: 2px solid #9989AB;
     border-radius: 20px;
     font-size: 1rem;
     font-weight: 600;
-    color: #ed8b9e;
+    color: #9989AB;
     cursor: pointer;
 }
-
-#chat-btn {
-    background-color: #ed8b9e;
-    color: #fff;
+.slideshow-container {
+  width: 100%; /* 부모 요소의 가로 너비를 100%로 설정 */
+  overflow: hidden; /* 넘치는 콘텐츠를 감추기 위해 overflow 속성을 hidden으로 설정 */
 }
+
+.myimg {
+  max-width: 100%; /* 이미지의 최대 가로 너비를 100%로 설정 */
+  height: auto; /* 이미지의 세로 크기를 자동으로 조정하여 비율 유지 */
+}
+
+.img {
+  display: block; /* 이미지를 블록 요소로 설정하여 세로로 정렬 */
+  margin: 0 auto; /* 이미지를 가운데로 정렬 */
+  max-width: 100%; /* 이미지의 최대 가로 너비를 100%로 설정 */
+  height: auto; /* 이미지의 세로 크기를 자동으로 조정하여 비율 유지 */
+}
+
 	</style>
 
     <title>댕근마켓</title>
 </head>
 
 <body>
+	<jsp:include page="websocket.jsp"></jsp:include>
 	<jsp:include page="header.jsp"></jsp:include>
     
     <form class="board_wrap" id="form" style="display: flex; flex-direction: column;">
-        <div class="board_title">
-            <strong>${danggeunInfoDTO.title}</strong>
-
-        </div>
         
 		<div class="slideshow-container">
 		    <c:forEach var="photo" items="${photoList}">
-		        <div class="mySlides fade">
+		    <hr>
+		        <div class="myimg">
 		            <img class="img" src="${photo.address}">
 		        </div>
 		    </c:forEach>
@@ -653,6 +474,11 @@ input[type="submit"]:hover {
 
         <div class="board_view_wrap">
             <div class="board_view">
+            <div class="board_title">
+            	<strong>${danggeunInfoDTO.title}</strong>
+        	</div>
+
+
                 <div class="info">
                     <dl>
                         <dt>글쓴이</dt>
@@ -695,10 +521,10 @@ input[type="submit"]:hover {
                 <a id="list-btn" href="<c:url value='/danggeun/list${danggeunSearchItem.queryString}' />">목록</a>
                 <c:if test="${danggeunInfoDTO.writer_nickname != loginNickname}">
 			        <c:if test="${danggeunInfoDTO.zzimed == true}">
-			        	<a class="scrap-btn" data-isScrap="1" data-id="${danggeunInfoDTO.id}" style="background-color: red;">찜♥</a>
+			        	<a class="scrap-btn" data-isScrap="1" data-id="${danggeunInfoDTO.id}" style="background-color: #ed8b9e; color: #fff; ">찜♥</a>
 			        </c:if>
 			        <c:if test="${danggeunInfoDTO.zzimed == false}">
-			        	<a class="scrap-btn" data-isScrap="0" data-id="${danggeunInfoDTO.id}" sytle="background-color: #a1e1dc;">찜♥</a>
+			        	<a class="scrap-btn" data-isScrap="0" data-id="${danggeunInfoDTO.id}" sytle="">찜♥</a>
 			        </c:if>
 		        </c:if>
             </div>
@@ -740,7 +566,8 @@ input[type="submit"]:hover {
 	                },
 	                success: function(response) {
 	                	button.attr("data-isScrap", "0")
-	                	button.css('background-color', '#ed8b9e')
+	                	button.css('background-color', 'transparent')
+	                	button.css('color', '#9989AB')
 	                },
 	                error: function(error) {
 	                    alert("error")
@@ -757,7 +584,8 @@ input[type="submit"]:hover {
 	                },
 	                success: function(response) {
 	                	button.attr("data-isScrap", "1")
-	                	button.css('background-color', 'red')
+	                	button.css('background-color', '#ed8b9e')
+	                	button.css('color', '#fff')
 	                },
 	                error: function(error) {
 	                    alert("error")

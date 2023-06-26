@@ -1,3 +1,4 @@
+
 package com.earth.withdang;
 
 import java.util.regex.Matcher;
@@ -34,7 +35,12 @@ public class RegisterController {
 		public String agreeMentGET() {
 			return "agreement";
 		}
-	
+		@GetMapping("/register")
+		public String joinGET() {
+			return "register";
+		}
+
+
 		//회원가입 서비스 실행
 		@PostMapping("/join")
 		public String joinPOST(MemberDto member, RedirectAttributes rttr) throws Exception {
@@ -42,9 +48,9 @@ public class RegisterController {
 			String rawPw = "";            // 인코딩 전 비밀번호
 	        String encodePw = "";        // 인코딩 후 비밀번호
 
-	        rawPw = member.getUser_pw();	// 비밀번호 데이터 얻음
-	        encodePw = pwEncoder.encode(rawPw);	// 비밀번호 인코딩
-	        member.setUser_pw(encodePw);		// 인코딩된 비밀번호 member객체에 다시 저장
+           rawPw = member.getUser_pw();   // 비밀번호 데이터 얻음
+           encodePw = pwEncoder.encode(rawPw);   // 비밀번호 인코딩
+           member.setUser_pw(encodePw);      // 인코딩된 비밀번호 member객체에 다시 저장
 
 			memberservice.memberJoin(member);
 			memberservice.dogInsert(member);
@@ -55,7 +61,7 @@ public class RegisterController {
 			
 		}
 		
-		// 이메일 중복 검사 & 정규식 검사
+      // 이메일 유효성 검사
 		@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String memberEmailCheckPOST(String user_email) throws Exception{
@@ -68,35 +74,40 @@ public class RegisterController {
 			
 			if(result != 0) {
 				
-				return "fail";	// 중복 아이디가 존재
+            return "fail";   // 중복 아이디가 존재
 				
 			} else {
 				
-				return "success";	// 중복 아이디 x
+            return "success";   // 중복 아이디 x
 				
 			}	
-			  } return "fail1";		//이메일 형식 안맞음
+           } return "fail1";      //이메일 형식 안맞음
 
 		} // memberEmailChkPOST() 종료
 		
-		// 닉네임 중복 검사
+      // 닉네임 유효성 검사
 		@RequestMapping(value = "/nickNameCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String membernickNameCheckPOST(String user_nickname) throws Exception{
-			
+         String regex = "^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,6}$";
+         Pattern p = Pattern.compile(regex);
+         Matcher m = p.matcher(user_nickname);
+
+            if(m.matches()) {
 			int result = memberservice.nickNameCheck(user_nickname);
 			
 			if(result != 0) {
-				
-				return "fail";	// 중복 닉네임 존재
-				
+                  return "fail";   // 중복 닉네임 존재
 			} else {
-				
-				return "success";	// 중복 닉네임 x
-					
+                  return "success";   // 중복 닉네임 x
 				}	
-				
+            } return "fail1";         //닉네임 형식 안맞음
+
 				
 		} // membernickNameChkPOST() 종료
 
 }
+
+
+
+

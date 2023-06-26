@@ -12,8 +12,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<c:url value='/resources/css/danggeun.css' />">
-    <script src="<c:url value='/resources/js/toggle.js' />" defer></script>
+    <link rel="stylesheet" href="<c:url value='/resources/css/danggenn.css' />">
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
@@ -26,13 +25,13 @@
 
 a {
     text-decoration: none;
-    color: inherit;
+    color: #fff;
 }
 
 #card-list {
     width: 90%;
     text-align: center;
-    margin: 0% 10% auto; /* Centers the card-list horizontally */
+    margin: 0% 10% auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,38 +42,33 @@ a {
 }
 
 #list {
-    width: 90%;
+    width: 88%;
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
-    
+    text-align: center;
+
 }
 
 .card {
     width: calc(25% - 20px);
-    width: 250px;
+    width: 230px;
     border: none;
     background-color: #d7e7e491;
     border-radius: 5px;
     padding: 10px;
-    margin: 20px;
+    margin: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.img {
+.card img {
 	width: 200px;
     height: 200px;
+    object-fit: cover;
     border-radius: 5px;
-    margin-bottom: 12px;    
-    display: flex;
-    justify-content: center;
-}
-
-.img img {
-    max-height: 100%;
-    max-width: 100%;	
+    margin-bottom: 12px;
 }
 
 .card h2 {
@@ -88,9 +82,10 @@ a {
     font-size: 10px;
     text-align: center;
     list-style-type: none;
+    color: black;
 }
 
-.card .price {
+.card {
     font-weight: bold;
     margin-bottom: 10px;
 }
@@ -101,23 +96,19 @@ a {
     border: none;
     background-color: #8e8bac;
     border-radius: 5px;
+}
+.buy-btn a {
     color: #fff;
 }
 
-#dangguen-head form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
+
 
 .scrap-btn {
     width: 50px;
     height: 25px;
     border: none;
-    background-color: #ed8b9e;
     border-radius: 5px;
+    background-color: #736187;
     color: #fff;
     cursor: pointer;
 }
@@ -126,20 +117,21 @@ a {
     width: 300px;
     height: 35px;
     border: none;
-    margin: 20px;
-    flex: 1;
+    margin: 5px;
 }
+
 
 .dangguen-title {
     font-size: 44px;
     font-weight: bolder;
     color: black;
     font-family: 'Gaegu', cursive !important;
-    margin-top: 10px;
+    padding-top: 30px;
+    text-align: center;
 }
 
 .dangguen-sec {
-    width: 90% auto;
+    width: 90%;
     background-color: #d7e7e491;
 }
 
@@ -147,35 +139,37 @@ a {
     border-radius: 10px;
     background-color: #ed8b9e;
     border: none;
-    width: 150px;
+    width: 120px;
     height: 35px;
     font-weight: 900;
     color: #fff;
-    margin: 10px;
+    margin-right: 15px;
     flex: 0 0 auto;
+}
+.btn-write a {
+	color: #fff;
 }
 
 .btn-search {
     border-radius: 10px;
     background-color: #8e8bac;
     border: none;
-    width: 150px;
+    width: 120px;
     height: 35px;
     font-weight: 900;
     color: #fff;
-    margin: 10px;
+    margin: 5px;
     flex: 0 0 auto;
 }
 
 #dangguen-head {
     margin: 0%;
-    position: inherit;
     text-align: center;
     width: 100%;
 }
 
 .form-select {
-    width: 150px;
+    width: 170px;
     border: none;
     padding: 0;
     margin: 10px;
@@ -220,8 +214,6 @@ a {
         .page {
         	width: 20px;
         	height: 20px;
-        	border: 1px solid black;
-        	background-color: pink;
         	color: black;
         	padding: 6px;
         	margin-right: 10px;
@@ -235,65 +227,108 @@ a {
   #imageinput {
       text-align: center;
       align-items: center;
-      margin: 1% 0% 5% 9%;
       
   }
   
-          #card-list {
-  width: 100%;
+  #list {
+  	margin: 0px;
   text-align: center;
-  margin: 0% 2% auto; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-     
-  
+
   }
   
-  .card {
-  	width: calc(25% - 20px);
-    width: 200px;
-    border: none;
-    background-color: #d7e7e491;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
+  #card-list {
+  width: 100%;
+  text-align: center;
+  margin: 0% 1% auto;
     display: flex;
     flex-direction: column;
+  justify-content: center;
     align-items: center;
+
+
 }
+
   .btn-search {
     border-radius: 10px;
     background-color: #8e8bac;
     border: none;
-    width: 100px;
+    width: 65px;
     height: 35px;
     font-weight: 900;
     color: #fff;
-    margin: 10px;
+    margin: 2px;
   }
   
     .btn-write {
-    width: 320px;
+    width: 65%;
     color: #fff;
     text-decoration: none;
+   	margin: 1px;
+
+  }
+  #search-select {
+  	width: 90px;
+  	margin: 5px;
+  }
+  .search-box {
+  	width: 160px;
   }
   
-  
+  .form-select {
+  	margin: 5px;
+  }
+
+
+
+}
+#card-title {
+	color: black;
 }
 
 #user-name {
   padding-top: 2%;
   font-size: 14px;
   font-weight: bold;
+  color: black;
 }
 #user-adress {
   font-size: 12px;
-  margin: 4%;
+  margin: 2%;
+}
+.price {
+	font-size: 14px;
+
 }
 
-  
+
+.type_name {
+	margin: 2px;
+	font-size: 11px;
+	padding:3px;
+	background-color: #3e3e3e;
+	border-radius: 5px;
+	color: #fff;
+	font-weight: normal;
+
+}
+
+
+
+#search-set {
+	width: 100%;
+}
+#select-set {
+	width: 100%;
+	position: inherit;
+}
+.user-name {
+
+}
+
 		  
     </style>
 
@@ -312,7 +347,7 @@ a {
     	if(msg == "SCR_ERR") alert("찜 실패했습니다.")
     	if(msg == "CAN_ERR") alert("찜 취소에 실패했습니다.")
     </script>
-    
+    <jsp:include page="websocket.jsp"></jsp:include>
     <jsp:include page="header.jsp"></jsp:include>
 
 
@@ -321,7 +356,8 @@ a {
         <h2 class="dangguen-title">댕근마켓</h2>
         <div class="alert alert-light" id="dangguen-head" role="alert">
 			<form action="<c:url value='/danggeun/list' />" method="get">
-	            <select class="form-select" aria-label="category" name="type_id" id="type_id">
+			<div id="select-set">
+	            <select class="form-select" aria-label="category" name="type_id">
 	                    <c:forEach var="DanggeunTypeDTO" items="${typeList}">
 	                    	<option value="${DanggeunTypeDTO.id}" ${dpr.dsc.type_id == DanggeunTypeDTO.id ? "selected" : ""}>${DanggeunTypeDTO.name}</option>
 	                    </c:forEach>
@@ -334,8 +370,10 @@ a {
 				</select>
 				<select class="form-select" aria-label="category" id="dong_code" name="dong_code">
 					<option value="0">전체</option>
-				</select>
-				<select class="form-select" aria-label="category"  name="option">
+				</select><br>
+				</div>
+				<div id="search-set">
+				<select class="form-select" id="search-select" aria-label="category"  name="option">
 	            	<option value="A" ${dpr.dsc.option=='A' ? "selected" : ""}>제목+내용</option>
 	            	<option value="T" ${dpr.dsc.option=='T' ? "selected" : ""}>제목</option>
 	            	<option value="W" ${dpr.dsc.option=='W' ? "selected" : ""}>작성자</option>
@@ -345,7 +383,9 @@ a {
 	            <button type="submit" class="btn-search">검색</button>
 	        
 	            <button type="button" class="btn-write"><a href="<c:url value='/danggeun/write' />">글쓰기</a></button>
+	        </div>
 	        </form>
+
         </div>
     </section>
 <!-- 댕근 헤더 끝 -->
@@ -360,18 +400,17 @@ a {
     				<div class="img">
 		           		<img src="${DanggeunInfoDTO.photo_address}" alt="Product Image">
 		           	</div>
-		           	<h2><a href="<c:url value='/danggeun/view${dpr.dsc.queryString}&id=${DanggeunInfoDTO.id}' />">${DanggeunInfoDTO.title}</a></h2>
-		           	<li class="price">${DanggeunInfoDTO.price}원</li>
-		           	<li class="type_name">${DanggeunInfoDTO.type_name}</li>
+		           	<h2><a id="card-title" href="<c:url value='/danggeun/view${dpr.dsc.queryString}&id=${DanggeunInfoDTO.id}' />">${DanggeunInfoDTO.title}</a></h2>
+		           	<p class="price">${DanggeunInfoDTO.price}원
+		           	<span class="type_name">${DanggeunInfoDTO.type_name}</span></p>
 		           	<li id="user-name">${DanggeunInfoDTO.writer_nickname}</li>
 		           	<li id="user-adress">${DanggeunInfoDTO.sido_name} ${DanggeunInfoDTO.sigoon_name} ${DanggeunInfoDTO.dong_name}</li>
 		           	<div>
-		           		<button class="buy-btn"><a href="<c:url value='/danggeun/chat'/>">구매하기</a></button>
 		           		<c:if test="${DanggeunInfoDTO.zzimed == true}">
-		           			<button class="scrap-btn" data-isScrap="1" data-id="${DanggeunInfoDTO.id}" data-writerNickname="${DanggeunInfoDTO.writer_nickname}" style="background-color: red;">찜♥</button>
+		           			<button class="scrap-btn" data-isScrap="1" data-id="${DanggeunInfoDTO.id}" data-writerNickname="${DanggeunInfoDTO.writer_nickname}" style="background-color: #ed8b9e;">찜♥</button>
 		           		</c:if>
 		           		<c:if test="${DanggeunInfoDTO.zzimed == false}">
-		           			<button class="scrap-btn" data-isScrap="0" data-id="${DanggeunInfoDTO.id}" data-writerNickname="${DanggeunInfoDTO.writer_nickname}" sytle="background-color: #ed8b9e;">찜♥</button>
+		           			<button class="scrap-btn" data-isScrap="0" data-id="${DanggeunInfoDTO.id}" data-writerNickname="${DanggeunInfoDTO.writer_nickname}" sytle="background-color: #736187;">찜♥</button>
 		           		</c:if>
 		           	</div>
 	       		</div>
@@ -522,7 +561,7 @@ a {
 	                },
 	                success: function(response) {
 	                	button.attr("data-isScrap", "0")
-	                	button.css('background-color', '#ed8b9e')
+	                	button.css('background-color', '#736187')
 	                },
 	                error: function(error) {
 	                    alert("error")
@@ -539,7 +578,7 @@ a {
 	                },
 	                success: function(response) {
 	                	button.attr("data-isScrap", "1")
-	                	button.css('background-color', 'red')
+	                	button.css('background-color', '#ed8b9e')
 	                },
 	                error: function(error) {
 	                    alert("error")

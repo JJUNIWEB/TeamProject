@@ -14,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${path}/resources/css/mypage.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-    <script src="${path}/resources/script/toggle.js" defer></script>
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
         integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
@@ -57,16 +56,34 @@
         <form class="mypage-user">
             <h1 id="mypage-title">마이페이지</h1>
             <hr>
-           	 <div class="user-info"> ▶ 내 정보</div><br>
-             <div><span>이름 : </span> ${member.user_name}</div>
+           	 <div class="user-info"> ▶ 내 정보<br></div>
+           	 <div id="user-default">
+	             <div><p>이름 : ${member.user_name}</p></div>
              <div><p>이메일 : ${member.user_email }</p></div>
              <div><p>닉네임 : ${member.user_nickname }</p></div>
              <div><p>연락처 : ${member.user_pnum }</p></div>
+             </div >
+	             <div id="user-option-info">
              <div><p>생일 : <fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd" type="date"/></p></div>
              <div><p>성별 : ${member.user_gender }</p></div>
              <div><p>주소 : ${member.user_address }</p></div>
+             </div>
 	         <a class="reset-pwd" href="/withdang/pwReset">비밀번호 재설정</a>
-        </form>        
+
+	         <hr>
+	         <div class="dog-info"> ▶ 강아지 정보<br></div>
+
+	         <div id="dog-option-info">
+	             <div><p>이름 : ${dvo.dog_name }</p></div>
+	             <div><p>성별 : ${dvo.dog_gender }</p></div>
+	             <div><p>중성화 : ${dvo.dog_nutd }</p></div>
+	             <div><p>등록번호 : ${dvo.dog_regnum }</p></div>
+	             <div><p>견종 : ${dvo.dog_breed }</p></div>
+	             <div><p>특징 : ${dvo.dog_feature }</p></div>
+
+             </div>
+
+        </form>
       </article>
          
         <footer>

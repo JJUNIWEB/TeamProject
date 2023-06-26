@@ -120,7 +120,7 @@
 	            </div>
 	        </div>
 	    </div>
-	    
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -140,7 +140,7 @@
         }
       });
     });
-  
+
     var imgboxCount = container.getElementsByClassName("imgbox").length; // 이미지 박스 개수를 저장하는 변수
 
     function addImgBox() {
@@ -150,17 +150,17 @@
         var container = document.getElementById("container");
         var newImgBox = document.createElement("div");
         newImgBox.className = "imgbox";
-        
+
         imgboxCount++; // 이미지 박스 개수 증가
         var newImgboxId = "imgbox" + imgboxCount; // 새로운 아이디 생성
-        
+
         var newImage = document.createElement("img");
         newImage.src = URL.createObjectURL(files[0]); // 첫 번째 파일의 URL을 설정, 파일 객체를 URL로 변환
         newImage.onload = function() { 				  // 이미지가 로드될 때 호출되는 함수 정의
           URL.revokeObjectURL(this.src); // 생성한 URL을 해제, 메모리 누수 방지를 위함
         };
         newImgBox.appendChild(newImage); // newImgBox 요소에 newImage를 자식 요소로 추가합니다.
-        
+
         // 삭제 버튼 생성
         var deleteBtn = document.createElement("span");
         deleteBtn.className = "delete-btn";
@@ -169,10 +169,10 @@
           deleteImgBox(newImgboxId);
         };
         newImgBox.appendChild(deleteBtn);
-        
+
         container.appendChild(newImgBox);
         newImgBox.id = newImgboxId; // 새로운 아이디 설정
-        
+
         //드래그 앤 드롭 기능 추가, .imgbox를 핸들로 설정하여 이미지 박스 전체를 드래그할 수 있도록 함
         $(newImgBox).sortable({
           handle: ".imgbox"
@@ -206,7 +206,7 @@
         imgboxCount = imgboxCount - 1;
       }
     }
-    
+
     // 글 등록 완료 alert
     document.getElementById("postButton").addEventListener("click", function(event) {
 		  event.preventDefault();
@@ -218,8 +218,8 @@
 		    document.getElementById("form").submit();
 		  });
 		});
-    
-  </script>  
+
+  </script>
  </form>
 </body>
 </html>

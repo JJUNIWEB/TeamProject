@@ -53,4 +53,33 @@ public class ImageServiceImpl implements ImageService{
         }
 
     }
+
+    // dangcomu post 이미지 업로
+	@Override
+	public ImageDto inputComuPhoto(String user_email, int post_id, String address, String category) {
+		ImageDto imageDto = new ImageDto(address, category, user_email, post_id);
+        // 새로 업로드 한 이미지를 db에 넣기
+        mapper.insert(imageDto);
+        return imageDto;
+	}
+
+	// dangcomu post 이미지 불러오기
+	@Override
+	public List<ImageDto> callComuPhoto(String user_email, int post_id, String category) {
+		ImageDto dto = new ImageDto(null, category, user_email, post_id);
+
+	    try {
+		    List<ImageDto> select = mapper.comuSelectAll(dto);
+		    return select;
+		} catch (IndexOutOfBoundsException e){
+		    e.getMessage();
+		    return null;
+		}
+	}
+
+	// dangcomu post 이미지 삭제
+	public void deleteComuPhoto(String user_email, int post_id, String category) {
+		ImageDto dto = new ImageDto(null, category, user_email, post_id);
+		mapper.comuDelete(dto);
+    }
 }

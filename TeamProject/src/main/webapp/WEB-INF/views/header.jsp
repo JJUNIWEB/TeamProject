@@ -117,6 +117,7 @@ a {
     font-weight: 800;
     background-color: #b7a4cc;
     color: #fff;
+    z-index: 1;
 }
 
 @media screen and (max-width: 1024px) {
@@ -191,6 +192,7 @@ a {
         font-weight: 800;
         background-color: #b7a4cc;
         color: #fff;
+        z-index: 1;
     }
 }
 .navbar__menu.active,
@@ -205,6 +207,9 @@ a {
 
 <body>
 <header>
+
+    <a href="#" id="scroll-top">TOP</a>
+
     <nav class="navbar">
 
         <div class="navbar__logo">
@@ -214,7 +219,6 @@ a {
         <ul class="navbar__menu">
             <li><a href="${pageContext.request.contextPath}/main">댕댕여지도</a></li>
             <li><a href="${pageContext.request.contextPath}/danggeun/list">댕근마켓</a></li>
-            <li><a href="${pageContext.request.contextPath}/dangcare">댕댕케어</a></li>
             <li><a href="${pageContext.request.contextPath}/dangcomu/list">댕댕커뮤</a></li>
             <li><a href="${pageContext.request.contextPath}/dangoffice">댕사무소</a></li>
             <li><a href="${pageContext.request.contextPath}/chat/chatroom"><i class="fa-sharp fa-solid fa-comment" style="color: #ed8b9e;"></i></a></li>
@@ -231,6 +235,7 @@ a {
         </a>
     </nav>
 </header>
+
 
 </body>
 

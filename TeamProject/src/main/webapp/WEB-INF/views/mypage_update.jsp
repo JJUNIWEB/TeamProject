@@ -48,8 +48,6 @@
             <div class="mypage__list">
                 <ul>
                     <li><a href="/withdang/mypage">내 정보</a></li>
-                    <li><a href="/withdang/mypage_chat">채팅</a></li>
-                    <li><a href="/withdang/myDangguen">마이댕근</a></li>
                     <li><a href="/withdang/myCare">마이케어</a></li>
                 </ul>
                 </div>
@@ -59,12 +57,12 @@
         	<form id="update_form" class="mypage-user" method="post">
                 <ul>
                     <p class="user-info"> 내 정보</p>
-                    <div>이름 : <input name="user_name" value="${member.user_name }" readonly="readonly"></div>
-                    <div>이메일 : <input name="user_email" value="${member.user_email }" readonly="readonly"></div>
-                    <div><p>닉네임 : <input type="text" name="user_nickname" value="${member.user_nickname }"></p></div>
-                    <div><p>연락처 : <input type="text" name="user_pnum" value="${member.user_pnum }"></p></div>
-                    <div><p>생일 : <input type="date" name="user_birth" value="<fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd"/>" /></p></div> 
-                    <div>성별:
+                    <p>이름 : <input name="user_name" value="${member.user_name }" readonly="readonly"></p>
+                    <p>이메일 : <input name="user_email" value="${member.user_email }" readonly="readonly"></p>
+                    <p>닉네임 : <input type="text" name="user_nickname" value="${member.user_nickname }"></p>
+                    <p>연락처 : <input type="text" name="user_pnum" value="${member.user_pnum }"></p></div>
+                    <p>생일 : <input type="date" name="user_birth" value="<fmt:formatDate value="${member.user_birth }" pattern="yyyy-MM-dd"/>" /></p>
+                    <p>성별:
                     	<select class="form-select" name="user_gender">
 	                    	<option value="" selected disabled hidden>성별</option>
 	                    	<option value="남자" ${member.user_gender=='남자' ? "selected" : "" }>남자</option>
@@ -72,20 +70,20 @@
                     	</select>
                    	</div>
                     <div class="address_wrap">
-						<div class="address_name">주소</div>
+						<div class="address_name"></div>
 						<div class="address_input_1_wrap">
 							<span class="address_input_1_box">
-								<input class="address_input_1" name="user_address" value="${member.user_address }" readonly="readonly">
+								<p>주소 : <input class="address_input_1" name="user_address" value="${member.user_address }" readonly="readonly">
 							</span>
 							<span class="address_button" onclick="execution_daum_address()">
-								<span><button type="button" class="address_button">주소 찾기</button></span>
+								<span><button type="button" class="address_button">주소 찾기</button></span></p>
 							</span>
 							<!-- </div> -->
 							<div class="clearfix"></div>
 						</div>
 							<div class ="address_input_2_wrap">
 								<div class="address_input_2_box">
-									<input class="address_input_2" name="user_dtl_address" value="${member.user_dtl_address }" readonly="readonly">
+									<p>상세주소 : <input class="address_input_2" name="user_dtl_address" value="${member.user_dtl_address }" readonly="readonly"></p>
 								</div>
 							</div>
 					</div>      

@@ -9,11 +9,12 @@
 		SELECT *
 		FROM tb_danggeun_photo
 		WHERE danggeun_id = #{danggeun_id}
+		order by sequence
 	</select>
 
 	<insert id="insert" parameterType="DanggeunPhotoDto">
-		INSERT INTO tb_danggeun_photo(address, danggeun_id)
-		VALUES(#{address}, #{danggeun_id})
+		INSERT INTO tb_danggeun_photo(address, danggeun_id, sequence)
+		VALUES(#{address}, #{danggeun_id}, #{sequence})
 	</insert>
 	
 	<delete id="deleteAll" parameterType="int">
