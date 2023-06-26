@@ -104,8 +104,7 @@
     	  				  text: '신규 회원님 환영 합니다. 마이페이지에서 필수 회원 정보를 입력해주세요',  // Alert 내용
     	  				  icon: 'info',                         // Alert 타입
     	  				  confirmButtonText: '확인',
-    	  				});
-    				/* alert("신규 회원님 환영 합니다. 마이페이지에서 필수 회원 정보를 입력해주세요") */
+    	  				})
     			}
     		
     			if(msg=="updateOK") {
@@ -113,8 +112,7 @@
     	  				  text: '수정이 완료되었습니다.',  // Alert 내용
     	  				  icon: 'success',                         // Alert 타입
     	  				  confirmButtonText: '확인',
-    	  				});
-    				/* alert("수정이 완료되었습니다.") */
+    	  				})
     			}
 		})
 		

@@ -432,22 +432,22 @@
             
            <script>
         	function closePopup() {
-          		var checkbox = window.opener.document.getElementById("register-check");
+          		var checkbox = window.opener.document.getElementById("register-check")
           		if (checkbox.checked) {
-            		checkbox.checked = false;
-            		checkbox.dispatchEvent(new Event('change'));
+            		checkbox.checked = false
+            		checkbox.dispatchEvent(new Event('change'))
           		}
-          			window.close();
+          			window.close()
         	}
         </script>
         
         <script type="text/javascript">
         $(document).ready(function() {
-	        var checked1 = $("#agree11").is(":checked");		// 체크박스 체크 확인
-	        var checked2 = $("#agree21").is(":checked");		// 체크박스 체크 확인
-	        var checkbox = window.opener.document.getElementById("register-check");
+	        var checked1 = $("#agree11").is(":checked")		// 체크박스 체크 확인
+	        var checked2 = $("#agree21").is(":checked")		// 체크박스 체크 확인
+	        var checkbox = window.opener.document.getElementById("register-check")
 	        
-	        if(!checked1 || !checked2) checkbox.checked = false;
+	        if(!checked1 || !checked2) checkbox.checked = false
     	})
         </script>
         
@@ -455,26 +455,26 @@
      
         <script>
           function fregister_submit(f) {
-        	var checkbox = window.opener.document.getElementById("register-check"); 
+        	var checkbox = window.opener.document.getElementById("register-check") 
         	   
   	        if (!f.agree1.checked) {
-  	            alert("회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
-  	            f.agree1.focus();
-  	            return false;
+  	            alert("회원가입약관의 내용에 동의하셔야 회원가입 하실 수 있습니다.")
+  	            f.agree1.focus()
+  	            return false
   	        }
   	
   	        if (!f.agree2.checked) {
-  	            alert("개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.");
-  	            f.agree2.focus();
-  	            return false;
+  	            alert("개인정보처리방침안내의 내용에 동의하셔야 회원가입 하실 수 있습니다.")
+  	            f.agree2.focus()
+  	            return false
   	        }
 
-  	      	f.submit();
+  	      	f.submit()
 	        if (f.agree1.checked && f.agree2.checked) {
-	        	checkbox.checked = true;
-	        	window.close();
+	        	checkbox.checked = true
+	        	window.close()
 	        } 
-	        	return true;
+	        	return true
 	        }
         
         </script>
