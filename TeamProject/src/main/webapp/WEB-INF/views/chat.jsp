@@ -506,7 +506,7 @@
 
        // var ws = new WebSocket("wss://withdang.click/withdang/replyEcho")
        var ws = new SockJS('/withdang/replyEcho'
-           , null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]}
+           // , null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]}
        );
        socket = ws;
 
