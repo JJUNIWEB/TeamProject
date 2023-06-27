@@ -209,16 +209,16 @@
     }
 
     // 글 등록 완료 alert
-    document.getElementById("postButton").addEventListener("click", function(event) {
-		  event.preventDefault();
-		  Swal.fire({
-		    icon: 'success',
-		    title: '글 등록이 완료되었습니다.',
-		    confirmButtonText: '확인'
-		  }).then(() => {
-		    document.getElementById("form").submit();
-		  });
-		});
+    $('#form').submit(function(event) {
+	  event.preventDefault();
+	  Swal.fire({
+	    icon: 'success',
+	    title: '글 등록이 완료되었습니다.',
+	    confirmButtonText: '확인'
+	  }).then(() => {
+	    document.getElementById("form").submit();
+	  });
+	});
 
   </script>
  </form>
