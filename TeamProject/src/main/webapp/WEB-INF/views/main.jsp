@@ -179,11 +179,15 @@
 
 <section id="main">
     <div class="main-map">
-            <div onclick="play()">
+            <div>
                 <audio id='audio_play' src='resources/sound/dog_sound.mp3'></audio>
-                <a class="dogicon" style="z-index: 2"><img src="resources/image/dogicon.png" /></a>
+                <a class="dogicon" id="dog_icon" style="z-index: 2"><img src="resources/image/dogicon.png" /></a>
             </div>
-
+<script>
+    document.getElementById("dog_icon").addEventListener('click', function () {
+        document.getElementById('audio_play').play();
+    });
+</script>
         <br><br>
         <p class="main-title"> 댕댕여지도</p>
             <div id="map" class="map" style="width: auto; height: 430px;z-index: 1">

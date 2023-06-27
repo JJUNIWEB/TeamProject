@@ -17,11 +17,6 @@ import java.util.List;
 public class FileUploadController {
     @Autowired
     private final S3UploadService s3UploadService;
-
-    @GetMapping("/upload")
-    public String uploadGet() {
-        return "uploadImage";
-    }
     //다중업로드 기준임
     @ResponseBody
     @PostMapping("/upload")
