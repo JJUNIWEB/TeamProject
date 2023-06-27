@@ -73,7 +73,7 @@
 						<div class="address_name"></div>
 						<div class="address_input_1_wrap">
 							<span class="address_input_1_box">
-								<p>주소 : <input class="address_input_1" name="user_address" value="${member.user_address }" readonly="readonly">
+								<p>주소 : <input class="address_input_1" name="user_address" value="${member.user_address }" height="500px;" readonly="readonly">
 							</span>
 							<span class="address_button" onclick="execution_daum_address()">
 								<span><button type="button" class="address_button">주소 찾기</button></span></p>
@@ -174,7 +174,6 @@
 
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 	               	$(".address_input_1").val(addr)
-            		//$("[name=memberAddr1]").val(data.zonecode);    // 대체가능
 	            	// 상세주소 입력란 disabled 속성 변경 및 커서를 상세주소 필드로 이동한다.
 	               	$(".address_input_2").attr("readonly",false)
 	                $(".address_input_2").focus()
