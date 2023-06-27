@@ -13,6 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <style type="text/css">
     
   #container{
@@ -48,13 +49,13 @@
   #chat-list header{
     padding:10px 20px;
   }
-  
+
   #list-header {
   	font-weight: bold;
   	font-size: 1rem;
   	color: #383838;
   }
-  
+
   /*사용안하는 검색창*/
   #chat-list #search-box {
     width:130px;
@@ -139,7 +140,6 @@
     padding:10px 30px;
 
   }
-  
   #chat::-webkit-scrollbar {
     width: 6px;
 }
@@ -152,7 +152,6 @@
     background-color: #ed8b9e;
     border-radius: 3px;
 }
-  
   #chat-time {
     color:#bbb;
     font-size:13px;
@@ -171,7 +170,7 @@
      font-weight: normal;
 	float:right;
 	margin-right: 15px;
-	}
+  }
   #chat_other_id {
     font-weight: bold;
     color: #383838;
@@ -233,7 +232,6 @@
     font-weight: bold;
     margin-top:17px;
     
-    
   }
   #last-msg {
      margin-top: 15px;
@@ -270,13 +268,11 @@
   	color: #383838;
   	text-align: center;
   }
-  
 
   #chattings {
     width: 100%;
     height: auto;
   }
-  
   #chat-list ul {
     height: auto;
   }
@@ -286,9 +282,7 @@
      font-weight: normal;
      text-align: left;
      margin-left: 30px;
-     
   }
-}
 
 .chatroom {
 	padding-top: 20px;
@@ -299,7 +293,7 @@
    scrollbar-width: thin;
    scrollbar-color: #888 #f9f9f9;
 }
-  
+
 #chatrooms::-webkit-scrollbar {
     width: 6px;
 }
@@ -313,8 +307,6 @@
     border-radius: 3px;
 }
 
-  
-    
     </style>
     <title>chat</title>
 </head>
@@ -377,7 +369,6 @@
           other_nickname = $(this).attr('data-other_nickname')
           recent_nickname = $(this).attr('data-recent_nickname')
           unread_cnt = $(this).attr('data-unread_cnt')
-          
           showChattingAndListwithsocket(chatroom_id)
           $('#chat-other_email').html(other_nickname + "님과의 대화")
           $('#close-btn').attr('style', '')
@@ -453,7 +444,6 @@
            tmp += '<li class="chatroom" data-chatroom_id="' + chatroom.id + '" data-other_nickname="' + chatroom.other_nickname + '" data-recent_nickname="' + chatroom.recent_nickname + '" data-unread_cnt="' + chatroom.unread_cnt + '">'
            tmp += '<span id="user-name">' + chatroom.other_nickname + '</span>'
            tmp += '<span id="chat-time-list">' + formatRegDate(chatroom.recent_date) + '</span>'
-           
            var recentChat = chatroom.recent_chat;
            var truncatedChat = recentChat.length > 16 ? recentChat.substring(0, 16) + '...' : recentChat;
            tmp += '<br><span id="last-msg">' + truncatedChat + '</span>'
@@ -565,7 +555,9 @@
 
             return period + ' ' + hours + ':' + minutes;
         }
-    };     
+
+    };
+
    
     async function showListOnly() {
        try {
@@ -580,14 +572,14 @@
            await showChattingList(chatroom_id)
            await showList()
 
-          if(socket) {
+         if(socket) {
                 let socketMsg = "sendchat," + other_nickname + "," + chatroom_id + "," + login_nickname
-                socket.send(socketMsg)
-             }
-        } catch(error){
-           alert('error')
-        }
-     }  
+               socket.send(socketMsg)
+            }
+       } catch(error){
+          alert('error')
+       }
+    }   
     
     async function showChattingAndList(chatroom_id) {
        try {
@@ -597,12 +589,12 @@
           alert('error')
        }
     }
-    
+
     async function showChattingAndListwithsocket(chatroom_id) {
        try {
           await showChattingList(chatroom_id)
           await showList()
-          
+
           if(socket) {
              let socketMsg = "readchat," + other_nickname + "," + chatroom_id
              socket.send(socketMsg)
@@ -611,45 +603,49 @@
           alert('error')
        }
     }
-    
-    function connectWS() {
-    	var ws = new WebSocket("ws:localhost:8080/withdang/replyEcho")
-		//var ws = new WebSocket("ws://withdang.shop/withdang/replyEcho")
-        socket = ws
-        
+
+   function connectWS() {
+
+
+       // var ws = new WebSocket("wss://withdang.click/withdang/replyEcho")
+       var ws = new SockJS('/withdang/replyEcho'
+           // , null, {transports: ["websocket", "xhr-streaming", "xhr-polling"]}
+       );
+       socket = ws;
+
         ws.onopen = function() {
            console.log('Info: connection opened.')
-        }
-        
+       }
+
         ws.onmessage = function(event) {
            console.log("ReceiveMessage:", event.data+'\n')
-           
-            let message = JSON.parse(event.data)
-            let cmd = message.cmd
-            
-            if (cmd === "sendchat") {
+
+           let message = JSON.parse(event.data)
+           let cmd = message.cmd
+
+           if (cmd === "sendchat") {
                if(String(message.chatroom_id) === chatroom_id) {
-                  showChattingAndListwithsocket(chatroom_id)
+                   showChattingAndListwithsocket(chatroom_id)
                }
                else {
-                  showListOnly()
+                   showListOnly()
                }
             }
             else if (cmd === "readchat") {
                if(String(message.chatroom_id) === chatroom_id) {
-                  showChattingAndList(chatroom_id)
+                   showChattingAndList(chatroom_id)
                }
                else {
-                  showListOnly()
+                   showListOnly()
                }
-            }
-        }
-        
-        ws.onclose = function (event){ 
-           console.log('Info: connection closed')   
-        }
+           }
+       }
+
+        ws.onclose = function (event){
+           console.log('Info: connection closed')
+       }
         ws.onerror = function (err){ console.log('Error: ', err) }
-     }
+   }
 </script>
     
     

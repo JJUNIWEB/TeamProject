@@ -23,6 +23,19 @@ a:visited { text-decoration: none; }
 a:hover { text-decoration: none; }
 a:hover, a:active { text-decoration: none; }
 
+.address_input_1 {
+	width: 330px;
+	margin-bottom: 5px;
+	
+}
+.address_button {
+	border: none;
+	background-color: #ed8b9e;
+	color: #fff;
+	padding: 2px;
+	
+	
+}
 
 
   /*마이페이지*/
@@ -31,6 +44,7 @@ a:hover, a:active { text-decoration: none; }
     margin: auto;
     padding: 0;
     width: 100%;
+    
 }
 /* #aside {
   position: sticky;
@@ -323,14 +337,14 @@ hr {
     .mypage-user {
       margin: 20px;
       padding: 10px;
-      width: 90%;
+      width: 85%;
       height: 100%;
       font-weight: bold;
     }
     #user-default, #user-option-info, #dog-option-info {
-    	width: 96%;
+    	width: 95%;
     	height: auto;
-    	
+    	padding: 5px;
     }
 
   }
@@ -357,7 +371,7 @@ hr {
     .mypage-user {
       margin-top: 20px;
       margin: 3% 0%;
-      width: 100%;
+      width: 95%;
       height: 100%;
     }
 

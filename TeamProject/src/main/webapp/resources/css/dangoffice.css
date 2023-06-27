@@ -84,7 +84,7 @@ a:hover, a:active { text-decoration: none; }
 
 
 #imagediv {
-    background-image: url("image/select.png");
+    background-image: url("../image/select.png");
 }
 #imageinput {
 

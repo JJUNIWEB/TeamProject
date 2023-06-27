@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,12 +27,13 @@ import com.earth.service.ChattingService;
 import com.earth.service.MemberService;
 
 @Controller
+@Slf4j
 @RequestMapping("/chat")
 public class ChatController {
 
 	private ChattingService chattingService;
 	private MemberService memberService;
-	
+
 	public ChatController(ChattingService chattingService, MemberService memberService) {
 		this.chattingService = chattingService;
 		this.memberService = memberService;
@@ -42,7 +44,7 @@ public class ChatController {
 		if(!loginCheck(request)) {
 			return "redirect:/login";
 		}
-		
+
 		String login_nickname = (String) session.getAttribute("nickname");
 		if(other_nickname != null) {
 			try {
@@ -55,7 +57,7 @@ public class ChatController {
 						m.addAttribute("chatroom_id", chatUserChatRoomDTO.getChatroom_id());
 					}
 				}
-				
+
 				m.addAttribute("other_nickname", other_nickname);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -64,12 +66,12 @@ public class ChatController {
 		}
 		return "chat";
 	}
-	
+
 	private boolean loginCheck(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		return session != null && session.getAttribute("nickname") != null && session.getAttribute("nickname") != "";
 	}
-	
+
 	@PostMapping("/showchatrooms")
 	@ResponseBody
 	public ResponseEntity<List<ChatChatRoomDTO>> chat(@RequestBody Map<String, String> requestData) {
@@ -83,7 +85,7 @@ public class ChatController {
 			return new ResponseEntity<List<ChatChatRoomDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@PostMapping("/showchattings")
 	@ResponseBody
 	public ResponseEntity<List<ChatChattingDTO>> chatting(@RequestBody Map<String, Object> requestData) {
@@ -91,17 +93,17 @@ public class ChatController {
 		String login_nickname = (String) requestData.get("login_nickname");
 		String other_nickname = (String) requestData.get("other_nickname");
 		List<ChatChattingDTO> list = null;
-		
+
 		try {
 			list = chattingService.readChatting(chatroom_id, login_nickname, other_nickname);
-			
+
 			return new ResponseEntity<List<ChatChattingDTO>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<List<ChatChattingDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@PostMapping("/sendchatting")
 	@ResponseBody
 	public ResponseEntity<Integer> sendchatting(@RequestBody Map<String, Object> requestData) {
@@ -110,10 +112,10 @@ public class ChatController {
 		String other_nickname = (String) requestData.get("other_nickname");
 		String chat = (String) requestData.get("chat");
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		
+
 		if(chatroom_id != null) {
 			try {
-				chattingService.sendChatting(chatroom_id, login_nickname, other_nickname, chat, timestamp);			
+				chattingService.sendChatting(chatroom_id, login_nickname, other_nickname, chat, timestamp);
 				return new ResponseEntity<Integer>(chatroom_id, HttpStatus.OK);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -130,13 +132,13 @@ public class ChatController {
 			}
 		}
 	}
-	
+
 	@PostMapping("/deletechatroom")
 	@ResponseBody
 	public ResponseEntity<String> deletechatting(@RequestBody Map<String, Object> requestData) {
 		Integer chatroom_id = (Integer) requestData.get("chatroom_id");
 		String login_nickname = (String) requestData.get("login_nickname");
-		
+
 		try {
 			chattingService.deleteChattingRoom(chatroom_id, login_nickname);
 			return new ResponseEntity<String>(HttpStatus.OK);
@@ -145,7 +147,7 @@ public class ChatController {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 }
 
 

@@ -9,7 +9,7 @@ public class DanggeunPhotoDTO {
 	private String address;
 	private Integer danggeun_id;
 	private int sequence;
-	
+
 	public DanggeunPhotoDTO() {}
 
 	public DanggeunPhotoDTO(String address, Integer danggeun_id, int sequence) {

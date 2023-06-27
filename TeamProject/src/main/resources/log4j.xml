@@ -9,21 +9,21 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-	
+
 	<!-- Application Loggers -->
 	<logger name="com.earth.withdang">
 		<level value="info" />
 	</logger>
-	
+
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
-	
+
 	<logger name="org.springframework.beans">
 		<level value="info" />
 	</logger>
-	
+
 	<logger name="org.springframework.context">
 		<level value="info" />
 	</logger>
@@ -31,11 +31,23 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+<!--	<logger name="jdbc.sqlonly" additivity="false">-->
+<!--		<level value="info"/>-->
+<!--		<appender-ref ref="console"/>-->
+<!--	</logger>-->
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
-	
+<!--	<logger name="com.zaxxer.hikari.HikariConfig">-->
+<!--		<level value="debug"/>-->
+<!--	</logger>-->
+<!--			-->
+<!--	<logger name="com.zaxxer.hikari">-->
+<!--		<level value="TRACE"/>-->
+<!--	</logger>-->
+
+
 </log4j:configuration>

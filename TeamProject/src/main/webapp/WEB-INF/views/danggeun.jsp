@@ -12,8 +12,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<c:url value='/resources/css/danggeun.css' />">
-    <script src="<c:url value='/resources/js/toggle.js' />" defer></script>
+    <link rel="stylesheet" href="<c:url value='/resources/css/danggenn.css' />">
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
@@ -48,7 +47,6 @@ a {
     flex-wrap: wrap;
     justify-content: left;
     text-align: center;
-    
 }
 
 .card {
@@ -65,7 +63,7 @@ a {
 }
 
 .card img {
-    width: 200px;
+	width: 200px;
     height: 200px;
     object-fit: cover;
     border-radius: 5px;
@@ -99,7 +97,7 @@ a {
     border-radius: 5px;
 }
 .buy-btn a {
-	color: #fff;
+    color: #fff;
 }
 
 
@@ -132,7 +130,7 @@ a {
 }
 
 .dangguen-sec {
-    width: 90% auto;
+    width: 90%;
     background-color: #d7e7e491;
 }
 
@@ -233,26 +231,26 @@ a {
   
   #list {
   	margin: 0px;
-  	text-align: center;
-  	  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  	
-  }
-  
-  #card-list {
-  width: 100%;
   text-align: center;
-  margin: 0% 1% auto; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-     
-  
+
   }
-  
+ 
+  #card-list {
+  width: 100%;
+  text-align: center;
+  margin: 0% 1% auto;
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+    align-items: center;
+
+
+}
+
   .btn-search {
     border-radius: 10px;
     background-color: #8e8bac;
@@ -269,7 +267,6 @@ a {
     color: #fff;
     text-decoration: none;
    	margin: 1px;
-    
   }
   #search-select {
   	width: 90px;
@@ -283,8 +280,6 @@ a {
   	margin: 5px;
   }
 
-  
-  
 }
 #card-title {
 	color: black;
@@ -302,7 +297,6 @@ a {
 }
 .price {
 	font-size: 14px;
-	
 }
 
 
@@ -314,11 +308,9 @@ a {
 	border-radius: 5px;
 	color: #fff;
 	font-weight: normal;
-	
-} 
 
- 
-	
+}
+
 #search-set {
 	width: 100%;
 }
@@ -386,7 +378,6 @@ a {
 	            <button type="button" class="btn-write"><a href="<c:url value='/danggeun/write' />">글쓰기</a></button>
 	        </div>
 	        </form>
-	        
         </div>
     </section>
 <!-- 댕근 헤더 끝 -->
@@ -411,7 +402,7 @@ a {
 		           			<button class="scrap-btn" data-isScrap="1" data-id="${DanggeunInfoDTO.id}" data-writerNickname="${DanggeunInfoDTO.writer_nickname}" style="background-color: #ed8b9e;">찜♥</button>
 		           		</c:if>
 		           		<c:if test="${DanggeunInfoDTO.zzimed == false}">
-		           			<button class="scrap-btn" data-isScrap="0" data-id="${DanggeunInfoDTO.id}" data-writerNickname="${DanggeunInfoDTO.writer_nickname}" sytle="background-color: #9989AB;">찜♥</button>
+		           			<button class="scrap-btn" data-isScrap="0" data-id="${DanggeunInfoDTO.id}" data-writerNickname="${DanggeunInfoDTO.writer_nickname}" sytle="background-color: #736187;">찜♥</button>
 		           		</c:if>
 		           	</div>
 	       		</div>
@@ -562,7 +553,7 @@ a {
 	                },
 	                success: function(response) {
 	                	button.attr("data-isScrap", "0")
-	                	button.css('background-color', '#9989AB')
+	                	button.css('background-color', '#736187')
 	                },
 	                error: function(error) {
 	                    alert("error")

@@ -98,10 +98,26 @@ public class ComuServiceImpl implements ComuService{
 		
 		return comuMapper.deleteComment(map);
 	}
+	
+	@Override
+	public int updateComment(CommentDTO commentDTO) throws Exception {
+		return comuMapper.updateComment(commentDTO);
+	}
 
+	@Override
+	public CommentDTO getCommentByPostId(Integer post_id, Integer cmt_id) throws Exception {
+		Map map = new HashMap<>();
+		map.put("post_id", post_id);
+		map.put("cmt_id", cmt_id);
+		
+		return comuMapper.selectComment(map);
+	}
+	
 	@Override
 	public List<CommentDTO> getCommentsByPostId(Integer post_id) throws Exception {
 		return comuMapper.selectComments(post_id);
 	}
+
+	
 }
 

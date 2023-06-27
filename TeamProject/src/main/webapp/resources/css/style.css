@@ -314,7 +314,7 @@ a:hover, a:active { text-decoration: none; }
 }
 .info-title {
     display: block;
-    background: #A7AAD1;
+    background: #3e3e3e;
     color: #fff;
     text-align: center;
     height: 48px;
@@ -323,7 +323,7 @@ a:hover, a:active { text-decoration: none; }
     padding:3px 16px;
     font-weight: 600;
     font-size: 14px;
-    border: 3px solid #CBEFD1;
+    border: 1px solid #CBEFD1;
 
 
 }

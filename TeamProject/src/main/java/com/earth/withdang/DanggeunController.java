@@ -60,11 +60,12 @@ public class DanggeunController {
 	
 	@GetMapping("/list")
 	public String danggeunList(DanggeunSearchItem dsc, Model m, HttpServletRequest request) {
-		
+
 		if(!loginCheck(request)) {
 			return "redirect:/login";
 		}
-		
+
+
 		String login_nickname = (String) request.getSession().getAttribute("nickname");
 		
 		try {
@@ -106,20 +107,21 @@ public class DanggeunController {
 	    List<String> addressList = new ArrayList<String>();
 	    String category = "danggeun";
 		
-	    
 	    Iterator<String> fileNames = request.getFileNames();
 	    while (fileNames.hasNext()) {
 	        String paramName = fileNames.next();
 	        MultipartFile file = request.getFile(paramName);
 	        int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
-	        
+
+
 	        List<String> upload = s3UploadService.upload(category, Collections.singletonList(file));
 	        addressList.add(sequence, upload.get(0));
 	    }
-	    
+
 		try {
 			typeList = danggeunService.getTypeList();
-	        
+
+
 			danggeunService.registerDanggeun(danggeunInfoDTO, addressList);
 			
 			rattr.addFlashAttribute("msg", "WRT_OK");
@@ -159,13 +161,13 @@ public class DanggeunController {
 	
 	@PostMapping("/modify")
 	public String modify(DanggeunInfoDTO danggeunInfoDTO, RedirectAttributes rattr, Model m, MultipartHttpServletRequest request) throws IOException {
-		
+
 		List<DanggeunTypeDTO> typeList = null;
 		List<DanggeunPhotoDTO> photoList = null;
 		Enumeration<String> parameterNames = request.getParameterNames();
 	    Map<Integer, String> addressMap = new HashMap<Integer, String>();
-	    String category = "danggeun";
-	    
+		String category = "danggeun";
+		
 	    while (parameterNames.hasMoreElements()) {
 	    	String paramName = parameterNames.nextElement();
 	    	if(paramName.startsWith("imgbox")) {
@@ -174,7 +176,7 @@ public class DanggeunController {
 	            addressMap.put(sequence, paramValue);
 	    	}
         }
-	    
+
 	    Iterator<String> fileNames = request.getFileNames();
 	    while (fileNames.hasNext()) {
 	        String paramName = fileNames.next();
@@ -183,10 +185,10 @@ public class DanggeunController {
 	        List<String> upload = s3UploadService.upload(category, Collections.singletonList(file));
 	        addressMap.put(sequence, upload.get(0));
 	    }
-	    
+
 	    // imageMap을 사용하여 이미지 데이터 처리
-	    try {
-	    	typeList = danggeunService.getTypeList();
+		try {
+			typeList = danggeunService.getTypeList();
 	    	photoList = danggeunPhotoService.showPhoto(danggeunInfoDTO.getId());
 			danggeunService.modifyDangguen(danggeunInfoDTO, addressMap);
 			rattr.addFlashAttribute("msg", "MOD_OK");
@@ -301,7 +303,7 @@ public class DanggeunController {
 			return new ResponseEntity<List<AddressDongDTO>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	private boolean loginCheck(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		return session != null && session.getAttribute("nickname") != null && session.getAttribute("nickname") != "";
