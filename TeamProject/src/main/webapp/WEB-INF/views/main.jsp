@@ -171,29 +171,23 @@
 }
 	</style>
     <title>위드댕</title>
-    <script>
-        window.onload = function () {
-
-
-            document.getElementById("dog_icon").addEventListener("click", function () {
-                var audio= new Audio()
-                audio.src = "resources/sound/dog_sound.mp3";
-                audio.play();
-            });
-        };
-
-    </script>
 </head>
 
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
+
 <section id="main">
     <div class="main-map">
             <div>
+                <audio id='audio_play' src='resources/sound/dog_sound.mp3'></audio>
                 <a class="dogicon" id="dog_icon" style="z-index: 2"><img src="resources/image/dogicon.png" /></a>
             </div>
-
+<script>
+    document.getElementById("dog_icon").addEventListener('click', function () {
+        document.getElementById('audio_play').play();
+    });
+</script>
         <br><br>
         <p class="main-title"> 댕댕여지도</p>
             <div id="map" class="map" style="width: auto; height: 430px;z-index: 1">
