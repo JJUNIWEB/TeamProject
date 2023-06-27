@@ -52,31 +52,31 @@
 
 <script type="text/javascript">
 
-    var infoCheck = false;
+    var infoCheck = false
 
     $(document).ready(function() {
         $("#find-btn").click(function(){
-            var nickname = $('.input_nickname').val();          // 닉네임 입력란
-            var name = $('.input_name').val();               // 이름 입력란
+            var nickname = $('.input_nickname').val()          // 닉네임 입력란
+            var name = $('.input_name').val()               // 이름 입력란
 
             if(nickname == "" || name == "") {
-                $('.info_ck').css('display','block');
-                infoCheck = false;
+                $('.info_ck').css('display','block')
+                infoCheck = false
             }  else {
-                $('.info_ck').css('display','none');
-                infoCheck = true;
+                $('.info_ck').css('display','none')
+                infoCheck = true
             }
 
             if(infoCheck) {
 
-                $("#Chk-form").attr("action", "/withdang/emailFindRes");
-                $("#Chk-form").submit();
+                $("#Chk-form").attr("action", "/withdang/emailFindRes")
+                $("#Chk-form").submit()
             }
 
-            return false;
+            return false
 
-        });
-    });
+        })
+    })
 </script>
 
 

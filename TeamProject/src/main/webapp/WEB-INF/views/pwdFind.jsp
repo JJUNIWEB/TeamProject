@@ -58,28 +58,28 @@
     $(document).ready(function() {
         $("#find-btn").click(function() {
 
-            var nickname = $('.input_nickname').val();          // 닉네임 입력란
-            var name = $('.input_name').val();               // 이름 입력란
-            var email = $('.input_email').val();            // 이메일 입력란
+            var nickname = $('.input_nickname').val()         // 닉네임 입력란
+            var name = $('.input_name').val()               // 이름 입력란
+            var email = $('.input_email').val()            // 이메일 입력란
 
             if(nickname == "" || name == "" || email == "") {
-                $('.info_ck').css('display','block');
-                infoCheck = false;
+                $('.info_ck').css('display','block')
+                infoCheck = false
             } else {
-                $('.info_ck').css('display','none');
-                infoCheck = true;
+                $('.info_ck').css('display','none')
+                infoCheck = true
             }
 
             if(infoCheck) {
 
-                $("#Chk-form").attr("action", "/withdang/pwdFindRes");
-                $("#Chk-form").submit();
+                $("#Chk-form").attr("action", "/withdang/pwReset")
+                $("#Chk-form").submit()
 
             }
 
-            return false;
-        });
-    });
+            return false
+        })
+    })
 
 </script>
 

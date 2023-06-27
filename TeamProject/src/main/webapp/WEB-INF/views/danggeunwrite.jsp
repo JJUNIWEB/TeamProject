@@ -18,6 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
     <style type="text/css">
@@ -82,7 +83,6 @@ select {
 			font-size: 12px;
 			margin: 20px;
 		}
-
 		input[type=file]::file-selector-button {
 		  width: 100px;
 		  height: 30px;
@@ -95,8 +95,6 @@ select {
 		    color: #fff;
 		  }
 		}
-
-
 
 .dangguen-writing {
     border-radius: 10px;
@@ -259,7 +257,8 @@ select {
 
 .board_write .title input[type="text"],
 .board_write .info input[type="text"],
-.board_write .info input[type="password"] {
+.board_write .info input[type="password"],
+.board_write .info input[type="number"] {
     padding: 10px;
     box-sizing: border-box;
     border: none;
@@ -346,7 +345,6 @@ select {
         max-width: 100%;
         max-height: 100%;
       }
-
 }
 
 
@@ -555,7 +553,6 @@ input[type="submit"]:hover {
 	border-radius: 20px;
 }
 
-
     </style>
 
     <title>댕근마켓</title>
@@ -578,14 +575,12 @@ input[type="submit"]:hover {
             <div class="board_write">
                 <div class="title">
                     <dl>
-
                         <select class="form-select" id="select-ctgr" aria-label="category" name="type_id" >
 			                    <c:forEach var="DanggeunTypeDTO" items="${typeList}">
 			                    	<option value="${DanggeunTypeDTO.id}"  ${danggeunInfoDTO.type_id == DanggeunTypeDTO.id ? "selected" : ""}>${DanggeunTypeDTO.name}</option>
 			                    </c:forEach>
 			            </select><input type="text" name="title" value="${danggeunInfoDTO.title}" placeholder="제목 입력">
                         <input type="hidden" name="id" value="${danggeunInfoDTO.id}">
-
                     </dl>
                 </div>
                 <section class="dangguen-sec">
@@ -629,9 +624,6 @@ input[type="submit"]:hover {
 							<p>* 파일 선택 후 '추가'버튼을 클릭합니다.</p>
 							<p>- 추가 된 이미지를 드래그 하여 순서 변경이 가능합니다.</p>
 						</div>
-
-
-
                     <div class="cont">
                         <textarea name="content" placeholder="내용 입력" required>${danggeunInfoDTO.content}</textarea>
                     </div>
@@ -647,6 +639,93 @@ input[type="submit"]:hover {
             </div>
         </form>
     </div>
+    
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#container").sortable({
+        update: function(event, ui) {
+          var imgboxes = $("#container .imgbox");
+          imgboxes.each(function(index) {
+            var imgbox = $(this);
+            var img = imgbox.find("img");
+            var newImgboxId = "imgbox" + (index + 1);
+            imgbox.attr("id", newImgboxId);
+            imgbox.find(".delete-btn").attr("onclick", "deleteImgBox('" + newImgboxId + "')");
+            imgbox.find("input").attr("name", newImgboxId);
+          });
+        }
+      });
+    });
+  
+    var imgboxCount = container.getElementsByClassName("imgbox").length; // 이미지 박스 개수를 저장하는 변수
+
+    function addImgBox() {
+      var fileInput = document.getElementById("fileInput");
+      var files = fileInput.files;
+      if (files.length > 0) {
+        var container = document.getElementById("container");
+        var newImgBox = document.createElement("div");
+        newImgBox.className = "imgbox";
+        
+        imgboxCount++; // 이미지 박스 개수 증가
+        var newImgboxId = "imgbox" + imgboxCount; // 새로운 아이디 생성
+        
+        var newImage = document.createElement("img");
+        newImage.src = URL.createObjectURL(files[0]); // 첫 번째 파일의 URL을 설정, 파일 객체를 URL로 변환
+        newImage.onload = function() { 				  // 이미지가 로드될 때 호출되는 함수 정의
+          URL.revokeObjectURL(this.src); // 생성한 URL을 해제, 메모리 누수 방지를 위함
+        };
+        newImgBox.appendChild(newImage); // newImgBox 요소에 newImage를 자식 요소로 추가합니다.
+        
+        // 삭제 버튼 생성
+        var deleteBtn = document.createElement("span");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "X";
+        deleteBtn.onclick = function() {
+          deleteImgBox(newImgboxId);
+        };
+        newImgBox.appendChild(deleteBtn);
+        
+        container.appendChild(newImgBox);
+        newImgBox.id = newImgboxId; // 새로운 아이디 설정
+        
+        //드래그 앤 드롭 기능 추가, .imgbox를 핸들로 설정하여 이미지 박스 전체를 드래그할 수 있도록 함
+        $(newImgBox).sortable({
+          handle: ".imgbox"
+        });
+
+        // 추가한 이미지가 입력되어 있는 상태로 복사하여 붙임
+        var clonedInput = fileInput.cloneNode(true); // fileInput 즉 input 태그를 그대로 복사함
+        clonedInput.id = "fileInput-" + newImgboxId; // 고유한 id 부여
+        clonedInput.name = newImgboxId;
+        clonedInput.style.display = "none";
+        newImgBox.appendChild(clonedInput);
+        fileInput.value = ""; // 파일 입력 필드 초기화
+      }
+    }
+
+    function deleteImgBox(imgboxId) {
+      var imgbox = document.getElementById(imgboxId);
+      if (imgbox) {
+        imgbox.remove();
+        // 이미지 박스가 삭제되면 아이디 재조정
+        var container = document.getElementById("container");
+        var imgboxes = container.getElementsByClassName("imgbox");
+        for (var i = 0; i < imgboxes.length; i++) {
+          var id = "imgbox" + (i + 1);
+          imgboxes[i].id = id;
+          imgboxes[i].querySelector(".delete-btn").onclick = function() {
+            deleteImgBox(id);
+          };
+          imgboxes[i].querySelector("input").name = id;
+        }
+        imgboxCount = imgboxCount - 1;
+      }
+    }
+  </script>
+    
     
 <script type="text/javascript">    
    	let sido_code = '${danggeunInfoDTO.sido_code}'

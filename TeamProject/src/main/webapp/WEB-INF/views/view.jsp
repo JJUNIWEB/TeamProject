@@ -33,6 +33,31 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
 	<!-- SweetAlert CSS -->
   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <style type="text/css">
+    	#comment-box {
+    		background-color: #fff;
+    		margin: 15px;
+    		border-radius: 20px;
+    		padding: 8px;
+    	}
+    	#cmt_delete {
+    		border: none;
+    		background-color: #9d8db3;
+    		color: #fff;
+    		border-radius: 5px;
+    		margin-top: 5px;
+    	}
+    	.cmt_created_time {
+    		font-size: 12px;
+    	}
+    	#cmt-user {
+    		font-size: 15px;
+    		margin-bottom: 7px;
+    	}
+    	
+    	
+    </style>
+    
     <title>댕댕커뮤</title>
 </head>
 
@@ -182,14 +207,14 @@
 
 		    comments.forEach(function(comment) {
 		        let date = new Date(comment.cmt_created_time)
-		        
+		        tmp += '<div id="comment-box" >'
 		        tmp += '<li';
 		        tmp += ' cmt_id=' + comment.cmt_id;
 		        tmp += ' post_id=' + comment.post_id;
 		        tmp += ' cmt_user_email=' + comment.user_email + '>';
-		        tmp += ' 닉네임 : ' + comment.user_nickname + '<br>';  // 닉네임 줄바꿈 추가
-		        tmp += ' 댓글내용 : <span class="cmt_content">' + comment.cmt_content + '</span><br>';  // 댓글 내용 줄바꿈 추가
-		        tmp += ' 작성날짜 : <span class="cmt_created_time">' + dateFormat(date) + '</span><br>';  // 작성 날짜 줄바꿈 추가
+		        tmp += ' <span id="cmt-user"><strong>' + comment.user_nickname + '</strong></span><br>';  // 닉네임 줄바꿈 추가
+		        tmp += ' 내용 : <strong><span class="cmt_content">' + comment.cmt_content + '</strong></span><br>';  // 댓글 내용 줄바꿈 추가
+		        tmp += ' <span class="cmt_created_time">' + dateFormat(date) + '</span><br>';  // 작성 날짜 줄바꿈 추가
 		        
 		        if (comment.user_email == user_email) {
 		        	tmp += ' <button id="cmt_modify">수정</button>';
@@ -334,9 +359,9 @@
             </ul>
 
             <div class="bt_wrap">  
-                <a href="${pageContext.request.contextPath}/dangcomu/update?post_id=${comuDTO.post_id}" class="on" id="modifyBtn" style="display:none;">수정</a> 
-                <a class="on" id="deleteBtn" style="display:none;">삭제</a> 
-                <a href="${pageContext.request.contextPath}/dangcomu/list">목록</a>  
+                <button id="modifyBtn" style="display:none;" class="on"><a href="${pageContext.request.contextPath}/dangcomu/update?post_id=${comuDTO.post_id}" >수정</a></button> 
+                <button class="on" id="deleteBtn" style="display:none;">삭제</button>
+                <button><a href="${pageContext.request.contextPath}/dangcomu/list">목록</a></button>
             </div>
             <br>
         </div>

@@ -376,8 +376,7 @@ a {
     .board_view .info dt {
         display: none;
     }
-
-
+    
 }
 
 
@@ -453,6 +452,7 @@ input[type="submit"]:hover {
   height: auto; /* 이미지의 세로 크기를 자동으로 조정하여 비율 유지 */
 }
 
+
 	</style>
 
     <title>댕근마켓</title>
@@ -478,7 +478,6 @@ input[type="submit"]:hover {
             <div class="board_title">
             	<strong>${danggeunInfoDTO.title}</strong>
         	</div>
-
 
                 <div class="info">
                     <dl>

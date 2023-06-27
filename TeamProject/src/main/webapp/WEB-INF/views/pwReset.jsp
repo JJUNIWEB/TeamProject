@@ -54,26 +54,26 @@
     
 </div>
     <script type="text/javascript">
-    var pwCheck = false;            // 비번
-   	var pwckCheck = false;            // 비번 확인
-   	var pwckcorCheck = false;        // 비번 확인 일치 확인
-   	var pwdCheck = false;         // 비번 정규식 확인
+    var pwCheck = false            // 비번
+   	var pwckCheck = false            // 비번 확인
+   	var pwckcorCheck = false        // 비번 확인 일치 확인
+   	var pwdCheck = false         // 비번 정규식 확인
    
    $(document).ready(function() {
       
       $(".btn").click(function() {
          
-      var pw = $('.input_pw').val();            // 비밀번호 입력란
-      var pwck = $('.input_pwck').val();         // 비밀번호 확인 입력란
-      var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;      // 비밀번호 정규식 변수
+      var pw = $('.input_pw').val()            // 비밀번호 입력란
+      var pwck = $('.input_pwck').val()         // 비밀번호 확인 입력란
+      var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/      // 비밀번호 정규식 변수
       
       /*   비밀번호 유효성 검사 */
         if(pw == "") {
-        	$('.info_ck').css('display','block');
-            pwCheck = false;
+        	$('.info_ck').css('display','block')
+            pwCheck = false
         } else {
-        	$('.info_ck').css('display','none');
-            pwCheck = true;
+        	$('.info_ck').css('display','none')
+            pwCheck = true
             
             /* 비밀번호 정규식 검사 */
            if (!pwdCheck.test(pw)) {
@@ -81,54 +81,54 @@
 	     			text: '비밀번호는 최소 8 자, 최소 하나의 문자+하나의 숫자 및 하나의 특수 문자 조합으로 사용해야 합니다.',
 	     			icon: 'warning',
 	     			confirmButtonText: '확인',
-	     		});
+	     		})
               pw.focus
-              pwdCheck = false;
+              pwdCheck = false
           } else {
-             pwdCheck = true;
+             pwdCheck = true
            }      
         }
                   
         /* 비밀번호 확인 유효성 검사 */
         if(pwck == "") {
-        	$('.info_ck').css('display','block');
-            pwckCheck = false;
+        	$('.info_ck').css('display','block')
+            pwckCheck = false
         } else {
-        	$('.info_ck').css('display','none');
-            pwckCheck = true;
+        	$('.info_ck').css('display','none')
+            pwckCheck = true
         }
 
       if(pwckcorCheck&&pwdCheck&&pwCheck&&pwckCheck) {
-         $("#pwChange-Form").attr("action", "/withdang/pwUpdate");
-            $("#pwChange-Form").submit();
+         $("#pwChange-Form").attr("action", "/withdang/pwUpdate")
+            $("#pwChange-Form").submit()
       }
-         return false;      
-      });
+         return false      
+      })
          
-   });
+   })
    
    $('.input_pw').on("propertychange change keyup paste input", function() {
- 		var pw = $('.input_pw').val();
+ 		var pw = $('.input_pw').val()
  		
-		if(pw != "") $('.info_ck').css('display','none');
+		if(pw != "") $('.info_ck').css('display','none')
 	})
    	
    		/* 비밀번호 확인 일치 유효성 검사 */
       $('.input_pwck').on("propertychange change keyup paste input", function(){
               
-         var pw = $('.input_pw').val();
-          var pwck = $('.input_pwck').val();
+         var pw = $('.input_pw').val()
+          var pwck = $('.input_pwck').val()
     
           if(pw == pwck){
-            $('.pwck_input_re_1').css('display','block');
-            $('.pwck_input_re_2').css('display','none');
-            pwckcorCheck = true;
+            $('.pwck_input_re_1').css('display','block')
+            $('.pwck_input_re_2').css('display','none')
+            pwckcorCheck = true
         }else{
-           $('.pwck_input_re_1').css('display','none');
-            $('.pwck_input_re_2').css('display','block');
-            pwckcorCheck = false;              
+           $('.pwck_input_re_1').css('display','none')
+            $('.pwck_input_re_2').css('display','block')
+            pwckcorCheck = false              
         }           
-      });
+      })
     </script>
     
 </body>
