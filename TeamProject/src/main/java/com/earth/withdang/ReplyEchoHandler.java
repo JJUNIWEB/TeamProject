@@ -40,7 +40,6 @@ public class ReplyEchoHandler extends TextWebSocketHandler {
 			String receiver_nickname = strs[1];
 			Integer chatroom_id = Integer.parseInt(strs[2]);
 			String sender_nickname = strs[3];
-
 			WebSocketSession receiverSession = userSessions.get(receiver_nickname);
 
 			if(receiverSession != null) {
@@ -48,7 +47,6 @@ public class ReplyEchoHandler extends TextWebSocketHandler {
 				replyMessage.put("cmd", "sendchat");
 				replyMessage.put("chatroom_id", chatroom_id);
 				replyMessage.put("sender_nickname", sender_nickname);
-
 				TextMessage tmpMsg = new TextMessage(replyMessage.toString());
 				receiverSession.sendMessage(tmpMsg);
 			}

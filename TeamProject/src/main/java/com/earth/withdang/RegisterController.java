@@ -62,6 +62,7 @@ public class RegisterController {
 		}
 		
       // 이메일 유효성 검사
+
 		@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String memberEmailCheckPOST(String user_email) throws Exception{
@@ -103,9 +104,7 @@ public class RegisterController {
 				}	
             } return "fail1";         //닉네임 형식 안맞음
 
-				
 		} // membernickNameChkPOST() 종료
-
 }
 
 

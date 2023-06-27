@@ -65,6 +65,7 @@ public class DanggeunController {
 			return "redirect:/login";
 		}
 
+
 		String login_nickname = (String) request.getSession().getAttribute("nickname");
 		
 		try {
@@ -103,15 +104,15 @@ public class DanggeunController {
 	@PostMapping("/write")
 	public String write(DanggeunInfoDTO danggeunInfoDTO, RedirectAttributes rattr, Model m, MultipartHttpServletRequest request) throws Exception {
 		List<DanggeunTypeDTO> typeList = null;
-		List<String> addressList = new ArrayList<String>();
-		String category = "danggeun";
+	    List<String> addressList = new ArrayList<String>();
+	    String category = "danggeun";
 		
-
 	    Iterator<String> fileNames = request.getFileNames();
 	    while (fileNames.hasNext()) {
 	        String paramName = fileNames.next();
 	        MultipartFile file = request.getFile(paramName);
 	        int sequence = Integer.parseInt(paramName.replace("imgbox", "")) - 1;
+
 
 	        List<String> upload = s3UploadService.upload(category, Collections.singletonList(file));
 	        addressList.add(sequence, upload.get(0));
@@ -119,6 +120,7 @@ public class DanggeunController {
 
 		try {
 			typeList = danggeunService.getTypeList();
+
 
 			danggeunService.registerDanggeun(danggeunInfoDTO, addressList);
 			

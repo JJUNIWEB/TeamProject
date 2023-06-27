@@ -78,6 +78,7 @@ public class DanggeunServiceImpl implements DanggeunService {
 		danggeunInfoDTO.setSigoon_name(addressSigoonMapper.select(danggeunInfoDTO.getSigoon_code()).getName());
 		danggeunInfoDTO.setDong_name(addressDongMapper.select(danggeunInfoDTO.getDong_code()).getName());
 
+
 		List<DanggeunPhotoDTO> photoList = danggeunPhotoMapper.selectAllByDanggeunId(danggeunInfoDTO.getId());
 
 		int count = 0;
@@ -101,7 +102,9 @@ public class DanggeunServiceImpl implements DanggeunService {
 	        Integer index = entry.getKey();
 	        String address = entry.getValue();
 	        danggeunPhotoMapper.insert(new DanggeunPhotoDTO(address, danggeunInfoDTO.getId(), index));
+
 		}
+
 	}
 
 	//사진 추가하는거 넣어야 될듯?

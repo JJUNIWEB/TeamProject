@@ -141,7 +141,6 @@
     padding:10px 30px;
 
   }
-
   #chat::-webkit-scrollbar {
     width: 6px;
 }
@@ -154,7 +153,6 @@
     background-color: #ed8b9e;
     border-radius: 3px;
 }
-
   #chat-time {
     color:#bbb;
     font-size:13px;
@@ -234,7 +232,6 @@
     color: #fff;
     font-weight: bold;
     margin-top:17px;
-
     
   }
   #last-msg {
@@ -273,12 +270,10 @@
   	text-align: center;
   }
 
-
   #chattings {
     width: 100%;
     height: auto;
   }
-
   #chat-list ul {
     height: auto;
   }
@@ -288,9 +283,7 @@
      font-weight: normal;
      text-align: left;
      margin-left: 30px;
-
   }
-}
 
 .chatroom {
 	padding-top: 20px;
@@ -314,8 +307,6 @@
     background-color: #888;
     border-radius: 3px;
 }
-
-
 
     </style>
     <title>chat</title>
@@ -379,7 +370,6 @@
           other_nickname = $(this).attr('data-other_nickname')
           recent_nickname = $(this).attr('data-recent_nickname')
           unread_cnt = $(this).attr('data-unread_cnt')
-
           showChattingAndListwithsocket(chatroom_id)
           $('#chat-other_email').html(other_nickname + "님과의 대화")
           $('#close-btn').attr('style', '')
@@ -455,7 +445,6 @@
            tmp += '<li class="chatroom" data-chatroom_id="' + chatroom.id + '" data-other_nickname="' + chatroom.other_nickname + '" data-recent_nickname="' + chatroom.recent_nickname + '" data-unread_cnt="' + chatroom.unread_cnt + '">'
            tmp += '<span id="user-name">' + chatroom.other_nickname + '</span>'
            tmp += '<span id="chat-time-list">' + formatRegDate(chatroom.recent_date) + '</span>'
-
            var recentChat = chatroom.recent_chat;
            var truncatedChat = recentChat.length > 16 ? recentChat.substring(0, 16) + '...' : recentChat;
            tmp += '<br><span id="last-msg">' + truncatedChat + '</span>'
@@ -567,7 +556,9 @@
 
             return period + ' ' + hours + ':' + minutes;
         }
+
     };
+
    
     async function showListOnly() {
        try {
@@ -578,9 +569,9 @@
     }          
     
     async function sendChatting(chatroom_id) {
-       try {
-          await showChattingList(chatroom_id)
-          await showList()
+        try {
+           await showChattingList(chatroom_id)
+           await showList()
 
          if(socket) {
                 let socketMsg = "sendchat," + other_nickname + "," + chatroom_id + "," + login_nickname

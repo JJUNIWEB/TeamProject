@@ -193,8 +193,6 @@
             <div id="map" class="map" style="width: auto; height: 430px;z-index: 1">
         </div>
 
-
-
         <div class="main-side">
             <div class="main-pin">
                 <a href="#" id="pin1"><img src="${pageContext.request.contextPath}/resources/image/pin1.png" alt="핀1"></a>

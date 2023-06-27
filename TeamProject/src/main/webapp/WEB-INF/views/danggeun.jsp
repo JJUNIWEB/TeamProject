@@ -48,7 +48,6 @@ a {
     flex-wrap: wrap;
     justify-content: left;
     text-align: center;
-
 }
 
 .card {
@@ -240,7 +239,7 @@ a {
   align-items: center;
 
   }
-  
+ 
   #card-list {
   width: 100%;
   text-align: center;
@@ -269,7 +268,6 @@ a {
     color: #fff;
     text-decoration: none;
    	margin: 1px;
-
   }
   #search-select {
   	width: 90px;
@@ -282,8 +280,6 @@ a {
   .form-select {
   	margin: 5px;
   }
-
-
 
 }
 #card-title {
@@ -302,7 +298,6 @@ a {
 }
 .price {
 	font-size: 14px;
-
 }
 
 
@@ -316,8 +311,6 @@ a {
 	font-weight: normal;
 
 }
-
-
 
 #search-set {
 	width: 100%;
@@ -386,7 +379,6 @@ a {
 	            <button type="button" class="btn-write"><a href="<c:url value='/danggeun/write' />">글쓰기</a></button>
 	        </div>
 	        </form>
-
         </div>
     </section>
 <!-- 댕근 헤더 끝 -->

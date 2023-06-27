@@ -354,6 +354,16 @@ a {
     font-size: x-small;
     top: 137px;
 }
+
+.name_ck {
+	color : red;
+    position: absolute;
+    display: none;
+    font-size: x-small;
+    top: 137px;
+    right: 50px;
+}
+
 .final_nickname_ck{
     position: absolute;
     display: none;
@@ -377,6 +387,15 @@ a {
     display: none;
     font-size: x-small;
     top: 308px;
+}
+
+.pw_ck {
+	color : red;
+    position: absolute;
+    display: none;
+    font-size: x-small;
+    top: 308px;
+    right: 50px;
 }
 
 /* 비밀번호 확인 일치 유효성검사 */
