@@ -40,7 +40,7 @@
 .main-map {
     margin-top: 0px;
     width: 1000px;
-    height: 700px auto;
+    height: 700px;
 
 }
 
