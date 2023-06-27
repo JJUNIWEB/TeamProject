@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.earth.domain.ChatChatRoomDTO;
 import com.earth.domain.ChatChattingDTO;
 import com.earth.domain.ChatUserChatRoomDTO;
+import com.earth.domain.MemberDto;
 import com.earth.service.ChattingService;
+import com.earth.service.MemberService;
 
 @Controller
 @Slf4j
@@ -29,14 +32,18 @@ import com.earth.service.ChattingService;
 public class ChatController {
 
 	private ChattingService chattingService;
+	private MemberService memberService;
 
-	public ChatController(ChattingService chattingService) {
+	public ChatController(ChattingService chattingService, MemberService memberService) {
 		this.chattingService = chattingService;
+		this.memberService = memberService;
 	}
 
 	@GetMapping("/chatroom")
-	public String chat(String other_nickname, HttpSession session, Model m) {
-		log.info(session.getId());
+	public String chat(String other_nickname, HttpSession session, Model m, HttpServletRequest request) {
+		if(!loginCheck(request)) {
+			return "redirect:/login";
+		}
 
 		String login_nickname = (String) session.getAttribute("nickname");
 		if(other_nickname != null) {
@@ -45,7 +52,8 @@ public class ChatController {
 				if(chatUserChatRoomDTO != null) {
 					if(chatUserChatRoomDTO.getParticipation()) {
 						m.addAttribute("msg", "CHAT_EXIST");
-					} else {
+					}
+					else {
 						m.addAttribute("chatroom_id", chatUserChatRoomDTO.getChatroom_id());
 					}
 				}
@@ -57,6 +65,11 @@ public class ChatController {
 
 		}
 		return "chat";
+	}
+
+	private boolean loginCheck(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		return session != null && session.getAttribute("nickname") != null && session.getAttribute("nickname") != "";
 	}
 
 	@PostMapping("/showchatrooms")
@@ -108,7 +121,8 @@ public class ChatController {
 				e.printStackTrace();
 				return new ResponseEntity<Integer>(HttpStatus.BAD_REQUEST);
 			}
-		} else {
+		}
+		else {
 			try {
 				chatroom_id = chattingService.makeChattingRoom(login_nickname, other_nickname, chat, timestamp);
 				return new ResponseEntity<Integer>(chatroom_id, HttpStatus.OK);

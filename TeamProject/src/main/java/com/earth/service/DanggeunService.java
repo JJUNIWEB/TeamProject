@@ -1,6 +1,7 @@
 package com.earth.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.earth.domain.DanggeunInfoDTO;
 import com.earth.domain.DanggeunSearchItem;
@@ -21,7 +22,7 @@ public interface DanggeunService {
 	DanggeunInfoDTO readDanggeun(Integer id, String login_nickname) throws Exception;
 	
 	//게시물 수정할 때 사용
-	void modifyDangguen(DanggeunInfoDTO danggeunInfoDTO, List<String> list) throws Exception;
+	void modifyDangguen(DanggeunInfoDTO danggeunInfoDTO, Map<Integer, String> map) throws Exception;
 	
 	//게시물 추가할 때 사용
 	void registerDanggeun(DanggeunInfoDTO danggeunInfoDTO, List<String> list) throws Exception;

@@ -15,6 +15,6 @@ public interface DanggeunPhotoMapper {
 	
 	int deleteAll(Integer danggeun_id) throws Exception;
 	
-	int delte(Integer id) throws Exception;
+	int delete(Integer id) throws Exception;
 	
 }

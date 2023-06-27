@@ -30,7 +30,146 @@
             crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap"
           rel="stylesheet">
+	<style type="text/css">
+	#main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
+.main-map {
+    margin-top: 0px;
+    width: 1000px;
+    height: 700px auto;
+
+}
+
+.dogicon {
+    display: flex;
+    position: absolute;
+    width: 10%;
+    margin: -20px 2%;
+    height: 210px;
+}
+.dogicon:hover {
+    transform: scale(1.05);
+    transition: transform .5s;
+}
+
+
+.main-title {
+    font-size: 60px;
+    font-weight: bolder;
+    color: #fff;
+    font-family: 'Gaegu', cursive !important;
+    background-color: #ed8b9e;
+    border-radius: 50px;
+    margin: 18px -500px;
+    width: 110%;
+    text-align: right;
+    padding-right: 300px;
+}
+
+.main-side {
+    width: 100%;
+    height: 130px;
+    display: flex;
+    justify-content: space-around;
+    margin: 40px 0 10px 0;
+}
+
+.main-pin {
+    text-align: center;
+
+}
+
+.main-pin>a>img {
+    width: 120px;
+    transform: scale(1.0);
+    /* 이미지 확대 */
+    transition: transform .5s;
+    /* 시간 설정 */
+}
+
+.main-pin>a>img:hover {
+    transform: scale(1.5);
+    /* 이미지 확대 */
+    transition: transform .5s;
+    /* 시간 설정 */
+}
+
+@media screen and (max-width: 1024px) {
+    .main-title {
+        font-size: 50px;
+        font-weight: bolder;
+        color: #fff;
+        font-family: 'Gaegu', cursive !important;
+        background-color: #ed8b9e;
+        border-radius: 50px;
+        margin: 18px -500px;
+        width: 1000px;
+        text-align: right;
+        padding-right: 200px;
+    }
+}
+
+/* 모바일 화면 */
+@media screen and (max-width: 768px) {
+    #main {
+        display: block;
+        /* border-bottom: 5px solid #ed8b9e; */
+        height: 580px;
+    }
+    .dogicon {
+        display: flex;
+        position: absolute;
+        width: 10%;
+        margin: -20px 56%;
+        height: 170px;
+    }
+
+    .main-map {
+        width: 100%;
+        height: auto;
+
+    }
+    .main-side {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .main-title {
+        position: static;
+        text-align: center;
+        font-size: 33px;
+        font-weight: 700;
+        color: #fff;
+        width: 700px;
+        padding-right: 120px;
+        text-align: right;
+        background-color: #b7a4cc;
+    }
+
+    .main-pin {
+        text-align: center;
+        display: inline-flex;
+        /* 변경된 부분 */
+    }
+
+    .main-pin>a>img {
+        width: 80px;
+        transform: scale(1.0);
+        transition: transform .5s;
+    }
+
+    .main-pin>a>img:hover {
+        transform: scale(1.5);
+        transition: transform .5s;
+    }
+}
+	</style>
     <title>위드댕</title>
 </head>
 
@@ -40,12 +179,14 @@
 
 <section id="main">
     <div class="main-map">
-        <a class="dogicon" style="height: 150px; z-index: 2"><img src="${pageContext.request.contextPath}/resources/image/dogicon.png" /></a>
+            <div onclick="play()">
+                <audio id='audio_play' src='resources/sound/dog_sound.mp3'></audio>
+                <a class="dogicon" style="z-index: 2"><img src="resources/image/dogicon.png" /></a>
+            </div>
+
         <br><br>
         <p class="main-title"> 댕댕여지도</p>
-
-        <div id="map" class="map" style="width: auto; height: 500px;z-index: 1">
-
+            <div id="map" class="map" style="width: auto; height: 430px;z-index: 1">
         </div>
 
 
@@ -78,8 +219,6 @@
 <br><br>
 <article class="main-about">
     <div class="main-btn" width="80%" height="auto">
-        <button type="button" id="main-btn" name="petsitter"><a href="dangguen.html">댕근마켓 바로가기▶</a></button>
-        <button type="button" id="main-btn" name="pet"><a href="dangcare.html">댕댕케어 바로가기▶</a></button>
     </div>
     <br>
 </article>
