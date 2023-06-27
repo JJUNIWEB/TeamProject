@@ -146,6 +146,12 @@
   		</update>
   		
   		<!-- 댓글 조회/등록/삭제 변수a, b 추가-->
+  		<select id="selectComment" parameterType="map" resultType="CommentDTO">
+  			SELECT *
+			FROM tb_comment
+			where post_id = #{post_id} and cmt_id = #{cmt_id};
+  		</select>
+  		
   		<select id="selectComments" parameterType="int" resultType="CommentDTO">
   			SELECT a.cmt_id, a.post_id, a.cmt_content, a.cmt_created_time, b.user_email, b.user_nickname
 			FROM tb_comment a, tb_user b
@@ -163,9 +169,10 @@
   			WHERE cmt_id = #{cmt_id} and user_email = #{user_email}
   		</delete>
   		
-  		<delete id="deleteCommentForAdmin" parameterType="int">
-  			DELETE FROM tb_comment
-  			WHERE cmt_id = #{cmt_id}
-  		</delete>
+		<update id="updateComment" parameterType="CommentDTO">
+			UPDATE tb_comment
+			SET post_id = #{post_id}, cmt_content = #{cmt_content}, cmt_created_time = now()
+			WHERE cmt_id = #{cmt_id}
+		</update>
   		
 </mapper>

@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +46,7 @@
 	})
    
    function connectWS() {
-	  var ws = new WebSocket("ws:localhost:8080/withdang/replyEcho")
+	  var ws = new SockJS("/withdang/replyEcho")
 	  //var ws = new WebSocket("ws://withdang.shop/withdang/replyEcho")
       socket = ws
       

@@ -12,17 +12,20 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<c:url value='/resources/css/dangguen.css' />">
+	<link rel="stylesheet" href="<c:url value='/resources/css/danggenn.css' />">
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
     <style type="text/css">
     @charset "UTF-8";
 
 
 	.dangguen-sec {
-    width: 90% auto;
+    width: 90%;
     background-color: #d7e7e491;
 }
 
@@ -39,7 +42,7 @@ textarea {
 select {
   font-family: 'NanumSquareNeo-Variable';
   font-size:12px;
-} 
+}
 
       #container {
         display: flex;
@@ -63,9 +66,9 @@ select {
         font-weight: bold;
         cursor: pointer;
         color: #707070;
-        
+
       }
-      
+
       #add-img {
 		border: none;
 		width: 80px;
@@ -79,7 +82,6 @@ select {
 			font-size: 12px;
 			margin: 20px;
 		}
-		
 		input[type=file]::file-selector-button {
 		  width: 100px;
 		  height: 30px;
@@ -93,8 +95,6 @@ select {
 		  }
 		}
 
-	      
-      
 .dangguen-writing {
     border-radius: 10px;
     background-color: #ed8b9e;
@@ -344,7 +344,6 @@ select {
         max-width: 100%;
         max-height: 100%;
       }
-    
 }
 
 
@@ -509,7 +508,7 @@ input[type="submit"]:hover {
     border-radius: 5px;
     color: #fff;
 	
-	
+
 }
 
 .btn-upload {
@@ -553,7 +552,6 @@ input[type="submit"]:hover {
 	border-radius: 20px;
 }
 
-	
     </style>
 
     <title>댕근마켓</title>
@@ -576,24 +574,22 @@ input[type="submit"]:hover {
             <div class="board_write">
                 <div class="title">
                     <dl>
-                        
                         <select class="form-select" id="select-ctgr" aria-label="category" name="type_id" >
 			                    <c:forEach var="DanggeunTypeDTO" items="${typeList}">
 			                    	<option value="${DanggeunTypeDTO.id}"  ${danggeunInfoDTO.type_id == DanggeunTypeDTO.id ? "selected" : ""}>${DanggeunTypeDTO.name}</option>
 			                    </c:forEach>
 			            </select><input type="text" name="title" value="${danggeunInfoDTO.title}" placeholder="제목 입력">
                         <input type="hidden" name="id" value="${danggeunInfoDTO.id}">
-                        
                     </dl>
                 </div>
                 <section class="dangguen-sec">
                     <div class="info">
                     <div id="select-address">
-                        
-                            <input type="number" name="price" id="write-price" value="${danggeunInfoDTO.price}" placeholder="판매 가격">
+
+                            <input type="number" max="2100000000" min="1" name="price" id="write-price" value="${danggeunInfoDTO.price}" placeholder="판매 가격">
                             <input type="text" name="writer_nickname" value="${loginNickname}" style="display: none;">
-                        
-		                <select class="form-select" aria-label="category" id="sido_code" name="sido_code">
+
+			            <select class="form-select" aria-label="category" id="sido_code" name="sido_code">
 							<option value="0">도/시</option>
 						</select>
 						<select class="form-select" aria-label="category" id="sigoon_code" name="sigoon_code">
@@ -602,15 +598,15 @@ input[type="submit"]:hover {
 						<select class="form-select" aria-label="category" id="dong_code" name="dong_code">
 							<option value="0">동네</option>
 						</select>
-						
-                     </div>
+
+		                </div>
 						<div class="img-sec" style="display: flex;">
 
 						    <input id="fileInput" type="file" accept=".jpg, .jpeg, .png">
 						    <button type="button" id="add-img" onclick="addImgBox()">추가</button>
-						</div>
-						
-						
+                    </div>
+
+
 						<!-- 사진 순서 조정, 추가, 삭제 가능 -->
 						<!-- 사진 목록 불러오기 -->
 		                <div id="container">
@@ -627,9 +623,6 @@ input[type="submit"]:hover {
 							<p>* 파일 선택 후 '추가'버튼을 클릭합니다.</p>
 							<p>- 추가 된 이미지를 드래그 하여 순서 변경이 가능합니다.</p>
 						</div>
-		                
-		                
-                    
                     <div class="cont">
                         <textarea name="content" placeholder="내용 입력" required>${danggeunInfoDTO.content}</textarea>
                     </div>
@@ -737,8 +730,75 @@ input[type="submit"]:hover {
    	let sido_code = '${danggeunInfoDTO.sido_code}'
     let sigoon_code = '${danggeunInfoDTO.sigoon_code}'
     let dong_code = '${danggeunInfoDTO.dong_code}'
-    
-	let formCheck = function(frm) {
+    var imgboxCount = container.getElementsByClassName("imgbox").length; // 이미지 박스 개수를 저장하는 변수
+
+    function addImgBox() {
+        var fileInput = document.getElementById("fileInput");
+        var files = fileInput.files;
+        if (files.length > 0) {
+            var container = document.getElementById("container");
+            var newImgBox = document.createElement("div");
+            newImgBox.className = "imgbox";
+
+            imgboxCount++; // 이미지 박스 개수 증가
+            var newImgboxId = "imgbox" + imgboxCount; // 새로운 아이디 생성
+
+            var newImage = document.createElement("img");
+            newImage.src = URL.createObjectURL(files[0]); // 첫 번째 파일의 URL을 설정, 파일 객체를 URL로 변환
+            newImage.onload = function() { 				  // 이미지가 로드될 때 호출되는 함수 정의
+                URL.revokeObjectURL(this.src); // 생성한 URL을 해제, 메모리 누수 방지를 위함
+            };
+            newImgBox.appendChild(newImage); // newImgBox 요소에 newImage를 자식 요소로 추가합니다.
+
+            // 삭제 버튼 생성
+            var deleteBtn = document.createElement("span");
+            deleteBtn.className = "delete-btn";
+            deleteBtn.textContent = "X";
+            deleteBtn.onclick = function() {
+                deleteImgBox(newImgboxId);
+            };
+            newImgBox.appendChild(deleteBtn);
+
+            container.appendChild(newImgBox);
+            newImgBox.id = newImgboxId; // 새로운 아이디 설정
+
+            //드래그 앤 드롭 기능 추가, .imgbox를 핸들로 설정하여 이미지 박스 전체를 드래그할 수 있도록 함
+            $(newImgBox).sortable({
+                handle: ".imgbox"
+            });
+
+            // 추가한 이미지가 입력되어 있는 상태로 복사하여 붙임
+            var clonedInput = fileInput.cloneNode(true); // fileInput 즉 input 태그를 그대로 복사함
+            clonedInput.id = "fileInput-" + newImgboxId; // 고유한 id 부여
+            clonedInput.name = newImgboxId;
+            clonedInput.style.display = "none";
+            newImgBox.appendChild(clonedInput);
+            fileInput.value = ""; // 파일 입력 필드 초기화
+        }
+    }
+
+
+
+    function deleteImgBox(imgboxId) {
+        var imgbox = document.getElementById(imgboxId);
+        if (imgbox) {
+            imgbox.remove();
+            // 이미지 박스가 삭제되면 아이디 재조정
+            var container = document.getElementById("container");
+            var imgboxes = container.getElementsByClassName("imgbox");
+            for (var i = 0; i < imgboxes.length; i++) {
+                var id = "imgbox" + (i + 1);
+                imgboxes[i].id = id;
+                imgboxes[i].querySelector(".delete-btn").onclick = function() {
+                    deleteImgBox(id);
+                };
+                imgboxes[i].querySelector("input").name = id;
+            }
+            imgboxCount = imgboxCount - 1;
+        }
+    }
+
+    let formCheck = function(frm) {
 	    if(frm.find('input[name="title"]').val().trim() === "") {
 	        alert('제목을 입력해주세요.');
 	        frm.find('input[name="title"]').focus()
@@ -777,7 +837,10 @@ input[type="submit"]:hover {
 	$(document).ready(function(){        
         $("#writeBtn").on('click', function(){
         	let form = $('#form')
-			form.attr("action", "/withdang/danggeun/write")
+            if (document.getElementById("write-price").value > 2100000000) {
+                document.getElementById("write-price").value = 2100000000;
+            }
+			form.attr("action", "/withdang/danggeun/write");
 			form.attr("method", "post")
 		 
 			if(formCheck(form)) {

@@ -14,7 +14,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<c:url value='/resources/css/danggeun.css' />">
+	<link rel="stylesheet" href="<c:url value='/resources/css/danggenn.css' />">
 	<script rel="stylesheet" href="<c:url value='/resources/script/dangguenView.js' />"></script>
 	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://kit.fontawesome.com/cac1ec65f4.js" crossorigin="anonymous"></script>
@@ -376,7 +376,6 @@ a {
         display: none;
     }
     
-
 }
 
 
@@ -417,109 +416,6 @@ input[type="submit"]:hover {
 
 }
 
-.mySlides {
-    display: none;
-    height: 500px;
-    width: 100%;
-    padding-top: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-.mySlides img {
-    max-height: 100%;
-    max-width: 100%;
-}
-
-.slideshow-container {
-    width: 100% auto;
-    height: 500px;
-    background-color: #697070;
-    text-align: center;
-
-}
-
-.mySlides:first-child {
-    display: block;
-    /* 첫 번째 슬라이드 이미지만 보이게 함 */
-}
-
-
-/* Next & previous buttons */
-.prev,
-.next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    margin-right: 5%;
-    margin-left: -45%;
-    color: #fff;
-    font-weight: bold;
-    font-size: 28px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-}
-
-/* Position the "next button" to the right */
-.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-
-
-/* The dots/bullets/indicators */
-.dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #e6e6e6;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-}
-
-.active,
-.dot:hover {
-    background-color: #b3b3b3;
-}
-
-.slideshow-container {
-    height: 100%;
-    width: 100%;
-    position: relative;
-
-}
-
-.slideshow-container .slides>div {
-    position: absolute;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    /* 이미지를 최대한 안짤리게 한다. */
-    background-size: cover;
-    /* 배경 반복 금지 */
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 0.5s;
-}
-
-@media (max-width:786px) {
-    .slideshow-container {
-        width: 100%;
-    }
-}
-
-
-
-
-
 
 .bt_wrap {
     margin-top: 30px;
@@ -538,6 +434,22 @@ input[type="submit"]:hover {
     color: #9989AB;
     cursor: pointer;
 }
+.slideshow-container {
+  width: 100%; /* 부모 요소의 가로 너비를 100%로 설정 */
+  overflow: hidden; /* 넘치는 콘텐츠를 감추기 위해 overflow 속성을 hidden으로 설정 */
+}
+
+.myimg {
+  max-width: 100%; /* 이미지의 최대 가로 너비를 100%로 설정 */
+  height: auto; /* 이미지의 세로 크기를 자동으로 조정하여 비율 유지 */
+}
+
+.img {
+  display: block; /* 이미지를 블록 요소로 설정하여 세로로 정렬 */
+  margin: 0 auto; /* 이미지를 가운데로 정렬 */
+  max-width: 100%; /* 이미지의 최대 가로 너비를 100%로 설정 */
+  height: auto; /* 이미지의 세로 크기를 자동으로 조정하여 비율 유지 */
+}
 
 
 	</style>
@@ -553,7 +465,8 @@ input[type="submit"]:hover {
         
 		<div class="slideshow-container">
 		    <c:forEach var="photo" items="${photoList}">
-		        <div class="mySlides fade">
+		    <hr>
+		        <div class="myimg">
 		            <img class="img" src="${photo.address}">
 		        </div>
 		    </c:forEach>
@@ -564,8 +477,7 @@ input[type="submit"]:hover {
             <div class="board_title">
             	<strong>${danggeunInfoDTO.title}</strong>
         	</div>
-            
-            
+
                 <div class="info">
                     <dl>
                         <dt>글쓴이</dt>

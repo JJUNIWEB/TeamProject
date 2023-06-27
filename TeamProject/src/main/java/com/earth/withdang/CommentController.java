@@ -63,6 +63,7 @@ public class CommentController {
 
 	@DeleteMapping("/comments/{post_id}/{cmt_id}")
 	public ResponseEntity<String> deleteComment(@PathVariable("post_id") Integer post_id, @PathVariable("cmt_id") Integer cmt_id, HttpSession session) {
+		
 		MemberDto memberDto = (MemberDto) session.getAttribute("member");
 		String user_email = memberDto.getUser_email();
 		
@@ -74,6 +75,23 @@ public class CommentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Failed to delete comment", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/comments/update/{post_id}/{cmt_id}")
+	public ResponseEntity<String> UpdateComment(@PathVariable("post_id") Integer post_id, @PathVariable("cmt_id") Integer cmt_id, @RequestBody CommentDTO commentDTO, HttpSession session) {
+			
+		commentDTO.setPost_id(post_id);
+		commentDTO.setCmt_id(cmt_id);
+		
+		try {
+			if (comuService.updateComment(commentDTO) == 1)
+				return new ResponseEntity<>("Comment modify successfully", HttpStatus.OK);
+			else 
+				return new ResponseEntity<>("Failed to modify comment", HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Failed to modify comment", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

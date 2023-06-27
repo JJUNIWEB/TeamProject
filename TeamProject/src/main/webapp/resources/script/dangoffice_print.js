@@ -93,7 +93,7 @@ function downloadURI(uri, name) {
     link.click();
 }
 
-document.querySelector('#').addEventListener('submit', function(event) {
+document.querySelector('.idcard').addEventListener('submit', function(event) {
     event.preventDefault(); // 폼 제출 이벤트 중단
     downImg(); // downImg 함수 호출
   });

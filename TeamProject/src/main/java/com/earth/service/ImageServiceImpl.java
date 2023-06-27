@@ -67,7 +67,7 @@ public class ImageServiceImpl implements ImageService{
 	@Override
 	public List<ImageDto> callComuPhoto(String user_email, int post_id, String category) {
 		ImageDto dto = new ImageDto(null, category, user_email, post_id);
-		 
+
 	    try {
 		    List<ImageDto> select = mapper.comuSelectAll(dto);
 		    return select;
@@ -76,10 +76,10 @@ public class ImageServiceImpl implements ImageService{
 		    return null;
 		}
 	}
-	
+
 	// dangcomu post 이미지 삭제
 	public void deleteComuPhoto(String user_email, int post_id, String category) {
 		ImageDto dto = new ImageDto(null, category, user_email, post_id);
 		mapper.comuDelete(dto);
-	}
+    }
 }

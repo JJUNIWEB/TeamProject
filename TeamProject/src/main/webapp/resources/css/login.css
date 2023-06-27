@@ -34,6 +34,8 @@ a:hover, a:active { text-decoration: none; }
 }
 
 
+
+
 body {
     display: flex;
     justify-content: center;
@@ -113,7 +115,7 @@ a {
 .box button {
     background: #fff;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 16px auto;
     color: #000;
     font-weight: 800;
     border: none;
@@ -193,6 +195,31 @@ a {
     font-size: 10px;
 }
 
+.regbtn {
+	display: none;
+}
+  #login-footer {
+	  display: flex;
+	  flex-wrap: nowrap;
+	  justify-content: center;
+	  align-items: center;
+	}
+
+	#login-footer span {
+	  margin: 0 5px;
+	}
+	
+	#reg-footer {
+		display: flex;
+	  flex-wrap: nowrap;
+	  justify-content: center;
+	  align-items: center;
+	}
+	#reg-footer span {
+	  margin: 0 5px;
+	}
+
+
 .form form input[value="Sign Up"] {
     max-width: 100px;
     background: #03a9f4;
@@ -212,6 +239,44 @@ a {
         transform: scale(1);
     }
 }
+
+@media screen and (max-width: 786px) {
+
+	
+  .signin h2{
+  	display: none;
+  }
+
+  .signupbtn {
+  	display: none;
+  }
+  .form-box {
+  	width: 90%;
+  }
+  .signup h2 {
+  	display: none;
+  }
+  .signupform {
+  	width: 90%;
+  	margin-right: auto;
+  	text-align: left;
+  	display: flex;
+  }
+  .form-box.active .signupform {
+  	left: 80px;
+  }
+  
+    .regbtn {
+    display: block;
+  }
+
+	  
+  
+  
+
+  
+}
+
 
 .return-main {
     position: absolute;

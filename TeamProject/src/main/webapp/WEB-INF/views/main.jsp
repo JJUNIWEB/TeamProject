@@ -12,7 +12,6 @@
 
     <link rel="icon" href="${pageContext.request.contextPath}/resources/image/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <script src="${pageContext.request.contextPath}/resources/script/main.js" defer></script>
     <script src="${pageContext.request.contextPath}/resources/script/maps.js" defer></script>
     <img id=mappin1 src="${pageContext.request.contextPath}/resources/image/mappin1.png" hidden/>
     <img id=mappin2 src="${pageContext.request.contextPath}/resources/image/mappin2.png" hidden/>
@@ -172,25 +171,33 @@
 }
 	</style>
     <title>위드댕</title>
+    <script>
+        window.onload = function () {
+
+
+            document.getElementById("dog_icon").addEventListener("click", function () {
+                var audio= new Audio()
+                audio.src = "resources/sound/dog_sound.mp3";
+                audio.play();
+            });
+        };
+
+    </script>
 </head>
 
 <body>
 
 	<jsp:include page="header.jsp"></jsp:include>
-
-    <section id="main">
-        <div class="main-map">
-            <div onclick="play()">
-                <audio id='audio_play' src='resources/sound/dog_sound.mp3'></audio>
-                <a class="dogicon" style="z-index: 2"><img src="resources/image/dogicon.png" /></a>
+<section id="main">
+    <div class="main-map">
+            <div>
+                <a class="dogicon" id="dog_icon" style="z-index: 2"><img src="resources/image/dogicon.png" /></a>
             </div>
-            
-            <br><br>
-            <p class="main-title"> 댕댕여지도</p>
+
+        <br><br>
+        <p class="main-title"> 댕댕여지도</p>
             <div id="map" class="map" style="width: auto; height: 430px;z-index: 1">
-            </div>
-
-
+        </div>
 
         <div class="main-side">
             <div class="main-pin">
