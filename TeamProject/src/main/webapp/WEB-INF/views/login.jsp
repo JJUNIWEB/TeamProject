@@ -94,10 +94,10 @@
 </div>
 
 <script>
-    const signin = document.querySelector(".signinbtn");
-    const signup = document.querySelector(".signupbtn");
-    const formbox = document.querySelector(".form-box");
-    const body = document.querySelector("body");
+    const signin = document.querySelector(".signinbtn")
+    const signup = document.querySelector(".signupbtn")
+    const formbox = document.querySelector(".form-box")
+    const body = document.querySelector("body")
     signup.onclick = function(){
         formbox.classList.add("active")
         body.classList.add("active")
@@ -108,62 +108,62 @@
     }
 </script>
 
-<script>
+	<script>
     /* 유효성 검사 통과유무 변수 */
-    var emailCheck = false;            // 이메일
-    var emailckCheck = false;            // 이메일 중복 검사
-    var pwCheck = false;            // 비번
-    var pwckCheck = false;            // 비번 확인
-    var pwckcorCheck = false;        // 비번 확인 일치 확인
-    var nameCheck = false;            // 이름
-    var nickNameCheck = false;       // 닉네임
-    var nickNameckCheck = false;   // 닉네임 중복
-    var pwdckCheck = false;         // 비번 정규식 확인
-    var boxCheck = false;         //약관 체크박스 확인
+    var emailCheck = false            // 이메일
+    var emailckCheck = false            // 이메일 중복 검사
+    var pwCheck = false            // 비번
+    var pwckCheck = false            // 비번 확인
+    var pwckcorCheck = false        // 비번 확인 일치 확인
+    var nameCheck = false            // 이름
+    var nickNameCheck = false       // 닉네임
+    var nickNameckCheck = false   // 닉네임 중복
+    var pwdckCheck = false         // 비번 정규식 확인
+    var boxCheck = false         //약관 체크박스 확인
 
     $(document).ready(function(){
         //회원가입 버튼(회원가입 기능 작동)
         $(".btn").click(function(){
 
             /* 입력값 변수 */
-            var email = $('.input_email').val();          // 이메일 입력란
-            var pw = $('.input_pw').val();                // 비밀번호 입력란
-            var pwck = $('.input_pwck').val();            // 비밀번호 확인 입력란
-            var name = $('.input_name').val();            // 이름 입력란
-            var nickname = $('.input_nickname').val();           // 닉네임 입력란
-            var checked = $("#register-check").is(":checked");      // 체크박스 체크 확인
+            var email = $('.input_email').val()          // 이메일 입력란
+            var pw = $('.input_pw').val()                // 비밀번호 입력란
+            var pwck = $('.input_pwck').val()            // 비밀번호 확인 입력란
+            var name = $('.input_name').val()            // 이름 입력란
+            var nickname = $('.input_nickname').val()           // 닉네임 입력란
+            var checked = $("#register-check").is(":checked")      // 체크박스 체크 확인
 
             /* 이메일 null 검사 */
             if(email == "" || email == null){
-                $('.final_email_ck').css('display','block');
-                $('.user_email_re_3').css("display","none");
-                emailCheck = false;
+                $('.final_email_ck').css('display','block')
+                $('.user_email_re_3').css("display","none")
+                emailCheck = false
             }
 
             /*   비밀번호 null 검사 */
             if(pw == "" || pw == null){
-                $('.final_pw_ck').css('display','block');
-                pwCheck = false;
+                $('.final_pw_ck').css('display','block')
+                pwCheck = false
             }
 
             /* 비밀번호 확인 null 검사 */
             if(pwck == "" || pwck == null){
-                $('.final_pwck_ck').css('display','block');
-                $('.pwck_input_re_2').css('display','none');
-                pwckCheck = false;
+                $('.final_pwck_ck').css('display','block')
+                $('.pwck_input_re_2').css('display','none')
+                pwckCheck = false
             }
 
             /* 이름 null 검사 */
             if(name == "" || name == null){
-                $('.final_name_ck').css('display','block');
-                nameCheck = false;
+                $('.final_name_ck').css('display','block')
+                nameCheck = false
             }
 
             /* 닉네임 null 검사 */
             if(nickname == "" || nickname == null){
-                $('.final_nickname_ck').css('display','block');
-                $('.nickname_length_ck').css("display","none");
-                nickNameCheck = false;
+                $('.final_nickname_ck').css('display','block')
+                $('.nickname_length_ck').css("display","none")
+                nickNameCheck = false
             }
 
             /* 약관 동의 체크 검사 */
@@ -172,10 +172,10 @@
                     text: '회원가입 약관에 동의해주세요.',
                     icon: 'warning',
                     confirmButtonText: '확인',
-                });
-                boxCheck = false;
+                })
+                boxCheck = false
             } else {
-                boxCheck = true;
+                boxCheck = true
             }
 
             /* 최종 유효성 검사 */
@@ -183,17 +183,17 @@
                 pwckcorCheck&&nameCheck&&nickNameCheck&&
                 nickNameckCheck&&boxCheck&&pwdckCheck){
 
-                $("#join_form").attr("action", "/withdang/join");
-                $("#join_form").submit();
-            } else { return false; }
-        });
-    });
+                $("#join_form").attr("action", "/withdang/join")
+                $("#join_form").submit()
+            } else { return false }
+        })
+    })
 
-    //이메일 유효성 검사
-    $('.input_email').on("propertychange change keyup paste input", function(){
+    	//이메일 유효성 검사
+    	$('.input_email').on("propertychange change keyup paste input", function(){
 
-        /* console.log("keyup 테스트"); */
-        var user_email = $('.input_email').val();         // .input_email에 입력되는 값
+        /* console.log("keyup 테스트") */
+        var user_email = $('.input_email').val()         // .input_email에 입력되는 값
         var data = {user_email : user_email}            // '컨트롤에 넘길 데이터 이름' : '데이터(.input_email에 입력되는 값)'
 
         $.ajax({
@@ -202,40 +202,40 @@
             data : data,
             success : function(result){
                 if(user_email == "" || user_email == null) {
-                    $('.final_email_ck').css("display", "inline-block");
-                    $('.user_email_re_1').css("display", "none");
-                    $('.user_email_re_2').css("display", "none");
-                    $('.user_email_re_3').css("display","none");
+                    $('.final_email_ck').css("display", "inline-block")
+                    $('.user_email_re_1').css("display", "none")
+                    $('.user_email_re_2').css("display", "none")
+                    $('.user_email_re_3').css("display","none")
                 } else {
                     if(result == 'success') {
-                        $('.user_email_re_1').css("display","inline-block");
-                        $('.user_email_re_2').css("display", "none");
-                        $('.user_email_re_3').css("display","none");
-                        $('.final_email_ck').css("display", "none");
-                        emailCheck = true;
-                        emailckCheck = true;
+                        $('.user_email_re_1').css("display","inline-block")
+                        $('.user_email_re_2').css("display", "none")
+                        $('.user_email_re_3').css("display","none")
+                        $('.final_email_ck').css("display", "none")
+                        emailCheck = true
+                        emailckCheck = true
                     } else if(result == 'fail') {
-                        $('.user_email_re_2').css("display","inline-block");
-                        $('.user_email_re_1').css("display", "none");
-                        $('.user_email_re_3').css("display","none");
-                        $('.final_email_ck').css('display', 'none');
-                        emailckCheck = false;
+                        $('.user_email_re_2').css("display","inline-block")
+                        $('.user_email_re_1').css("display", "none")
+                        $('.user_email_re_3').css("display","none")
+                        $('.final_email_ck').css('display', 'none')
+                        emailckCheck = false
                     } else {
-                        $('.user_email_re_3').css("display","inline-block");
-                        $('.user_email_re_2').css("display","none");
-                        $('.user_email_re_1').css("display", "none");
-                        $('.final_email_ck').css('display', 'none');
-                        emailckCheck = false;
+                        $('.user_email_re_3').css("display","inline-block")
+                        $('.user_email_re_2').css("display","none")
+                        $('.user_email_re_1').css("display", "none")
+                        $('.final_email_ck').css('display', 'none')
+                        emailckCheck = false
                     }
                 }
             }// success 종료
-        }); // ajax 종료
+        }) // ajax 종료
 
-    });// function 종료
+    })// function 종료
 
-    //닉네임 유효성 검사
-    $('.input_nickname').on("propertychange change keyup paste input", function(){
-        var user_nickname = $('.input_nickname').val();         // .input_nickname에 입력되는 값
+    	//닉네임 유효성 검사
+    	$('.input_nickname').on("propertychange change keyup paste input", function(){
+        var user_nickname = $('.input_nickname').val()         // .input_nickname에 입력되는 값
         var data = {user_nickname : user_nickname}            // '컨트롤에 넘길 데이터 이름' : '데이터(.input_nickname에 입력되는 값)'
 
         $.ajax({
@@ -244,135 +244,135 @@
             data : data,
             success : function(result){
                 if(user_nickname == "" || user_nickname == null) {
-                    $('.final_nickname_ck').css('display', 'inline-block');
-                    $('.user_nickname_re_1').css("display","none");
-                    $('.user_nickname_re_2').css("display", "none");
-                    $('.nickname_length_ck').css("display","none");
+                    $('.final_nickname_ck').css('display', 'inline-block')
+                    $('.user_nickname_re_1').css("display","none")
+                    $('.user_nickname_re_2').css("display", "none")
+                    $('.nickname_length_ck').css("display","none")
                 } else {
                     if(result == 'success') {
-                        $('.user_nickname_re_1').css("display","inline-block");
-                        $('.user_nickname_re_2').css("display", "none");
-                        $('.final_nickname_ck').css('display', 'none');
-                        $('.nickname_length_ck').css("display","none");
-                        nickNameckCheck = true;
-                        nickNameCheck = true;
+                        $('.user_nickname_re_1').css("display","inline-block")
+                        $('.user_nickname_re_2').css("display", "none")
+                        $('.final_nickname_ck').css('display', 'none')
+                        $('.nickname_length_ck').css("display","none")
+                        nickNameckCheck = true
+                        nickNameCheck = true
                     } else if(result == "fail") {
-                        $('.user_nickname_re_2').css("display","inline-block");
-                        $('.user_nickname_re_1').css("display", "none");
-                        $('.final_nickname_ck').css('display', 'none');
-                        $('.nickname_length_ck').css("display","none");
-                        nickNameckCheck = false;
+                        $('.user_nickname_re_2').css("display","inline-block")
+                        $('.user_nickname_re_1').css("display", "none")
+                        $('.final_nickname_ck').css('display', 'none')
+                        $('.nickname_length_ck').css("display","none")
+                        nickNameckCheck = false
                     } else {
-                        $('.nickname_length_ck').css("display","inline-block");
-                        $('.user_nickname_re_2').css("display","none");
-                        $('.user_nickname_re_1').css("display", "none");
-                        $('.final_nickname_ck').css('display', 'none');
-                        nickNameckCheck = false;
+                        $('.nickname_length_ck').css("display","inline-block")
+                        $('.user_nickname_re_2').css("display","none")
+                        $('.user_nickname_re_1').css("display", "none")
+                        $('.final_nickname_ck').css('display', 'none')
+                        nickNameckCheck = false
                     }
                 }
             }// success 종료
-        }); // ajax 종료
+        }) // ajax 종료
 
-    });// function 종료
+    })// function 종료
 
-    //비밀번호 유효성 검사
-    $('.input_pw').on("propertychange change keyup paste input", function() {
-        var pw = $('.input_pw').val();
-        var pwck = $('.input_pwck').val();
-        var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;   // 비밀번호 정규식
+    	//비밀번호 유효성 검사
+    	$('.input_pw').on("propertychange change keyup paste input", function() {
+        var pw = $('.input_pw').val()
+        var pwck = $('.input_pwck').val()
+        var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/   // 비밀번호 정규식
 
         if(pw == "" || pw == null) {
-            $('.final_pw_ck').css('display', 'inline-block');
-            $('.pwck_input_re_1').css('display','none');
-            $('.pwck_input_re_2').css('display','none');
-            $('.pw_ck').css('display', 'none');
+            $('.final_pw_ck').css('display', 'inline-block')
+            $('.pwck_input_re_1').css('display','none')
+            $('.pwck_input_re_2').css('display','none')
+            $('.pw_ck').css('display', 'none')
         } else {
-            $('.final_pw_ck').css('display', 'none');
+            $('.final_pw_ck').css('display', 'none')
             if (pwdCheck.test(pw)) {
-                $('.pw_ck').css('display', 'none');
-                $('.final_pwck_ck').css('display', 'none');
+                $('.pw_ck').css('display', 'none')
+                $('.final_pwck_ck').css('display', 'none')
                 if(pw == pwck) {
-                    $('.pwck_input_re_1').css('display','inline-block');
-                    $('.pwck_input_re_2').css('display','none');
-                    pwCheck = true;
-                    pwdckCheck = true;
+                    $('.pwck_input_re_1').css('display','inline-block')
+                    $('.pwck_input_re_2').css('display','none')
+                    pwCheck = true
+                    pwdckCheck = true
                 } else {
-                    $('.pwck_input_re_2').css('display','inline-block');
-                    $('.pwck_input_re_1').css('display','none');
+                    $('.pwck_input_re_2').css('display','inline-block')
+                    $('.pwck_input_re_1').css('display','none')
                 }
             } else {
-                $('.pw_ck').css('display', 'inline-block');
-                $('.pwck_input_re_2').css('display','none');
-                $('.pwck_input_re_1').css('display','none');
-                pwdckCheck = false;
+                $('.pw_ck').css('display', 'inline-block')
+                $('.pwck_input_re_2').css('display','none')
+                $('.pwck_input_re_1').css('display','none')
+                pwdckCheck = false
             }
         }
     })
 
-    /* 비밀번호 확인 일치 유효성 검사 */
-    $('.input_pwck').on("propertychange change keyup paste input", function(){
-        var pw = $('.input_pw').val();
-        var pwck = $('.input_pwck').val();
-        var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;   // 비밀번호 정규식
+   	 	/* 비밀번호 확인 일치 유효성 검사 */
+    	$('.input_pwck').on("propertychange change keyup paste input", function(){
+        var pw = $('.input_pw').val()
+        var pwck = $('.input_pwck').val()
+        var pwdCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/   // 비밀번호 정규식
 
         if(pwdCheck.test(pw)) {
             if(pwck == "" || pwck == null) {
-                $('.pwck_input_re_2').css('display','inline-block');
-                $('.pwck_input_re_1').css('display','none');
-                $('.final_pwck_ck').css('display', 'none');
+                $('.pwck_input_re_2').css('display','inline-block')
+                $('.pwck_input_re_1').css('display','none')
+                $('.final_pwck_ck').css('display', 'none')
             } else {
-                $('.final_pwck_ck').css('display', 'none');
+                $('.final_pwck_ck').css('display', 'none')
                 if(pw == pwck) {
-                    $('.pwck_input_re_1').css('display','inline-block');
-                    $('.pwck_input_re_2').css('display','none');
-                    pwckCheck = true;            // 비번 확인
-                    pwckcorCheck = true;
+                    $('.pwck_input_re_1').css('display','inline-block')
+                    $('.pwck_input_re_2').css('display','none')
+                    pwckCheck = true            // 비번 확인
+                    pwckcorCheck = true
                 } else {
-                    $('.pwck_input_re_2').css('display','inline-block');
-                    $('.pwck_input_re_1').css('display','none');
-                    pwckCheck = false;            // 비번 확인
-                    pwckcorCheck = false;
+                    $('.pwck_input_re_2').css('display','inline-block')
+                    $('.pwck_input_re_1').css('display','none')
+                    pwckCheck = false            // 비번 확인
+                    pwckcorCheck = false
                 }
             }
         } else {
-            $('.final_pwck_ck').css('display', 'none');
-            $('.pwck_input_re_1').css('display','none');
-            $('.pwck_input_re_2').css('display','none');
+            $('.final_pwck_ck').css('display', 'none')
+            $('.pwck_input_re_1').css('display','none')
+            $('.pwck_input_re_2').css('display','none')
         }
-    });
+    })
 
-    //이름 유효성 검사
-    $('.input_name').on("propertychange change keyup paste input", function() {
-        var name = $('.input_name').val();            // 이름 입력란
-        var nameCk = /^[가-힣]{2,5}$/;              // 이름 유효성
+    	//이름 유효성 검사
+    	$('.input_name').on("propertychange change keyup paste input", function() {
+        var name = $('.input_name').val()            // 이름 입력란
+        var nameCk = /^[가-힣]{2,5}$/              // 이름 유효성
 
         if(name == "" || name == null) {
-            $('.final_name_ck').css('display', 'inline-block');
-            $('.name_ck').css('display', 'none');
+            $('.final_name_ck').css('display', 'inline-block')
+            $('.name_ck').css('display', 'none')
         } else {
-            $('.final_name_ck').css('display', 'none');
+            $('.final_name_ck').css('display', 'none')
 
             if(!nameCk.test(name)) {
-                $('.name_ck').css('display', 'inline-block');
-                nameCheck = false;
+                $('.name_ck').css('display', 'inline-block')
+                nameCheck = false
             } else {
-                $('.name_ck').css('display', 'none');
-                nameCheck = true;
+                $('.name_ck').css('display', 'none')
+                nameCheck = true
             }
         }
 
-    });
+    })
 
-    $(".login_button").click(function(){
+    	$(".login_button").click(function(){
 
         /* 로그인 메서드 서버 요청 */
-        $("#login_form").attr("action", "/withdang/login");
-        $("#login_form").submit();
+        $("#login_form").attr("action", "/withdang/login")
+        $("#login_form").submit()
 
-    });
-</script>
+    })
+	</script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
     $(document).ready(function() {
         let msg = "${msg}"
 
@@ -381,7 +381,7 @@
                 text: '비밀번호가 변경되었습니다.',  // Alert 내용
                 icon: 'success',                         // Alert 타입
                 confirmButtonText: '확인',
-            });
+            })
         }
 
         if(msg=="joinOK") {
@@ -389,7 +389,7 @@
                 text: '회원가입이 완료되었습니다.',  // Alert 내용
                 icon: 'success',                         // Alert 타입
                 confirmButtonText: '확인',
-            });
+            })
         }
     })
 </script>
