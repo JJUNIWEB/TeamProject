@@ -182,9 +182,8 @@ public class LoginController {
     
     //신규 회원 확인 실행
     private boolean memberCheck(MemberDto member) throws Exception {
-    	MemberDto pnum = memberservice.memberCheck(member);
-    	System.out.println("member ="+pnum);
-    	if(pnum == null) return false;
+    	MemberDto mem = memberservice.memberCheck(member);
+    	if(mem == null) return false;
     	return true;
     }
     
