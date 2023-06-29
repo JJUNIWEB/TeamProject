@@ -179,13 +179,9 @@
             }
 
             /* 최종 유효성 검사 */
-          /*   if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
+          	if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
                 pwckcorCheck&&nameCheck&&nickNameCheck&&
-                nickNameckCheck&&boxCheck&&pwdckCheck) */
-            if(emailCheck&&emailckCheck&&boxCheck&&pwCheck&&
-            		pwckCheck&&pwckcorCheck&&nickNameCheck&&
-                    nickNameckCheck&&pwdckCheck){
-	
+                nickNameckCheck&&boxCheck&&pwdckCheck) {
                 $("#join_form").attr("action", "/withdang/join")
                 $("#join_form").submit()
             } else { 

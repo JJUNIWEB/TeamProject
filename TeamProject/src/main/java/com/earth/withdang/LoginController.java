@@ -75,7 +75,7 @@ public class LoginController {
 	}
 
 	//비밀번호 찾기 실행
-	@PostMapping("/pwReset")
+	@PostMapping("/pwdFindRes")
 	public String findPwd(MemberDto member, Model m, HttpServletRequest request) throws Exception {
 		MemberDto pwd = memberservice.findPwd(member);
 
@@ -88,7 +88,7 @@ public class LoginController {
 			m.addAttribute("check", 0);
 		}
 
-		return "/pwReset";
+		return "/pwdFindRes";
 
 	}
 	
