@@ -180,13 +180,14 @@
             }
 
             /* 최종 유효성 검사 */
-            if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
+          	if(emailCheck&&emailckCheck&&pwCheck&&pwckCheck&&
                 pwckcorCheck&&nameCheck&&nickNameCheck&&
-                nickNameckCheck&&boxCheck&&pwdckCheck){
-
+                nickNameckCheck&&boxCheck&&pwdckCheck) {
                 $("#join_form").attr("action", "/withdang/join")
                 $("#join_form").submit()
-            } else { return false }
+            } else { 
+            	return false 
+            	}
         })
     })
 
@@ -273,7 +274,6 @@
                 }
             }// success 종료
         }) // ajax 종료
-
     })// function 종료
 
     	//비밀번호 유효성 검사
@@ -304,7 +304,7 @@
             } else {
                 $('.pw_ck').css('display', 'inline-block')
                 $('.pwck_input_re_2').css('display','none')
-                $('.pwck_input_re_1').css('display','none')
+                $('.pwck_input_re_1').css('display','none')            
                 pwdckCheck = false
             }
         }
@@ -352,9 +352,8 @@
             $('.name_ck').css('display', 'none')
         } else {
             $('.final_name_ck').css('display', 'none')
-
             if(!nameCk.test(name)) {
-                $('.name_ck').css('display', 'inline-block')
+                $('.name_ck').css('display', 'inline-block')               
                 nameCheck = false
             } else {
                 $('.name_ck').css('display', 'none')

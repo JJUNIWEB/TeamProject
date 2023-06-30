@@ -71,7 +71,7 @@
 
             if(infoCheck) {
 
-                $("#Chk-form").attr("action", "/withdang/pwReset")
+                $("#Chk-form").attr("action", "/withdang/pwdFindRes")
                 $("#Chk-form").submit()
 
             }

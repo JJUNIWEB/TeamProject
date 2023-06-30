@@ -61,8 +61,7 @@ public class RegisterController {
 			
 		}
 		
-      // 이메일 유효성 검사
-
+		// 이메일 유효성 검사
 		@RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String memberEmailCheckPOST(String user_email) throws Exception{
@@ -86,7 +85,7 @@ public class RegisterController {
 
 		} // memberEmailChkPOST() 종료
 		
-      // 닉네임 유효성 검사
+		// 닉네임 유효성 검사
 		@RequestMapping(value = "/nickNameCheck", method = RequestMethod.POST)
 		@ResponseBody
 		public String membernickNameCheckPOST(String user_nickname) throws Exception{
