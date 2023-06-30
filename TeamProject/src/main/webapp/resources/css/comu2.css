@@ -153,18 +153,18 @@ form {
 	text-align: center;
 	
 }
-
 .bt_wrap a {
-    min-width: 80px;
-    margin-left: 10px;
-    padding: 10px;
-    border: 2px solid #ed8b9e;
-    border-radius: 20px;
-    font-size: 1rem;
-    font-weight: 600;
+    background-color: #ed8b9e;
+    border: none;
     color: #fff;
+    width: 120px;
+    height: 50px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px;
+    text-align: center;
 }
-
 
 .board_list {
     width: 100%;
@@ -272,13 +272,12 @@ form {
 .board_view .title {
     padding: 20px 15px;
     border-bottom: 1px dashed #ddd;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 }
 
 .board_view .info {
     padding: 15px;
     border-bottom: 1px solid #ed8b9e;
-    font-size: 0;
 }
 
 .board_view .info dl {
@@ -357,7 +356,7 @@ form {
 .board_write .info dt,
 .board_write .info dd {
     display: inline-block;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
     font-size: 1rem;
     font-weight: 600;
     color: #3e3e3e;
@@ -444,8 +443,8 @@ form {
     }
 
     .board_view .info dl {
-        width: 50%;
-        padding: 0;
+        padding: 0px;
+        font-size: 12px;
     }
 
     .board_view .info dl:nth-child(-n+2) {
@@ -458,7 +457,7 @@ form {
 
     .board_view .info dl dt,
     .board_view .info dl dd {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .board_write .info dl {
@@ -476,10 +475,10 @@ form {
 
     .board_write .title dd,
     .board_write .info dd {
-        width: 100%;
+        width: 90%;
     }
 
-    .board_write .title input[type="text"],
+
     .board_write .info input[type="text"],
     .board_write .info input[type="password"] {
         width: 100%;

@@ -197,7 +197,12 @@
   #chat #chat-right .message{
     background-color:#ec98a8;
   }
-  
+  .message {
+      max-width: 300px;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+  }
   #chat-footer{
     width: 100%;
     height: 100px;

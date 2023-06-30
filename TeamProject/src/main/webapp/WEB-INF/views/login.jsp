@@ -296,7 +296,7 @@
                 pwdckCheck = true
                 if(pw == pwck) {
                     $('.pwck_input_re_1').css('display','inline-block')
-                    $('.pwck_input_re_2').css('display','none')            
+                    $('.pwck_input_re_2').css('display','none')
                 } else {
                     $('.pwck_input_re_2').css('display','inline-block')
                     $('.pwck_input_re_1').css('display','none')

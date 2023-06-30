@@ -131,7 +131,7 @@ a {
 }
 
 .dangguen-sec {
-    width: 90%;
+    width: 100%;
     background-color: #d7e7e491;
 }
 

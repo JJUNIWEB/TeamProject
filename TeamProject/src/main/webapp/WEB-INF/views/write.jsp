@@ -71,9 +71,8 @@
 	        <div class="board_write_wrap">
 	            <div class="board_write">
 	                <div class="title">
-	                    <dl>
-	                    
-	                        <dd><select id="post_ctgr" name="post_ctgr_id" class="form-select" aria-label="category" required>
+
+	                        <select id="post_ctgr" name="post_ctgr_id" class="form-select" aria-label="category" required>
                                     <option value="">카테고리</option>
                                     <option value="2">반려소식</option>
                                     <option value="3">반려일상</option>
@@ -81,9 +80,9 @@
                                     <option value="5">펫과사전</option>
                                     <option value="6">육아꿀팁</option>
                                     <option value="7">기타</option>
-	                            </select><input id="post_title" name="post_title" type="text" placeholder="제목 입력" required></dd>
+	                            </select><input id="post_title" name="post_title" type="text" placeholder="제목 입력" required>
 	       
-	                    </dl>
+
 	                </div>
 	                
 	                <!-- 6.14 사진 첨부 기능 -->

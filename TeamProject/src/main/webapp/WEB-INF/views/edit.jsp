@@ -113,10 +113,10 @@
 	                </div>
                 </section>
 	        </div>
-	        <div class="bt_wrap">
-	            <button type="submit" id="modifyButton" class="on">완료</button>
-	            <a href="${pageContext.request.contextPath}/dangcomu/list">취소</a>
-	        </div>
+			<div class="bt_wrap">
+				<button type="submit" id="modifyButton" class="on">완료</button>
+				<a href="${pageContext.request.contextPath}/dangcomu/list" style="background-color: #ed8b9e; border: none; color: #fff; width: 120px; height: 50px; border-radius: 30px; font-size: 16px; font-weight: bold; margin: 10px; text-align: center; display: flex; align-items: center; justify-content: center;">취소</a>
+			</div>
 	    </div>
 	</div>
 </form>
