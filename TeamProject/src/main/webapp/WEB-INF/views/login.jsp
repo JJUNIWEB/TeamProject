@@ -289,14 +289,14 @@
             $('.pw_ck').css('display', 'none')
         } else {
             $('.final_pw_ck').css('display', 'none')
+            pwCheck = true
             if (pwdCheck.test(pw)) {
                 $('.pw_ck').css('display', 'none')
                 $('.final_pwck_ck').css('display', 'none')
+                pwdckCheck = true
                 if(pw == pwck) {
                     $('.pwck_input_re_1').css('display','inline-block')
                     $('.pwck_input_re_2').css('display','none')
-                    pwCheck = true
-                    pwdckCheck = true
                 } else {
                     $('.pwck_input_re_2').css('display','inline-block')
                     $('.pwck_input_re_1').css('display','none')

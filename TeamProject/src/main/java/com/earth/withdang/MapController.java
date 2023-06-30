@@ -18,15 +18,11 @@ import java.util.Map;
 public class MapController {
     @Autowired
     MapMapper mapper;
-
     @ResponseBody
     @RequestMapping(value = "/getMapPin" ,method = RequestMethod.POST,consumes = "application/json")
     public List<MapVo> mappinMapping(@RequestBody MapVo mapVo) {
 //근처만 불러오기위한 하버사인 공식
-//        List<MapVo> list = mapper.selectPin(mapVo.getType());
         List<MapVo> list = mapper.selectPinNear(mapVo);
-
-
         double distance;
         double radius=6371; //지구 반지름
         double toRadian=Math.PI/180;
@@ -48,32 +44,17 @@ public class MapController {
             );
             distance = 2 * radius * Math.asin(squareRoot);
             if (mapVo.getType().equals("beauty")) {
-                if (distance < 1) {
-                    pinList.add(list.get(i));
-//                    System.out.println(list.get(i));
-                }
+                if (distance < 1) pinList.add(list.get(i));
+
             } else if (mapVo.getType().equals("hospital")) {
-                if (distance < 1) {
-                    pinList.add(list.get(i));
-//                    System.out.println(list.get(i));
-                }
+                if (distance < 1) pinList.add(list.get(i));
             } else if (mapVo.getType().equals("kinder")) {
-                if (distance < 1) {
-                    pinList.add(list.get(i));
-//                    System.out.println(list.get(i));
-                }
+                if (distance < 1) pinList.add(list.get(i));
             }else {
-                if (distance < 10) {
-                    pinList.add(list.get(i));
-//                    System.out.println(list.get(i));
-                }
+                if (distance < 10) pinList.add(list.get(i));
             }
-
-
         }
         //ground,training,hospital,beauty,trail, kindergarten
         return pinList;
-
-//        return list;
     }
 }
