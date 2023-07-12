@@ -120,12 +120,7 @@ public class LoginController {
     System.out.println("전달된 데이터 : " + member);
 	
     HttpSession session = request.getSession();
-    String rawPw = "";
-    String encodePw = "";
 
-	MemberDto lvo = memberservice.memberLogin(member);
-	DogDto dvo = memberservice.dogSelect(dog);
-	
 		if (rememberEmail) {
 			//2-2-1. 쿠키를 생성
 			//2-2-2. 응답헤더에 저장 			
@@ -139,13 +134,19 @@ public class LoginController {
 			cookie.setMaxAge(0);
 			response.addCookie(cookie);
 		}
+		
+		String rawPw = "";
+	    String encodePw = "";
+	    		
+		MemberDto lvo = memberservice.memberLogin(member);
+		DogDto dvo = memberservice.dogSelect(dog);
 
-		if(lvo != null) {                                // 일치하는 정보 존재시
-
+		if(lvo != null) {                                // 일치하는 정보 존재시					
 			rawPw = member.getUser_pw();        // 사용자가 제출한 비밀번호
-            encodePw = lvo.getUser_pw();        // 데이터베이스에 저장한 인코딩된 비밀번호
-        
+		    encodePw = lvo.getUser_pw();   // 제출한 비밀번호 인코딩
+				
             if(true == pwEncoder.matches(rawPw, encodePw)) {        // 비밀번호 일치여부 판단
+            	lvo.setUser_pw("");						// 인코딩된 비밀번호 지움
                 session.setAttribute("member", lvo);     // session에 사용자의 정보 저장
                 session.setAttribute("dvo", dvo);
                 session.setAttribute("nickname", lvo.getUser_nickname());

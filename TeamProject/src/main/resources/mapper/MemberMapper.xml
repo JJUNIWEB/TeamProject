@@ -53,7 +53,7 @@
   		
   		<!-- 신규 회원 찾기  -->
   		<select id="memberCheck" resultType="MemberDto">
-  			select user_pnum
+  			select user_pnum, user_birth, user_gender, user_address, user_dtl_address
   			from tb_user
   			where user_email = #{user_email}
   		</select>
